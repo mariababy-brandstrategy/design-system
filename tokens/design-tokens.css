@@ -1,0 +1,117 @@
+/*
+ * 마리아병원 디자인 시스템 v2.1 — CSS Custom Properties
+ * 정본: v2.1 실무자용 HTML 가이드
+ * 웹/앱 구현 시 이 파일을 :root에 import하여 사용합니다.
+ */
+
+:root {
+  /* ── Core Colors ─────────────────────────────────────────── */
+  --maria-green:  #1E3131; /* 병원 대표색. 제목·공식 버튼·표지 배경 */
+  --popo-teal:    #1D9581; /* POPO 캐릭터에서 추출. CTA·링크 전용 */
+  --maria-pink:   #E0A793; /* 따뜻·모성적. 부드러운 강조 */
+  --maria-ivory:  #F4EEED; /* 배경 구분. 흰색 대체 베이스 */
+
+  /* ── Maria Green Scale ───────────────────────────────────── */
+  --maria-green-50:  #EFF3F3;  /* 정보 박스·안내 영역 배경 */
+  --maria-green-100: #D2DCDC;  /* 구분선·보더 */
+  --maria-green-300: #A8BABA;  /* 어두운 배경 위 보조 텍스트 */
+  --maria-green-400: #7E9897;  /* 보조 정보 — 14px 이상 굵은 글씨만 */
+  --maria-green-500: #6E827D;
+  --maria-green-600: #4A605C;  /* 본문 텍스트 */
+  --maria-green-700: #2D4544;
+  --maria-green-900: #1E3131;  /* = --maria-green */
+
+  /* ── POPO Teal Scale ─────────────────────────────────────── */
+  --popo-teal-50:  #E6F5F2;  /* 이벤트 배너·강조 영역 배경 */
+  --popo-teal-200: #A3DDD4;  /* 장식용 */
+  --popo-teal-500: #1D9581;  /* = --popo-teal */
+  --popo-teal-700: #167565;  /* 마우스 오버 */
+  --popo-teal-900: #0E4D43;  /* 연한 틸 배경 위 진한 텍스트 */
+
+  /* ── Maria Pink Scale ────────────────────────────────────── */
+  --maria-pink-50:  #FDF6F4;  /* 따뜻한 섹션 배경 */
+  --maria-pink-100: #F9EAE4;
+  --maria-pink-200: #F2D5CA;  /* 장식용 */
+  --maria-pink-500: #E0A793;  /* = --maria-pink */
+  --maria-pink-700: #C88973;  /* 마우스 오버 */
+  --maria-pink-900: #A86B56;  /* 진한 강조 */
+
+  /* ── Semantic — Text ─────────────────────────────────────── */
+  --text-primary: #1E3131;
+  --text-body:    #4A605C;
+  --text-muted:   #7E9897;
+  --text-link:    #1D9581;
+  --text-on-dark: #F4EEED;
+
+  /* ── Semantic — Background ───────────────────────────────── */
+  --bg-default:  #FFFFFF;
+  --bg-ivory:    #F4EEED;
+  --bg-info:     #EFF3F3;
+  --bg-warm:     #FDF6F4;
+  --bg-emphasis: #E6F5F2;
+  --bg-dark:     #1E3131;
+
+  /* ── Semantic — Border ───────────────────────────────────── */
+  --border-default: #E8DDDA;
+  --border-subtle:  #EFF3F3;
+
+  /* ── State — Success ─────────────────────────────────────── */
+  --state-success-bg: #E8F3ED;
+  --state-success-fg: #3D6B54;
+
+  /* ── State — Warning ─────────────────────────────────────── */
+  --state-warning-bg: #FBF4E4;
+  --state-warning-fg: #8A6E30;
+
+  /* ── State — Error ───────────────────────────────────────── */
+  --state-error-bg: #FCEEED;
+  --state-error-fg: #8B4540;
+
+  /* ── State — Info ────────────────────────────────────────── */
+  --state-info-bg: #EFF3F3;
+  --state-info-fg: #4A605C;
+
+  /* ── State — Active ──────────────────────────────────────── */
+  --state-active-bg: #E6F5F2;
+  --state-active-fg: #0E4D43;
+
+  /* ── Button — Official (마리아 그린) ─────────────────────── */
+  --btn-official-bg: #1E3131;
+  --btn-official-fg: #FFFFFF;
+
+  /* ── Button — Emphasis (포포 틸) ────────────────────────── */
+  --btn-emphasis-bg: #1D9581;
+  --btn-emphasis-fg: #FFFFFF;
+
+  /* ── Button — Soft (마리아 핑크) ────────────────────────── */
+  --btn-soft-bg: #E0A793;
+  --btn-soft-fg: #1E3131;
+
+  /* ── Button — Outline ────────────────────────────────────── */
+  --btn-outline-bg:     #FFFFFF;
+  --btn-outline-fg:     #1E3131;
+  --btn-outline-border: #1E3131;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-family-primary: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --font-size-display: 40px;
+  --font-size-heading: 26px;
+  --font-size-subhead: 20px;
+  --font-size-body:    15px;
+  --font-size-small:   13px;
+  --font-size-caption: 11px;
+
+  --font-weight-regular:  400;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  --line-height-tight: 1.4;
+  --line-height-base:  1.7;
+  --line-height-loose: 1.8;
+
+  /* ── Radius ──────────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}

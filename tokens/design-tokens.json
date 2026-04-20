@@ -1,0 +1,115 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "name": "마리아병원 디자인 시스템",
+  "version": "2.1",
+  "description": "마리아의료재단 색상·타이포 공식 토큰. v2.1 실무자용 기준.",
+  "color": {
+    "core": {
+      "maria-green":  { "value": "#1E3131", "description": "병원 대표색. 가장 격식 있고 공식적인 느낌. 제목·공식 버튼·표지 배경." },
+      "popo-teal":    { "value": "#1D9581", "description": "마스코트 캐릭터 POPO에서 추출. v2.1에서 공식 강조색으로 도입. CTA·링크 전용." },
+      "maria-pink":   { "value": "#E0A793", "description": "따뜻·모성적 이미지. 부드러운 강조, 따뜻한 콘텐츠." },
+      "maria-ivory":  { "value": "#F4EEED", "description": "배경 구분. 흰색과 구분이 필요할 때의 베이스 배경." }
+    },
+    "scale": {
+      "maria-green": {
+        "50":  { "value": "#EFF3F3", "description": "연한 그린 — 정보 박스·안내 영역 배경" },
+        "100": { "value": "#D2DCDC", "description": "구분선·보더" },
+        "300": { "value": "#A8BABA", "description": "어두운 배경 위 보조 텍스트" },
+        "400": { "value": "#7E9897", "description": "보조 정보 — 날짜·캡션 (14px 이상 굵은 글씨만)" },
+        "500": { "value": "#6E827D" },
+        "600": { "value": "#4A605C", "description": "본문 텍스트 기본값" },
+        "700": { "value": "#2D4544" },
+        "900": { "value": "#1E3131", "description": "제목·공식 버튼 (코어 마리아 그린과 동일)" }
+      },
+      "popo-teal": {
+        "50":  { "value": "#E6F5F2", "description": "연한 틸 — 이벤트 배너·강조 영역 배경" },
+        "200": { "value": "#A3DDD4", "description": "장식용" },
+        "500": { "value": "#1D9581", "description": "강조 버튼·링크 (코어 포포 틸과 동일)" },
+        "700": { "value": "#167565", "description": "마우스 오버" },
+        "900": { "value": "#0E4D43", "description": "연한 틸 배경 위 진한 텍스트" }
+      },
+      "maria-pink": {
+        "50":  { "value": "#FDF6F4", "description": "연한 핑크 — 따뜻한 섹션 배경 (성공 사례·후기)" },
+        "100": { "value": "#F9EAE4" },
+        "200": { "value": "#F2D5CA", "description": "장식용" },
+        "500": { "value": "#E0A793", "description": "부드러운 버튼 (코어 마리아 핑크와 동일)" },
+        "700": { "value": "#C88973", "description": "마우스 오버" },
+        "900": { "value": "#A86B56", "description": "진한 강조" }
+      }
+    },
+    "semantic": {
+      "text": {
+        "primary":  { "value": "#1E3131", "description": "제목·강조 텍스트" },
+        "body":     { "value": "#4A605C", "description": "본문 텍스트" },
+        "muted":    { "value": "#7E9897", "description": "보조 정보 — 14px 이상 굵은 글씨에서만 사용" },
+        "link":     { "value": "#1D9581", "description": "링크·전화번호·클릭 유도 텍스트" },
+        "on-dark":  { "value": "#F4EEED", "description": "마리아 그린 배경 위 글자" }
+      },
+      "background": {
+        "default":  { "value": "#FFFFFF" },
+        "ivory":    { "value": "#F4EEED", "description": "카드·분리 영역 배경" },
+        "info":     { "value": "#EFF3F3", "description": "정보 박스·참고 영역" },
+        "warm":     { "value": "#FDF6F4", "description": "따뜻한 섹션 — 성공 사례·후기" },
+        "emphasis": { "value": "#E6F5F2", "description": "이벤트 배너·예약 유도" },
+        "dark":     { "value": "#1E3131", "description": "표지·헤더·푸터" }
+      },
+      "border": {
+        "default": { "value": "#E8DDDA" },
+        "subtle":  { "value": "#EFF3F3" }
+      },
+      "state": {
+        "success": { "bg": { "value": "#E8F3ED" }, "fg": { "value": "#3D6B54" } },
+        "warning": { "bg": { "value": "#FBF4E4" }, "fg": { "value": "#8A6E30" } },
+        "error":   { "bg": { "value": "#FCEEED" }, "fg": { "value": "#8B4540" } },
+        "info":    { "bg": { "value": "#EFF3F3" }, "fg": { "value": "#4A605C" } },
+        "active":  { "bg": { "value": "#E6F5F2" }, "fg": { "value": "#0E4D43" } }
+      },
+      "button": {
+        "official": {
+          "bg": { "value": "#1E3131" }, "fg": { "value": "#FFFFFF" },
+          "description": "격식 있는 안내·진료 예약·문의"
+        },
+        "emphasis": {
+          "bg": { "value": "#1D9581" }, "fg": { "value": "#FFFFFF" },
+          "description": "눈에 띄어야 하는 행동 유도 — 온라인 예약, 이벤트 신청"
+        },
+        "soft": {
+          "bg": { "value": "#E0A793" }, "fg": { "value": "#1E3131" },
+          "description": "보조 행동 — 더 알아보기, 상세 안내"
+        },
+        "outline": {
+          "bg": { "value": "#FFFFFF" }, "fg": { "value": "#1E3131" }, "border": { "value": "#1E3131" },
+          "description": "가장 가벼운 행동 — 부가 정보 링크"
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "primary": { "value": "'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }
+    },
+    "size": {
+      "display":  { "value": "40px" },
+      "heading":  { "value": "26px" },
+      "subhead":  { "value": "20px" },
+      "body":     { "value": "15px" },
+      "small":    { "value": "13px" },
+      "caption":  { "value": "11px" }
+    },
+    "weight": {
+      "regular": { "value": "400" },
+      "semibold": { "value": "600" },
+      "bold":    { "value": "700" }
+    },
+    "line-height": {
+      "tight":  { "value": "1.4" },
+      "base":   { "value": "1.7" },
+      "loose":  { "value": "1.8" }
+    }
+  },
+  "radius": {
+    "sm": { "value": "6px" },
+    "md": { "value": "8px" },
+    "lg": { "value": "12px" }
+  }
+}
