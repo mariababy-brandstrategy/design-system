@@ -51,6 +51,7 @@ claude-design-upload/
 ### 개발자
 1. `tokens/design-tokens.css`를 앱의 전역 스타일에 import.
 2. CSS 변수로 참조: `color: var(--text-primary); background: var(--bg-ivory);`.
+3. **사내 웹 서비스 헤더는 [`docs/internal-service-header-v1.md`](docs/internal-service-header-v1.md)** 패턴을 그대로 따른다 (popo-studio · claim 레퍼런스).
 
 ## 유지보수
 - 정본은 `docs/v2.1-실무자용.html`입니다. 토큰은 이 문서에서 추출한 값입니다.
