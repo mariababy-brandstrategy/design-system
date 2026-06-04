@@ -17,9 +17,9 @@
 | 항목 | 값 | 토큰 |
 |---|---|---|
 | 헤더 배경 | `#1E3131` | `bg-maria-green` |
-| 헤더 텍스트 (강조) | 흰색 | `text-text-on-dark` |
+| 헤더 텍스트 (강조) | 아이보리 `#F4EEED` | `text-text-on-dark` |
 | 헤더 텍스트 (보조) | `#A8BABA` | `text-maria-green-300` |
-| 활성 탭 배경 | 흰색 | `bg-text-on-dark` |
+| 활성 탭 배경 | 아이보리 `#F4EEED` | `bg-text-on-dark` |
 | 활성 탭 글자 | `#1E3131` | `text-maria-green` |
 | 좌우 패딩 | 24px | `px-6` |
 | 상하 패딩 | 16px | `py-4` |
@@ -38,7 +38,7 @@
 
 - **좌측**: 앱 이름 (text-lg font-bold) → 1차 네비게이션 탭(pill 형태)
 - **우측**: 검색·secondary 링크·UserMenu (이니셜 아바타)
-- **본문 폭**: 앱마다 달라도 됨. 데이터 위주는 `max-w-7xl`, 폼 위주는 `max-w-6xl`. 헤더 inner div의 max-width는 본문과 같게.
+- **본문 폭**: 전 앱 `max-w-7xl` 통일 (2026-06-04 결정). 헤더 inner div의 max-width도 본문과 같게 (`max-w-7xl`).
 
 ## 4. 카피 가능 코드 (React + Tailwind 4)
 
@@ -133,10 +133,11 @@ export function PageShell({
 --color-maria-green-500: #6E827D;
 --color-maria-green-600: #4A605C;
 --color-maria-green-700: #2D4544;   /* 다크 헤더 위 인풋 배경 */
---color-text-on-dark: #FFFFFF;
+--color-text-on-dark: #F4EEED;      /* 아이보리. ⚠️ #FFFFFF 아님 — tokens/design-tokens.css 와 일치 */
 ```
 
 색 hex 값은 **레포 루트 `tokens/design-tokens.css`와 일치해야 한다**. 임의로 옮겨 적지 말고 그대로 가져올 것.
+> ⚠️ **함정(2026-06-04 실제 사고)**: `globals.css`에서 `@import "design-tokens.css"` **뒤**에 `:root { --text-on-dark: #FFFFFF }` 같은 override 를 두면 토큰값(#F4EEED)을 가려 **라이브가 흰색**이 된다. 토큰을 재정의하지 말 것. 검증은 파일이 아니라 **배포된 CSS**(`/_next/static/chunks/*.css` 의 `--text-on-dark:` 정의)로 한다.
 
 ## 6. 변형
 
@@ -166,11 +167,14 @@ export function PageShell({
 
 | 앱 | 도메인 | 본문 폭 | 비고 |
 |---|---|---|---|
-| popo-studio | popo-studio.maria-baby.com | `max-w-6xl` | 폼 위주 |
-| claim | claims.maria-baby.com | `max-w-7xl` | 데이터 테이블 |
+| claim | claims.maria-baby.com | `max-w-7xl` | 의료 청구 |
+| console | console.maria-baby.com | `max-w-7xl` | 통합 어드민 |
+| popo-studio | popo-studio.maria-baby.com | `max-w-7xl` | 미디어 생성 |
+| mou-admin | mou-admin.maria-baby.com | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
 
 신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
 
 ## 9. 변경 이력
 
 - **v1 (2026-05-07)**: 초안. popo-studio + claim 헤더를 통일하면서 추출.
+- **v1.1 (2026-06-04)**: 4앱(claim·console·popo·mou) 전수 통일 반영. 본문 폭 `max-w-7xl` 통일, `text-on-dark` = 아이보리 `#F4EEED` 로 정정(§5 필수토큰의 `#FFFFFF` 오기 수정 — 이 오기를 console·popo 가 globals override 로 따라가 drift 원인이 됐음). 활성 탭 알약·로그인·파비콘·제목 등 전체 규칙은 같은 폴더 `web-ui-guidelines-v1.md` 참조.
