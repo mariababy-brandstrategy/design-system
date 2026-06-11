@@ -60,7 +60,7 @@ MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/cn      # cn 유틸
 
 ## 5. 필수 수동 확인 (배포 후)
 
-- [ ] 탭 파비콘이 iR 마크 (`/icon.png` 200, 56,774 bytes 기준)
+- [ ] 탭 파비콘이 iR 마크 (`/icon.png` HTTP 200 응답, 56,774 bytes 기준)
 - [ ] 헤더 `max-w-7xl`·`bg-maria-green`·활성 탭 알약 강조
 - [ ] 본문 `max-w-7xl`
 - [ ] 페이지 제목 `text-2xl semibold`(데스크톱 3xl)
