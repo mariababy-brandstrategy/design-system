@@ -137,6 +137,7 @@ export function PageShell({
 ```
 
 색 hex 값은 **레포 루트 `tokens/design-tokens.css`와 일치해야 한다**. 임의로 옮겨 적지 말고 그대로 가져올 것.
+> 참고: 위 `--color-*` 정의는 Tailwind v4 **`@theme` 계층**이다(`:root`에 두면 유틸리티 클래스가 생성되지 않음). 표준 적용형은 raw 토큰(`design-tokens.css`)을 `@import`한 뒤 `@theme inline`에서 `--color-maria-green: var(--maria-green);`처럼 var() 매핑하는 것 — popo·console 적용형 참조. 이렇게 하면 hex가 한 곳(design-tokens.css)에만 존재한다.
 > ⚠️ **함정(2026-06-04 실제 사고)**: `globals.css`에서 `@import "design-tokens.css"` **뒤**에 `:root { --text-on-dark: #FFFFFF }` 같은 override 를 두면 토큰값(#F4EEED)을 가려 **라이브가 흰색**이 된다. 토큰을 재정의하지 말 것. 검증은 파일이 아니라 **배포된 CSS**(`/_next/static/chunks/*.css` 의 `--text-on-dark:` 정의)로 한다.
 
 ## 6. 변형
@@ -157,7 +158,7 @@ export function PageShell({
 
 ### 6.3 UserMenu
 
-별도 패턴 — `UserMenu v1` 참조 (TODO: 같은 폴더에 추가). 이니셜 아바타 + 이름·이메일·로그아웃만. Clerk의 `UserButton` 그대로 쓰지 말 것 (사내 도구에 불필요한 "계정 관리" 노출 방지).
+별도 패턴 — 정본 구현은 maria-ui 비공개 레지스트리 `@maria/user-menu`(`registry/components/UserMenu.tsx`, console·popo 정본의 byte-identical 복제층). 신규 앱은 `shadcn add @maria/user-menu`로 설치한다(@maria/tokens 동반 설치됨). 이니셜 아바타 + 이름·이메일·로그아웃만. Clerk의 `UserButton` 그대로 쓰지 말 것 (사내 도구에 불필요한 "계정 관리" 노출 방지).
 
 ## 7. 인쇄 처리
 
@@ -178,3 +179,4 @@ export function PageShell({
 
 - **v1 (2026-05-07)**: 초안. popo-studio + claim 헤더를 통일하면서 추출.
 - **v1.1 (2026-06-04)**: 4앱(claim·console·popo·mou) 전수 통일 반영. 본문 폭 `max-w-7xl` 통일, `text-on-dark` = 아이보리 `#F4EEED` 로 정정(§5 필수토큰의 `#FFFFFF` 오기 수정 — 이 오기를 console·popo 가 globals override 로 따라가 drift 원인이 됐음). 활성 탭 알약·로그인·파비콘·제목 등 전체 규칙은 같은 폴더 `web-ui-guidelines-v1.md` 참조.
+- **v1.2 (2026-06-11)**: §5에 `--color-*` = Tailwind v4 `@theme` 계층 명시(`:root` 오배치 방지) + var() 매핑 표준 적용형 추가. §6.3 UserMenu 정본을 maria-ui 레지스트리 `@maria/user-menu`로 지정(TODO 해소).
