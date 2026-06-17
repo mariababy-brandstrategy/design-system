@@ -16,7 +16,8 @@
 |---|---|
 | **파비콘** | iR 마크. `app/icon.png`(1000×1000) + `app/apple-icon.png`(512×512). 원본 = `assets/web-icons/`. Next 기본 ▲(`favicon.ico`)는 **삭제**. |
 | **폰트** | Pretendard `@v1.3.9` **variable**: `https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css`. `@latest`·static 금지(버전 드리프트). |
-| **헤더** | `docs/internal-service-header-v1.md` 참조. `bg-maria-green` → `max-w-7xl mx-auto px-6 py-4`. 로고 `text-lg font-bold text-text-on-dark`. 활성 탭 = 알약 `bg-text-on-dark text-maria-green`, 비활성 `text-maria-green-300 hover:text-text-on-dark`. |
+| **헤더** | `docs/internal-service-header-v1.md` 참조. `bg-maria-green` → `max-w-7xl mx-auto px-6 py-4`. 로고 = **브랜드 워드마크**(§로고: `@maria/brand-logo` 또는 `assets/logos/svg/maria-wordmark-white.svg`, 높이 `h-5`≈20px). 글자 타이핑 금지. 활성 탭 = 알약 `bg-text-on-dark text-maria-green`, 비활성 `text-maria-green-300 hover:text-text-on-dark`. |
+| **로고** | 전용 워드마크. §로고 참조. `assets/logos/svg/` 정본. 어두운 배경=흰색, 밝은 배경=그린. |
 | **본문 너비** | 전 앱 `max-w-7xl`(1280px). 페이지가 별도로 더 좁히지 말 것. |
 | **페이지 제목** | `text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl`(=text-foreground). 제목 블록 하단 `mb-6`. 상단 여백은 레이아웃 `<main>`의 `py-6` 단일소스(페이지가 추가 py 주지 말 것). |
 | **on-dark 색** | 헤더 글자·활성 탭 배경 = **아이보리 `#F4EEED`**(`--text-on-dark`). 순백 아님. (버튼 글자 `btn-*-fg`는 별개로 `#FFFFFF`.) |
@@ -24,6 +25,20 @@
 | **브랜드 색** | maria-green `#1E3131` / popo-teal `#1D9581` / ivory `#F4EEED` — `tokens/design-tokens.css` 그대로. |
 
 기술 스택(현 4앱): Next.js 16 + Tailwind v4 + Clerk + Pretendard.
+
+## 1-1. 로고 (브랜드 워드마크)
+
+마리아 로고는 **전용 워드마크**(커스텀 BI — `R`자에 사람 모티프가 든 디자인)다. **어떤 폰트로도 글자를 타이핑해 흉내 내지 말 것.** 반드시 아래 벡터 자산을 쓴다.
+
+- **정본 자산**: `assets/logos/svg/`
+  - `maria-wordmark.svg` — `fill="currentColor"`. 인라인 SVG·React에서 색을 CSS로 제어(**권장**).
+  - `maria-wordmark-green.svg` — 고정 마리아 그린 `#1E3131`. 밝은 배경·`<img>`용.
+  - `maria-wordmark-white.svg` — 고정 흰색. 어두운 배경·`<img>`용.
+  - 래스터가 필요하면 `assets/logos/*.png`(white·색상별 01~05).
+- **색 규칙**: 어두운 배경 = **흰색**, 밝은 배경 = **마리아 그린 `#1E3131`**(디자이너 3원칙 "어두운 배경엔 100% white"와 일치). **아이보리 워드마크 금지.**
+- **비율·여백**: 601:229 (≈2.63:1) 고정, 가로세로비 유지. 클리어 스페이스 = 워드마크 높이의 1/2 이상.
+- **코드 소비**: `@maria/brand-logo`(registry:component, currentColor 인라인) → `<BrandLogo className="h-5 text-text-on-dark" />`. 비-React/정적 HTML은 위 SVG를 인라인하거나 `<img src="…maria-wordmark-{green|white}.svg">`.
+- **출처/재생성**: `01.로고/로고모음/로고 색상별.ai` → `pdftocairo -svg -f1 -l1`(벡터, 래스터 내장 0). .ai 원본 그린(#163231)은 공식 토큰 #1E3131로 정규화.
 
 ## 2. 신규 앱 적용 절차
 
@@ -53,8 +68,8 @@
 # components.json 의 registries 에 추가:
 #   "@maria": { "url": "https://maria-ui.vercel.app/r/{name}.json",
 #               "headers": { "Authorization": "Bearer ${MARIA_UI_TOKEN}" } }
-MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/theme   # 토큰
-MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/cn      # cn 유틸
+MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/theme        # 토큰
+MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/brand-logo   # 워드마크 로고
 ```
 토큰 발급/원문 보관·접근 검증은 `dyshin-maria/maria-ui`의 `RUNBOOK.md`. (헤더/로그인 컴포넌트는 레지스트리에 추가 예정 — 그 전엔 design-system 문서의 코드를 카피.)
 
@@ -90,4 +105,5 @@ MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/cn      # cn 유틸
 
 ## 9. 변경 이력
 
+- **v1.1 (2026-06-17)**: §1-1 로고(브랜드 워드마크) 신설. 정본 SVG(`assets/logos/svg/`, currentColor·green·white) + 색/비율/소비 규칙 + "글자 타이핑 금지" 명문화. 헤더 로고를 텍스트→워드마크로 변경(앱 적용은 `@maria/brand-logo`로 단계 이행, 별도 롤아웃). 기존 PNG 로고는 벡터 부재로 코드 산출물에 미사용되던 갭 해소.
 - **v1 (2026-06-04)**: claim·console·popo·mou 4앱 전수 UI 통일 작업에서 추출. 파비콘·헤더·너비·로그인·제목·폰트·on-dark(아이보리) 확정 + 토큰 override 드리프트 함정 명문화.
