@@ -39,6 +39,7 @@
 - **비율·여백**: 601:229 (≈2.63:1) 고정, 가로세로비 유지. 클리어 스페이스 = 워드마크 높이의 1/2 이상.
 - **코드 소비**: `@maria/brand-logo`(registry:component, currentColor 인라인) → `<BrandLogo className="h-5 text-text-on-dark" />`. 비-React/정적 HTML은 위 SVG를 인라인하거나 `<img src="…maria-wordmark-{green|white}.svg">`.
 - **출처/재생성**: `01.로고/로고모음/로고 색상별.ai` → `pdftocairo -svg -f1 -l1`(벡터, 래스터 내장 0). .ai 원본 그린(#163231)은 공식 토큰 #1E3131로 정규화.
+- **현재 적용 현황(과도기, 2026-06-17)**: 정적 산출물·신규 작업은 워드마크 사용. **기존 웹앱 4종(console·popo·claim·mou) 헤더는 아직 텍스트 로고** — `@maria/brand-logo` 소비 롤아웃 전까지 **legacy 허용**. 자동 감사(ui-audit)에 로고 규칙을 추가할 때는 이 4앱을 롤아웃 완료 전까지 예외(legacy allowance)로 둘 것(오탐 방지). 롤아웃 추적 = PROJECT_STATUS `[maria-logo]`.
 
 ## 2. 신규 앱 적용 절차
 
