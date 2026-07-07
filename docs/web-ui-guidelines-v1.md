@@ -57,7 +57,7 @@
 
 - 바깥: `<main className="flex min-h-screen flex-col items-center justify-center bg-bg-ivory p-6">`
 - 제목 블록: `<div className="mb-6 text-center">` 안에 `<h1 className="text-2xl font-bold tracking-tight text-text-primary">{앱이름}</h1>` + `<p className="mt-1 text-sm text-text-body">{한 줄 설명}</p>`
-- 폼 카드: `<… className="w-full max-w-sm space-y-4 rounded-lg border border-border-default bg-bg-default p-6 shadow-sm">`
+- 폼 카드: `<… className="w-full max-w-sm space-y-4 rounded-lg border border-border-default bg-bg-default p-6">` (2026-07-08: 장식용 `shadow-sm` 제거 — 경계는 1px border로. 그림자는 드롭다운·모달 등 떠 있는 층에만.)
   - 입력: `w-full rounded-md bg-bg-default border border-border-default px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
   - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
   - 에러: `rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg` (#FCEEED / #8B4540)
