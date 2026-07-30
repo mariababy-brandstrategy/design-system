@@ -18,7 +18,7 @@
 | **폰트** | Pretendard `@v1.3.9` **variable**: `https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css`. `@latest`·static 금지(버전 드리프트). |
 | **헤더** | `docs/internal-service-header-v1.md` 참조. `bg-maria-green` → `max-w-7xl mx-auto px-6 py-4`. 로고 = **브랜드 워드마크**(§로고: `@maria/brand-logo` 또는 `assets/logos/svg/maria-wordmark-white.svg`, 높이 `h-5`≈20px). 글자 타이핑 금지. 활성 탭 = 알약 `bg-text-on-dark text-maria-green`, 비활성 `text-maria-green-300 hover:text-text-on-dark`. |
 | **로고** | 전용 워드마크. §로고 참조. `assets/logos/svg/` 정본. 어두운 배경=흰색, 밝은 배경=그린. |
-| **본문 너비** | 전 앱 `max-w-7xl`(1280px). 페이지가 별도로 더 좁히지 말 것. |
+| **본문 너비** | 페이지 외곽 셸(컨테이너)은 전 앱 `max-w-7xl`(1280px) — 셸을 별도로 더 좁히지 말 것. 가독성 목적의 **내부 콘텐츠 컬럼** 축소(예: hub 자료실 `max-w-4xl`)는 허용 — `internal-service-header-v1.md` v1.4 §8과 정합(2026-07-30). |
 | **페이지 제목** | `text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl`(=text-foreground). 제목 블록 하단 `mb-6`. 상단 여백은 레이아웃 `<main>`의 `py-6` 단일소스(페이지가 추가 py 주지 말 것). |
 | **on-dark 색** | 헤더 글자·활성 탭 배경 = **아이보리 `#F4EEED`**(`--text-on-dark`). 순백 아님. (버튼 글자 `btn-*-fg`는 별개로 `#FFFFFF`.) |
 | **로그인 페이지** | 아래 §3. |
