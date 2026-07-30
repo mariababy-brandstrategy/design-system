@@ -201,7 +201,7 @@ export function PageShell({
 | console | console.maria-baby.com | `max-w-7xl` | 통합 어드민 |
 | popo-studio | popo-studio.maria-baby.com | `max-w-7xl` | 미디어 생성 |
 | mou-admin | mou-admin.maria-baby.com | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
-| hub | hub.maria-baby.com | 헤더 `max-w-7xl` · 본문 `max-w-6xl` | 분원 허브. Clerk 게이트 이식본(§6.4). 본문 폭 통일(§3)은 미실시 |
+| hub | hub.maria-baby.com | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4). 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
 
 신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
 
@@ -211,3 +211,4 @@ export function PageShell({
 - **v1.1 (2026-06-04)**: 4앱(claim·console·popo·mou) 전수 통일 반영. 본문 폭 `max-w-7xl` 통일, `text-on-dark` = 아이보리 `#F4EEED` 로 정정(§5 필수토큰의 `#FFFFFF` 오기 수정 — 이 오기를 console·popo 가 globals override 로 따라가 drift 원인이 됐음). 활성 탭 알약·로그인·파비콘·제목 등 전체 규칙은 같은 폴더 `web-ui-guidelines-v1.md` 참조.
 - **v1.2 (2026-06-11)**: §5에 `--color-*` = Tailwind v4 `@theme` 계층 명시(`:root` 오배치 방지) + var() 매핑 표준 적용형 추가. §6.3 UserMenu 정본을 maria-ui 레지스트리 `@maria/user-menu`로 지정(TODO 해소).
 - **v1.3 (2026-07-30)**: 탭 넘침 가장자리 스크롤 그림자 규칙 추가(§2·§4 — hub 모바일 실사고 유래, 5앱 정본 일괄 반영). 정본 구현을 maria-ui 레지스트리 `@maria/app-header`로 명시(§4). hub 합류(§6.4 Clerk 게이트 이식본 변형·§8). 미해결: 헤더 `print:hidden`이 §2·§7 계약과 달리 4앱 설치본에 없음(결정 대기) · hub 본문 폭 `max-w-6xl`(§3 통일 미실시).
+- **v1.4 (2026-07-30)**: v1.3 미해결 2건 종결. ① `print:hidden`을 레지스트리 정본+5앱 설치본에 실반영(§2·§7 계약 준수로 결정). ② hub 본문 폭 `max-w-6xl`→`max-w-7xl` 통일(§3 합류 — 홈·언론보도·비품·푸터·인쇄도구 셸 5곳, 페이지 내부의 좁은 콘텐츠 컬럼 `max-w-4xl`은 유지).
