@@ -26,6 +26,12 @@
 | 좌측 영역 gap | 24px | `gap-6` |
 | 우측 영역 gap | 16px | `gap-4` |
 | 인쇄 시 | 숨김 | `print:hidden` |
+| 탭 넘침 처리 | 가로 스크롤 + 가장자리 스크롤 그림자 | `overflow-x-auto` + local/scroll 그라데이션 (§4 nav 참조) |
+
+> **탭 넘침 규칙(2026-07-30, hub 사고 유래)**: 화면이 좁아 탭이 잘리면 `overflow-x-auto`만으로는
+> 사용자가 스크롤 가능한 줄 모른다(hub 모바일에서 끝 메뉴가 통째로 숨었던 실사고). 잘렸을 때만
+> 끝이 어두워지는 스크롤 그림자를 nav 배경 4겹 그라데이션(덮개 `local`·그림자 `scroll`)으로 넣는다.
+> 정본 구현 코드가 이미 포함하므로 신규 앱은 별도 작업 불요.
 
 ## 3. 구조
 
@@ -42,6 +48,10 @@
 
 ## 4. 카피 가능 코드 (React + Tailwind 4)
 
+> **정본 구현 = maria-ui 비공개 레지스트리 `@maria/app-header`**(`registry/components/AppHeader.tsx`,
+> 4앱 byte-identical 소비, `registryDependencies`로 `@maria/user-menu` 동반). 신규 앱은
+> `shadcn add @maria/app-header`로 설치하는 것이 원칙이고, 아래 코드는 레지스트리를 쓸 수 없는
+> 예외 상황(예: Clerk 없는 앱 — §6.4)용 참조다. 탭 넘침 스크롤 그림자(§2)도 정본에 포함돼 있다.
 > 의존성: `next/link`, `clsx` 또는 `cn`, 본문 max-width를 props로 노출 가능.
 
 ```tsx
@@ -79,7 +89,19 @@ export function PageShell({
             >
               {appName}
             </Link>
-            <nav className="flex items-center gap-1">
+            {/* 탭 넘침 규칙(§2): 잘렸을 때만 끝이 어두워지는 스크롤 그림자.
+                덮개(bg색)는 내용과 함께 스크롤(local), 그림자는 상자에 고정(scroll) —
+                끝까지 밀면 덮개가 그림자를 가려 사라진다. */}
+            <nav
+              className="flex items-center gap-1 overflow-x-auto"
+              style={{
+                background:
+                  "linear-gradient(to right, var(--maria-green), var(--maria-green)) left/24px 100% no-repeat local, " +
+                  "linear-gradient(to right, var(--maria-green), var(--maria-green)) right/24px 100% no-repeat local, " +
+                  "radial-gradient(farthest-side at 0 50%, rgba(0,0,0,0.55), transparent) left/12px 100% no-repeat scroll, " +
+                  "radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,0.55), transparent) right/12px 100% no-repeat scroll",
+              }}
+            >
               {tabs.map((t) => (
                 <Link
                   key={t.key}
@@ -156,6 +178,13 @@ export function PageShell({
 
 `secondaryLinks`에 조건부로 추가하거나, 상위에서 권한 검사 후 props로 전달.
 
+### 6.4 Clerk 게이트 앱 (hub)
+
+인증 게이트(env)가 꺼지면 ClerkProvider 자체를 렌더하지 않는 앱은 정본 AppHeader를
+그대로 쓸 수 없다(정본은 `useUser()`를 무조건 호출 → Provider 없으면 크래시). 이 경우
+**시각 사양(§2)을 그대로 복제한 이식본**을 만들고 UserMenu만 `next/dynamic`으로 렌더될
+때만 로드한다. 적용형: hub `components/site-header.tsx` (2026-07-30).
+
 ### 6.3 UserMenu
 
 별도 패턴 — 정본 구현은 maria-ui 비공개 레지스트리 `@maria/user-menu`(`registry/components/UserMenu.tsx`, console·popo 정본의 byte-identical 복제층). 신규 앱은 `shadcn add @maria/user-menu`로 설치한다(@maria/tokens 동반 설치됨). 이니셜 아바타 + 이름·이메일·로그아웃만. Clerk의 `UserButton` 그대로 쓰지 말 것 (사내 도구에 불필요한 "계정 관리" 노출 방지).
@@ -172,6 +201,7 @@ export function PageShell({
 | console | console.maria-baby.com | `max-w-7xl` | 통합 어드민 |
 | popo-studio | popo-studio.maria-baby.com | `max-w-7xl` | 미디어 생성 |
 | mou-admin | mou-admin.maria-baby.com | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
+| hub | hub.maria-baby.com | 헤더 `max-w-7xl` · 본문 `max-w-6xl` | 분원 허브. Clerk 게이트 이식본(§6.4). 본문 폭 통일(§3)은 미실시 |
 
 신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
 
@@ -180,3 +210,4 @@ export function PageShell({
 - **v1 (2026-05-07)**: 초안. popo-studio + claim 헤더를 통일하면서 추출.
 - **v1.1 (2026-06-04)**: 4앱(claim·console·popo·mou) 전수 통일 반영. 본문 폭 `max-w-7xl` 통일, `text-on-dark` = 아이보리 `#F4EEED` 로 정정(§5 필수토큰의 `#FFFFFF` 오기 수정 — 이 오기를 console·popo 가 globals override 로 따라가 drift 원인이 됐음). 활성 탭 알약·로그인·파비콘·제목 등 전체 규칙은 같은 폴더 `web-ui-guidelines-v1.md` 참조.
 - **v1.2 (2026-06-11)**: §5에 `--color-*` = Tailwind v4 `@theme` 계층 명시(`:root` 오배치 방지) + var() 매핑 표준 적용형 추가. §6.3 UserMenu 정본을 maria-ui 레지스트리 `@maria/user-menu`로 지정(TODO 해소).
+- **v1.3 (2026-07-30)**: 탭 넘침 가장자리 스크롤 그림자 규칙 추가(§2·§4 — hub 모바일 실사고 유래, 5앱 정본 일괄 반영). 정본 구현을 maria-ui 레지스트리 `@maria/app-header`로 명시(§4). hub 합류(§6.4 Clerk 게이트 이식본 변형·§8). 미해결: 헤더 `print:hidden`이 §2·§7 계약과 달리 4앱 설치본에 없음(결정 대기) · hub 본문 폭 `max-w-6xl`(§3 통일 미실시).
