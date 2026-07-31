@@ -40,7 +40,7 @@
 - **코드 소비**: `@maria/brand-logo`(registry:component, currentColor 인라인) → 어두운 배경 `<BrandLogo className="h-5 text-white" />`, 밝은 배경 `text-maria-green`. 비-React/정적 HTML은 위 SVG를 인라인하거나 `<img src="…maria-wordmark-{green|white}.svg">`.
 - **텍스트와 나란히 둘 때**: 원본 viewBox 는 `.ai` 페이지 박스라 마크 **아래에 52.4/228.8 만큼 여백**이 남는다. 그대로 가운데 정렬하면 옆 글자와 **밑선이 어긋난다**(2026-07-31 헤더에서 발견). `trim` 속성(마크 실제 경계 viewBox `52.586 27.125 496.027 149.266`) + `items-baseline` 을 쓴다 — 상자 밑변이 곧 글자 밑선이라 폰트 지표와 무관하게 맞는다.
 - **출처/재생성**: `01.로고/로고모음/로고 색상별.ai` → `pdftocairo -svg -f1 -l1`(벡터, 래스터 내장 0). .ai 원본 그린(#163231)은 공식 토큰 #1E3131로 정규화.
-- **현재 적용 현황(2026-07-31)**: 정적 산출물·신규 작업·**사내 웹앱 헤더 전부** 워드마크 사용. 텍스트 로고 legacy 허용은 **종료** — ui-audit static 이 `header-wordmark` 로 강제한다(BrandLogo 부재 또는 아이보리 착색이면 FAIL). 헤더 적용 규격은 `internal-service-header-v1.md` §2·§4(v1.5).
+- **현재 적용 현황(2026-07-31)**: 정적 산출물·신규 작업 + **사내 웹앱 헤더 4/5** 워드마크 사용(console·popo·mou·claim 완료, **hub 잔여** — `internal-service-header-v1.md` §8 참조). 텍스트 로고 legacy 허용은 **종료** — ui-audit static 이 `header-wordmark` 로 강제한다(BrandLogo 부재 또는 아이보리 착색이면 FAIL). 단 hub 는 ui-audit APPS 에 미등록이라 이 강제가 닿지 않는다. 헤더 적용 규격은 `internal-service-header-v1.md` §2·§4(v1.5).
 
 ## 2. 신규 앱 적용 절차
 
