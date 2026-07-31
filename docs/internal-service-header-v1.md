@@ -232,6 +232,15 @@ export function PageShell({
 **시각 사양(§2)을 그대로 복제한 이식본**을 만들고 UserMenu만 `next/dynamic`으로 렌더될
 때만 로드한다. 적용형: hub `components/site-header.tsx` (2026-07-30).
 
+워드마크도 같은 사정이다. hub 에는 `components.json` 이 없어 `shadcn add` 를 쓸 수 없으므로
+`@maria/brand-logo` 정본을 `components/brand-logo.tsx` 로 **복사**한다(byte-identical).
+BrandLogo 는 `registryDependencies` 없는 순수 SVG 라 Clerk 와 무관하다 — components.json 을
+갖춘 앱이라면 그냥 설치하면 된다.
+
+> ⚠️ 이식본은 정본이 바뀌어도 **자동으로 따라오지 않는다.** 정본을 고쳤으면 hub 도 같이
+> 고치고, `node scripts/ui-audit.mjs --static-only --app hub` 로 확인한다(2026-07-31 부터
+> hub 는 ui-audit 대상이다). 파일 사본은 `shasum` 으로 정본과 대조한다.
+
 ### 6.3 UserMenu
 
 별도 패턴 — 정본 구현은 maria-ui 비공개 레지스트리 `@maria/user-menu`(`registry/components/UserMenu.tsx`, console·popo 정본의 byte-identical 복제층). 신규 앱은 `shadcn add @maria/user-menu`로 설치한다(@maria/tokens 동반 설치됨). 이니셜 아바타 + 이름·이메일·로그아웃만. Clerk의 `UserButton` 그대로 쓰지 말 것 (사내 도구에 불필요한 "계정 관리" 노출 방지).
@@ -248,7 +257,10 @@ export function PageShell({
 | console | console.maria-baby.com | Console | `max-w-7xl` | 통합 어드민 |
 | popo-studio | popo-studio.maria-baby.com | Studio | `max-w-7xl` | 미디어 생성 |
 | mou-admin | mou-admin.maria-baby.com | MOU | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
-| hub | hub.maria-baby.com | Hub *(예정)* | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4). ⏳ **2026-07-31 현재 미적용** — 아직 한글 텍스트 브랜드("분원 허브")·비-sticky. 4앱만 전환된 4/5 중간 상태다. 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
+| hub | hub.maria-baby.com | Hub | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4) — 정본 파일을 직수입하지 않으므로 워드마크도 사본(`components/brand-logo.tsx`, 정본과 byte-identical)이다. 정본이 바뀌면 **손으로 따라와야** 하고, 그 드리프트는 ui-audit 이 잡는다. 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
+
+**5앱 전수 적용 완료(2026-07-31)** — 헤더 계약(워드마크 브랜드·`sticky top-0 z-40`·`scroll-pt-20`·
+활성 탭 `aria-current`)이 5앱 모두에 들어갔고, 5앱 모두 ui-audit 대상이다.
 
 서비스명은 **짧은 영문 한 단어**가 원칙이다(2026-07-31 결정) — 워드마크가 이미 "마리아"를 말하고
 있으므로 옆 글자는 어느 서비스인지만 가르면 된다. 신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
