@@ -21,7 +21,7 @@
 | 헤더 텍스트 (보조) | `#A8BABA` | `text-maria-green-300` |
 | 활성 탭 배경 | 아이보리 `#F4EEED` | `bg-text-on-dark` |
 | 활성 탭 글자 | `#1E3131` | `text-maria-green` |
-| 활성 탭 표시(비시각) | 현재 위치 노출 | `aria-current="page"` (비활성은 속성 없음) |
+| 활성 탭 표시(비시각) | 현재 위치 노출 | `aria-current="page"` (비활성은 속성 없음) — **1차 탭뿐 아니라 현재 페이지를 가리키는 모든 헤더 링크** |
 | 좌우 패딩 | 24px | `px-6` |
 | 상하 패딩 | 16px | `py-4` |
 | 좌측 영역 gap | 16px | `gap-4` (구분선 양옆 균형 — 2026-07-31 이전엔 `gap-6`) |
@@ -29,6 +29,7 @@
 | 우측 영역 gap | 12px | `gap-3` (2026-06-05 claim 수렴에서 4→3, 이때 표 갱신을 빠뜨려 문서만 `gap-4`로 남아 있었다 — 2026-07-31 정정) |
 | 인쇄 시 | 숨김 | `print:hidden` |
 | 탭 넘침 처리 | 가로 스크롤 + 가장자리 스크롤 그림자 | `overflow-x-auto` + local/scroll 그라데이션 (§4 nav 참조) |
+| 활성 탭 자동 노출 | 넘칠 때 현재 탭을 보이는 자리로 | nav 컨테이너 `scrollLeft` 조정 (경로 변경마다, §4 useEffect) |
 | 스크롤 동작 | 상단 고정 | `sticky top-0 z-40` |
 | 브랜드 | 워드마크 + 서비스명 **둘 다 흰색** | `<BrandLogo trim className="h-[18px] text-white" />` + `text-base font-semibold text-white` |
 | 브랜드↔네비 구분선 | 1px 세로선, 네비 있을 때만 | `h-5 w-px bg-maria-green-300/40` |
@@ -61,11 +62,36 @@
 > 비활성 탭은 **속성 자체를 빼야** 한다 — `aria-current="false"`로 렌더하면 일부 보조기술이
 > 여전히 읽는다. 정본은 `aria-current={active ? "page" : undefined}` 형태다.
 > `aria-current={active}`(boolean)는 `"true"`로 렌더돼 규격 밖이므로 쓰지 않는다.
+>
+> **적용 범위(2026-07-31 사용자 결정)**: 1차 알약 탭 전용이 아니다. **헤더 안에서 색으로 현재
+> 위치를 표시하는 링크는 모두** 같은 속성을 갖는다 — popo 의 `관리자`, claim 의 `사용 안내`·
+> `휴지통`·`관리자 메뉴` 같은 우측 보조 링크(§6.1·§6.2)가 여기 해당한다. 판단 기준은 "1차냐
+> 2차냐"가 아니라 **"이 링크가 지금 보고 있는 페이지를 가리키는가"** 다. 색만으로 표시하면
+> 눈으로 보는 사용자에게만 전달된다는 문제는 알약이든 텍스트 링크든 똑같다.
+> 5앱 모두 보조 링크와 1차 탭이 동시에 활성이 되는 경로가 없어 `aria-current` 가 한 화면에
+> 둘 이상 생기지 않는다(2026-07-31 확인). 새 링크를 추가할 때 이 조건을 깨지 않는지 볼 것.
 
 > **탭 넘침 규칙(2026-07-30, hub 사고 유래)**: 화면이 좁아 탭이 잘리면 `overflow-x-auto`만으로는
 > 사용자가 스크롤 가능한 줄 모른다(hub 모바일에서 끝 메뉴가 통째로 숨었던 실사고). 잘렸을 때만
 > 끝이 어두워지는 스크롤 그림자를 nav 배경 4겹 그라데이션(덮개 `local`·그림자 `scroll`)으로 넣는다.
 > 정본 구현 코드가 이미 포함하므로 신규 앱은 별도 작업 불요.
+
+> **활성 탭 자동 노출 규칙(2026-07-31)**: 그림자만으로는 "더 있다"만 알리고 **현재 어느 메뉴에
+> 있는지는 못 알린다.** 넘친 상태에서 주소로 바로 들어오면 활성 알약이 스크롤 밖에 남아,
+> 화면에는 전혀 무관한 첫 탭만 보인다. 경로가 바뀔 때마다 활성 탭이 보이는 자리로 오도록
+> **nav 컨테이너의 `scrollLeft`를 조정한다**(§4 `useEffect`).
+> - **`scrollIntoView()`를 쓰지 않는다.** 그건 조상 스크롤 컨테이너를 타고 올라가 **페이지를
+>   세로로도 움직여**, sticky 헤더가 있는 화면이 열자마자 튄다. 가로 스크롤은 nav 안에서
+>   끝나야 하므로 컨테이너 `scrollLeft`를 직접 민다.
+> - 탭이 보이는 칸보다 **넓을 때는 왼쪽(글자 시작)을 맞춘다.** 오른쪽 맞춤은 긴 라벨의 끝만
+>   남겨 무슨 메뉴인지 못 읽게 된다.
+> - 가장자리 그림자(12px)에 알약이 걸리지 않게 `edge = 16px` 여유를 둔다.
+>
+> 근거(2026-07-31 헤드리스 실측, 인증 상태 = 운영과 동일): hub 320px 에서 메뉴가 들어갈 칸은
+> **92px 인데 메뉴 전체 길이는 439px** 이라, 6개 경로 중 5개에서 활성 탭이 **0% 노출**이었다.
+> 375px 에서도 4개가 0% 였다. 도입 후 375px 는 전 경로 100%, 320px 는 74~100% 가 된다.
+> 같은 계산으로 5앱 모두 모바일에서 넘친다(console 8탭 중 320px 에서 1개만 온전히 보임).
+> 이 규칙이 hub 전용 땜질이 아니라 정본에 있는 이유다.
 
 ## 3. 구조
 
@@ -91,6 +117,7 @@
 
 ```tsx
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import BrandLogo from "./brand-logo"; // 마리아 워드마크 — @maria/brand-logo
 import UserMenu from "./user-menu"; // 별도 패턴 — UserMenu v1 문서 참조
@@ -114,6 +141,27 @@ export function PageShell({
   maxWidth?: string;
   children: React.ReactNode;
 }) {
+  const navRef = useRef<HTMLElement>(null);
+
+  // 활성 탭 자동 노출(§2) — 좁은 화면에서 메뉴가 넘칠 때 현재 탭을 보이는 자리로 끌어온다.
+  // scrollIntoView 가 아니라 컨테이너 scrollLeft 를 직접 민다: scrollIntoView 는 조상까지
+  // 거슬러 올라가 페이지를 세로로도 움직여, sticky 헤더가 있는 화면이 열자마자 튄다.
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const tab = nav.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!tab) return;
+    const navBox = nav.getBoundingClientRect();
+    const tabBox = tab.getBoundingClientRect();
+    const edge = 16; // 가장자리 그림자(12px)에 알약이 걸리지 않게 두는 여유
+    if (tabBox.width > navBox.width - edge * 2 || tabBox.left < navBox.left + edge) {
+      // 칸보다 넓은 탭을 오른쪽에 맞추면 라벨 끝만 남는다 — 왼쪽(글자 시작)을 맞춘다.
+      nav.scrollLeft -= navBox.left + edge - tabBox.left;
+    } else if (tabBox.right > navBox.right - edge) {
+      nav.scrollLeft += tabBox.right - (navBox.right - edge);
+    }
+  }, [active]); // 정본은 usePathname() 을 쓴다 — 현재 위치가 바뀔 때마다 다시 맞춘다
+
   return (
     // ⚠️ 헤더는 이 세로 컨테이너의 직접 자식이어야 한다(§2 — 헤더만 감싸는 래퍼 div 금지).
     <div className="flex flex-1 flex-col">
@@ -137,6 +185,7 @@ export function PageShell({
                 덮개(bg색)는 내용과 함께 스크롤(local), 그림자는 상자에 고정(scroll) —
                 끝까지 밀면 덮개가 그림자를 가려 사라진다. */}
             <nav
+              ref={navRef}
               className="flex items-center gap-1 overflow-x-auto"
               style={{
                 background:
@@ -171,6 +220,9 @@ export function PageShell({
               <Link
                 key={l.key}
                 href={l.href}
+                // 보조 링크도 현재 페이지를 가리키면 같은 속성을 갖는다(§2 적용 범위).
+                // 색으로만 표시하면 눈으로 보는 사용자에게만 전달되는 건 알약과 똑같다.
+                aria-current={active === l.key ? "page" : undefined}
                 className={cn(
                   "text-sm font-semibold transition-colors",
                   active === l.key
@@ -224,6 +276,12 @@ export function PageShell({
 ### 6.2 관리자 전용 링크 (popo, claim 둘 다)
 
 `secondaryLinks`에 조건부로 추가하거나, 상위에서 권한 검사 후 props로 전달.
+
+이 링크들도 **현재 페이지를 가리키면 `aria-current="page"`를 갖는다**(§2 적용 범위,
+2026-07-31). 색만 바꾸고 속성을 빼면 알약 탭과 같은 문제가 그대로 남는다.
+정본을 안 거치고 앱이 직접 그리는 링크(popo `관리자`, claim `사용 안내`·`휴지통`·
+`관리자 메뉴`)라 **앱 쪽에서 손으로 넣어야** 하고, ui-audit `header-aria-current` 가
+"색으로 활성을 표시하는데 속성이 없는 링크"를 잡는다.
 
 ### 6.4 Clerk 게이트 앱 (hub)
 
@@ -287,3 +345,13 @@ BrandLogo 는 `registryDependencies` 없는 순수 SVG 라 Clerk 와 무관하�
   같은 날 §2 표의 **우측 영역 gap 오기 정정**(`gap-4`→`gap-3`, 2026-06-05 claim 수렴 때
   바뀐 값을 표에 반영하지 않아 문서만 옛 값으로 남아 있었다).
   ※ 이 절의 v1.4/v1.5 순서가 뒤바뀌어 있어 함께 바로잡았다(내용 변경 없음).
+- **v1.7 (2026-07-31)**: ① **활성 탭 자동 노출**(§2 규칙·§4 `useEffect`). 좁은 화면에서 메뉴가
+  넘치면 활성 알약이 스크롤 밖에 남아 무관한 첫 탭만 보였다 — 헤드리스 실측에서 hub 320px
+  6개 경로 중 5개가 활성 탭 **0% 노출**이었고(메뉴 칸 92px vs 메뉴 길이 439px), 같은 계산으로
+  **5앱 전부** 모바일에서 넘친다. 경로가 바뀔 때마다 nav 컨테이너 `scrollLeft` 를 조정한다.
+  `scrollIntoView()` 는 금지 — 조상을 타고 올라가 페이지를 세로로도 움직여 sticky 헤더 화면이
+  튄다. 칸보다 넓은 탭은 왼쪽(글자 시작) 맞춤. 도입 후 375px 전 경로 100%, 320px 74~100%.
+  ② **`aria-current` 적용 범위 확정**(§2·§6.2, 사용자 결정) — 1차 알약 탭 전용이 아니라
+  **헤더에서 색으로 현재 위치를 표시하는 모든 링크**. popo `관리자`, claim `사용 안내`·
+  `휴지통`·`관리자 메뉴` 가 대상이다. ui-audit 이 "색으로 활성을 표시하는데 속성이 없는 링크"를
+  FAIL 로 잡는다.
