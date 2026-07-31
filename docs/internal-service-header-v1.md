@@ -238,7 +238,7 @@ export function PageShell({
 | console | console.maria-baby.com | Console | `max-w-7xl` | 통합 어드민 |
 | popo-studio | popo-studio.maria-baby.com | Studio | `max-w-7xl` | 미디어 생성 |
 | mou-admin | mou-admin.maria-baby.com | MOU | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
-| hub | hub.maria-baby.com | Hub | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4). 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
+| hub | hub.maria-baby.com | Hub *(예정)* | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4). ⏳ **2026-07-31 현재 미적용** — 아직 한글 텍스트 브랜드("분원 허브")·비-sticky. 4앱만 전환된 4/5 중간 상태다. 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
 
 서비스명은 **짧은 영문 한 단어**가 원칙이다(2026-07-31 결정) — 워드마크가 이미 "마리아"를 말하고
 있으므로 옆 글자는 어느 서비스인지만 가르면 된다. 신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
