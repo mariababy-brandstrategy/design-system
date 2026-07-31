@@ -27,6 +27,31 @@
 | 우측 영역 gap | 16px | `gap-4` |
 | 인쇄 시 | 숨김 | `print:hidden` |
 | 탭 넘침 처리 | 가로 스크롤 + 가장자리 스크롤 그림자 | `overflow-x-auto` + local/scroll 그라데이션 (§4 nav 참조) |
+| 스크롤 동작 | 상단 고정 | `sticky top-0 z-40` |
+| 브랜드 | 워드마크(흰색) + 서비스명 | `<BrandLogo trim className="h-[18px] text-white" />` |
+| 브랜드↔네비 구분선 | 1px 세로선, 네비 있을 때만 | `h-5 w-px bg-maria-green-300/40` |
+| 헤더 높이 | 64px (py-4 32 + 콘텐츠 32) | — |
+
+> **스크롤 고정 규칙(2026-07-31)**: 네비게이션 바가 있는 사내 서비스는 스크롤해도 헤더가
+> 화면 상단에 붙어 따라온다. `z-40`은 앱 모달·다이얼로그(관례상 `z-50`)가 헤더를 덮게 하려는
+> 값이다 — 헤더를 `z-50` 이상으로 올리면 모달 위에 헤더가 뜬다.
+> ⚠️ **두 가지 필수 동반 조치**가 있다. 빠뜨리면 조용히 깨진다.
+> 1. **헤더만 감싸는 래퍼 `<div>` 안에 두지 말 것.** `sticky`는 자기 부모 박스 안에서만 움직인다.
+>    부모 높이가 헤더 높이와 같으면 이동할 공간이 없어 그냥 같이 스크롤돼 사라진다
+>    (claim의 `print:hidden` 래퍼가 실제로 이 경우였다 — 제거로 해소). 헤더는 본문까지 포함하는
+>    세로 컨테이너의 직접 자식이어야 한다.
+> 2. **`<html>`에 `scroll-pt-20`**(=80px, 헤더 64 + 여유 16). 없으면 `#앵커` 이동·폼 오류 필드
+>    포커스·`scrollIntoView()`의 대상이 고정 헤더 뒤로 숨는다. 내부 스크롤 컨테이너를 따로 두는
+>    화면은 그 컨테이너에 준다.
+
+> **브랜드 규칙(2026-07-31)**: 좌상단은 **앱 이름을 타이핑한 글자가 아니라 마리아 워드마크**다
+> ([[web-ui-guidelines-v1]] §1-1 — 로고는 전용 BI라 어떤 폰트로도 흉내 내면 안 된다).
+> 어두운 헤더 위에서는 **100% 흰색**(`text-white`)이고 **아이보리(`text-on-dark`)는 금지**다
+> (디자이너 3원칙). 워드마크 옆에는 짧은 영문 서비스명을 병기해 5앱을 구분한다
+> (Console·Studio·MOU·Claims·Hub).
+> ⚠️ 워드마크 원본 `viewBox`는 `.ai` 페이지 박스라 마크 아래에 52.4/228.8 만큼 여백이 남는다.
+> 그대로 가운데 정렬하면 **서비스명과 밑선이 어긋난다.** `trim`(마크 실제 경계 viewBox)
+> + `items-baseline` 으로 상자 밑변을 글자 밑선에 일치시킨다.
 
 > **탭 넘침 규칙(2026-07-30, hub 사고 유래)**: 화면이 좁아 탭이 잘리면 `overflow-x-auto`만으로는
 > 사용자가 스크롤 가능한 줄 모른다(hub 모바일에서 끝 메뉴가 통째로 숨었던 실사고). 잘렸을 때만
@@ -37,12 +62,13 @@
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│ [앱 이름]  [탭] [탭] [탭]      [검색?] [secondary] [UserMenu] │
+│ [워드마크] 서비스명 │ [탭] [탭]    [검색?] [secondary] [UserMenu] │
 └────────────────────────────────────────────────────────────────┘
-       └ 좌: 브랜드 + 1차 탭 ──┘    └ 우: 2차 액션 ──────────┘
+       └ 좌: 브랜드 │ 1차 탭 ──┘    └ 우: 2차 액션 ──────────┘
 ```
 
-- **좌측**: 앱 이름 (text-lg font-bold) → 1차 네비게이션 탭(pill 형태)
+- **좌측**: 마리아 워드마크 + 서비스명(text-base font-semibold) → 세로 구분선 → 1차 네비게이션 탭(pill 형태).
+  워드마크와 서비스명은 한 링크(`/`)로 묶여 한 덩어리로 읽히고, 구분선 뒤부터가 이동 메뉴다.
 - **우측**: 검색·secondary 링크·UserMenu (이니셜 아바타)
 - **본문 폭**: 전 앱 `max-w-7xl` 통일 (2026-06-04 결정). 헤더 inner div의 max-width도 본문과 같게 (`max-w-7xl`).
 
@@ -57,6 +83,7 @@
 ```tsx
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import BrandLogo from "./brand-logo"; // 마리아 워드마크 — @maria/brand-logo
 import UserMenu from "./user-menu"; // 별도 패턴 — UserMenu v1 문서 참조
 
 type Tab = { href: string; label: string; key: string };
@@ -79,16 +106,24 @@ export function PageShell({
   children: React.ReactNode;
 }) {
   return (
+    // ⚠️ 헤더는 이 세로 컨테이너의 직접 자식이어야 한다(§2 — 헤더만 감싸는 래퍼 div 금지).
     <div className="flex flex-1 flex-col">
-      <header className="bg-maria-green print:hidden">
+      <header className="bg-maria-green print:hidden sticky top-0 z-40">
         <div className={cn("mx-auto flex items-center justify-between gap-4 px-6 py-4", maxWidth)}>
-          <div className="flex min-w-0 items-baseline gap-6">
+          <div className="flex min-w-0 items-center gap-4">
+            {/* 브랜드 = 워드마크 + 서비스명. items-baseline + trim 이라야 밑선이 맞는다(§2). */}
             <Link
               href="/"
-              className="text-lg font-bold whitespace-nowrap tracking-tight text-text-on-dark transition-opacity hover:opacity-80"
+              aria-label={`마리아 ${appName}`}
+              className="flex shrink-0 items-baseline gap-2.5 transition-opacity hover:opacity-80"
             >
-              {appName}
+              <BrandLogo className="h-[18px] text-white" title="" trim />
+              <span className="text-base font-semibold whitespace-nowrap tracking-tight text-text-on-dark">
+                {appName}
+              </span>
             </Link>
+            {/* 브랜드와 이동 메뉴의 경계. 네비가 없으면 가를 것도 없다. */}
+            {tabs.length > 0 && <span aria-hidden className="h-5 w-px shrink-0 bg-maria-green-300/40" />}
             {/* 탭 넘침 규칙(§2): 잘렸을 때만 끝이 어두워지는 스크롤 그림자.
                 덮개(bg색)는 내용과 함께 스크롤(local), 그림자는 상자에 고정(scroll) —
                 끝까지 밀면 덮개가 그림자를 가려 사라진다. */}
@@ -195,15 +230,16 @@ export function PageShell({
 
 ## 8. 적용 현황
 
-| 앱 | 도메인 | 본문 폭 | 비고 |
-|---|---|---|---|
-| claim | claims.maria-baby.com | `max-w-7xl` | 의료 청구 |
-| console | console.maria-baby.com | `max-w-7xl` | 통합 어드민 |
-| popo-studio | popo-studio.maria-baby.com | `max-w-7xl` | 미디어 생성 |
-| mou-admin | mou-admin.maria-baby.com | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
-| hub | hub.maria-baby.com | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4). 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
+| 앱 | 도메인 | 서비스명 | 본문 폭 | 비고 |
+|---|---|---|---|---|
+| claim | claims.maria-baby.com | Claims | `max-w-7xl` | 의료 청구 |
+| console | console.maria-baby.com | Console | `max-w-7xl` | 통합 어드민 |
+| popo-studio | popo-studio.maria-baby.com | Studio | `max-w-7xl` | 미디어 생성 |
+| mou-admin | mou-admin.maria-baby.com | MOU | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
+| hub | hub.maria-baby.com | Hub | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4). 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
 
-신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
+서비스명은 **짧은 영문 한 단어**가 원칙이다(2026-07-31 결정) — 워드마크가 이미 "마리아"를 말하고
+있으므로 옆 글자는 어느 서비스인지만 가르면 된다. 신규 앱 합류 시 이 표에 한 줄 추가하고 PR을 보낸다.
 
 ## 9. 변경 이력
 
@@ -211,4 +247,11 @@ export function PageShell({
 - **v1.1 (2026-06-04)**: 4앱(claim·console·popo·mou) 전수 통일 반영. 본문 폭 `max-w-7xl` 통일, `text-on-dark` = 아이보리 `#F4EEED` 로 정정(§5 필수토큰의 `#FFFFFF` 오기 수정 — 이 오기를 console·popo 가 globals override 로 따라가 drift 원인이 됐음). 활성 탭 알약·로그인·파비콘·제목 등 전체 규칙은 같은 폴더 `web-ui-guidelines-v1.md` 참조.
 - **v1.2 (2026-06-11)**: §5에 `--color-*` = Tailwind v4 `@theme` 계층 명시(`:root` 오배치 방지) + var() 매핑 표준 적용형 추가. §6.3 UserMenu 정본을 maria-ui 레지스트리 `@maria/user-menu`로 지정(TODO 해소).
 - **v1.3 (2026-07-30)**: 탭 넘침 가장자리 스크롤 그림자 규칙 추가(§2·§4 — hub 모바일 실사고 유래, 5앱 정본 일괄 반영). 정본 구현을 maria-ui 레지스트리 `@maria/app-header`로 명시(§4). hub 합류(§6.4 Clerk 게이트 이식본 변형·§8). 미해결: 헤더 `print:hidden`이 §2·§7 계약과 달리 4앱 설치본에 없음(결정 대기) · hub 본문 폭 `max-w-6xl`(§3 통일 미실시).
+- **v1.5 (2026-07-31)**: ① **스크롤 고정** — 네비게이션 바가 있는 사내 서비스는 헤더가 상단에
+  붙어 따라온다(`sticky top-0 z-40`). 동반 조치 2건을 §2에 못박음: 헤더만 감싸는 래퍼 div 금지
+  (claim 실사고), `<html>`에 `scroll-pt-20`(앵커·포커스 대상이 헤더 뒤로 숨는 회귀 방지 — Codex 지적).
+  ② **브랜드를 텍스트에서 워드마크로** — 좌상단 앱 이름 타이핑을 폐기하고 `@maria/brand-logo`
+  워드마크(흰색) + 짧은 영문 서비스명으로 교체. 원본 viewBox 의 아래 여백 탓에 밑선이 어긋나는
+  문제는 `trim` + `items-baseline` 으로 해소(사용자 시각 QA 지적). ③ 브랜드와 네비 사이 세로 구분선.
+  ④ 서비스명 표기를 §8 표에 명시(Console·Studio·MOU·Claims·Hub).
 - **v1.4 (2026-07-30)**: v1.3 미해결 2건 종결. ① `print:hidden`을 레지스트리 정본+5앱 설치본에 실반영(§2·§7 계약 준수로 결정). ② hub 본문 폭 `max-w-6xl`→`max-w-7xl` 통일(§3 합류 — 홈·언론보도·비품·푸터·인쇄도구 셸 5곳, 페이지 내부의 좁은 콘텐츠 컬럼 `max-w-4xl`은 유지).
