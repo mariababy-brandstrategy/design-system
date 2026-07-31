@@ -23,12 +23,13 @@
 | 활성 탭 글자 | `#1E3131` | `text-maria-green` |
 | 좌우 패딩 | 24px | `px-6` |
 | 상하 패딩 | 16px | `py-4` |
-| 좌측 영역 gap | 24px | `gap-6` |
+| 좌측 영역 gap | 16px | `gap-4` (구분선 양옆 균형 — 2026-07-31 이전엔 `gap-6`) |
+| 브랜드 내부 gap | 10px | `gap-2.5` (워드마크↔서비스명) |
 | 우측 영역 gap | 16px | `gap-4` |
 | 인쇄 시 | 숨김 | `print:hidden` |
 | 탭 넘침 처리 | 가로 스크롤 + 가장자리 스크롤 그림자 | `overflow-x-auto` + local/scroll 그라데이션 (§4 nav 참조) |
 | 스크롤 동작 | 상단 고정 | `sticky top-0 z-40` |
-| 브랜드 | 워드마크(흰색) + 서비스명 | `<BrandLogo trim className="h-[18px] text-white" />` |
+| 브랜드 | 워드마크 + 서비스명 **둘 다 흰색** | `<BrandLogo trim className="h-[18px] text-white" />` + `text-base font-semibold text-white` |
 | 브랜드↔네비 구분선 | 1px 세로선, 네비 있을 때만 | `h-5 w-px bg-maria-green-300/40` |
 | 헤더 높이 | 64px (py-4 32 + 콘텐츠 32) | — |
 
@@ -48,7 +49,8 @@
 > ([[web-ui-guidelines-v1]] §1-1 — 로고는 전용 BI라 어떤 폰트로도 흉내 내면 안 된다).
 > 어두운 헤더 위에서는 **100% 흰색**(`text-white`)이고 **아이보리(`text-on-dark`)는 금지**다
 > (디자이너 3원칙). 워드마크 옆에는 짧은 영문 서비스명을 병기해 5앱을 구분한다
-> (Console·Studio·MOU·Claims·Hub).
+> (Console·Studio·MOU·Claims·Hub). **서비스명도 워드마크와 같은 흰색**이라 브랜드가 한 덩어리로
+> 읽히고, 아이보리인 네비 탭과 위계가 갈린다(2026-07-31 사용자 결정).
 > ⚠️ 워드마크 원본 `viewBox`는 `.ai` 페이지 박스라 마크 아래에 52.4/228.8 만큼 여백이 남는다.
 > 그대로 가운데 정렬하면 **서비스명과 밑선이 어긋난다.** `trim`(마크 실제 경계 viewBox)
 > + `items-baseline` 으로 상자 밑변을 글자 밑선에 일치시킨다.
@@ -118,7 +120,7 @@ export function PageShell({
               className="flex shrink-0 items-baseline gap-2.5 transition-opacity hover:opacity-80"
             >
               <BrandLogo className="h-[18px] text-white" title="" trim />
-              <span className="text-base font-semibold whitespace-nowrap tracking-tight text-text-on-dark">
+              <span className="text-base font-semibold whitespace-nowrap tracking-tight text-white">
                 {appName}
               </span>
             </Link>
@@ -252,6 +254,6 @@ export function PageShell({
   (claim 실사고), `<html>`에 `scroll-pt-20`(앵커·포커스 대상이 헤더 뒤로 숨는 회귀 방지 — Codex 지적).
   ② **브랜드를 텍스트에서 워드마크로** — 좌상단 앱 이름 타이핑을 폐기하고 `@maria/brand-logo`
   워드마크(흰색) + 짧은 영문 서비스명으로 교체. 원본 viewBox 의 아래 여백 탓에 밑선이 어긋나는
-  문제는 `trim` + `items-baseline` 으로 해소(사용자 시각 QA 지적). ③ 브랜드와 네비 사이 세로 구분선.
+  문제는 `trim` + `items-baseline` 으로 해소(사용자 시각 QA 지적). ③ 브랜드와 네비 사이 세로 구분선(좌측 gap-6→gap-4). 서비스명 색은 워드마크와 같은 흰색.
   ④ 서비스명 표기를 §8 표에 명시(Console·Studio·MOU·Claims·Hub).
 - **v1.4 (2026-07-30)**: v1.3 미해결 2건 종결. ① `print:hidden`을 레지스트리 정본+5앱 설치본에 실반영(§2·§7 계약 준수로 결정). ② hub 본문 폭 `max-w-6xl`→`max-w-7xl` 통일(§3 합류 — 홈·언론보도·비품·푸터·인쇄도구 셸 5곳, 페이지 내부의 좁은 콘텐츠 컬럼 `max-w-4xl`은 유지).
