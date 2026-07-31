@@ -114,6 +114,7 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 | **hub** | 페이지 제목 | `text-[25px] font-bold tracking-tight text-foreground` (반응형 확대 없음) | 승인 시안 `hub/docs/mockups/2026-07-21-hub-preview-v11.html`(`h1 { font-size: 25px; font-weight: 700 }`)대로 구현. 허브는 카드 그리드 위주라 표준 제목(24→30px)이 카드 제목과 층위가 겹쳤다. hub 10개 페이지에 일관 적용. |
 | **hub** | 폰트 | 자체 호스팅 `@font-face` → `/fonts/PretendardVariable.woff2` | 외부 CDN 요청 제거. 버전 대조가 성립하지 않으므로 ui-audit 이 **바이트+sha256** 으로 자산 자체를 고정한다(`ui-audit.config.mjs` `selfHostedFont`). |
 | **popo-studio** | 페이지 제목 | **없음**(구조적) | 스튜디오형 앱이라 페이지 제목 블록을 두지 않는다. 현재 위치는 헤더 활성 탭이 알린다. `<h1>` 3개는 전부 로그인·승인대기·업로드 화면의 화면명이지 페이지 제목이 아니다. |
+| **hub** | §3 로그인 — 바깥 컨테이너·푸터 | 바깥 = `flex flex-1 flex-col items-center justify-center bg-bg-ivory p-6`(`<div>`, `min-h-screen` 없음) · 푸터 = **없음**(`SiteFooter` 담당) | hub 로그인은 `(bare)` 레이아웃의 `<main>` 안에서 렌더되므로 자기가 `<main>`·`min-h-screen` 을 다시 만들지 않고 `flex-1` 로 채운다. CX부 크레딧도 레이아웃의 `SiteFooter` 가 이미 그린다. 제목·폼 카드는 §3 그대로 적용. |
 
 > **예외의 이력화**: hub 제목 예외는 표준을 바꾸자는 뜻이 아니다. hub 가 표준으로 돌아오려면
 > 시안부터 다시 그려야 하므로, 그때까지 **여기 적힌 값이 hub 의 기준**이고 ui-audit 은 그 값으로
@@ -122,6 +123,7 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.5 (2026-07-31)**: §8 에 **hub §3 로그인 예외**(바깥 컨테이너·푸터) 추가 — `(bare)` 레이아웃 안에서 렌더되는 구조상 차이. 아울러 ui-audit 에 **§3 로그인 템플릿 검사(`login(static)`)** 를 신설했더니 **5앱 전부가 §3 의 `shadow-sm` 제거(v1 2026-07-08 결정)를 이행하지 않은 채** 돌고 있었다 — 원인은 레지스트리 정본 `AuthPrimitives.tsx` 에 `shadow-sm` 이 남아 있던 것. 문서만 고치고 구현을 안 고친 전형이라, 정본 수정 + 5앱 재동기로 이행했다. 규칙 자체는 변경 없음(§3 문구 그대로).
 - **v1.4 (2026-07-31)**: **§8 예외 표 신설**(비어 있던 절) — hub 페이지 제목 `text-[25px] font-bold`(2026-07-21 승인 시안) · hub 자체 호스팅 폰트 · popo 페이지 제목 없음(구조적)을 승인된 예외로 명문화. 폰트 행의 **`.min` 강제 해제** — 이 CSS 는 `@font-face` 한 줄(526B)이라 압축 이득이 없고 `.min` 이 오히려 588B 로 크다(실측). 고정 대상은 버전·variant 뿐. 아울러 ui-audit 의 `x-ui-standard` 마커 검사를 **폐기**했다 — 이 문서에 없는 규칙을 점검표가 단독으로 요구하던 것으로, 5앱 전부 MISSING 이 정상이었다(규칙 미채택).
 - **v1.3 (2026-07-31)**: 헤더 행에 활성 탭 `aria-current="page"` 추가(알약 배경은 시각 사용자에게만 현재 위치를 알린다). 상세 규격 = `internal-service-header-v1.md` v1.6.
 - **v1.2 (2026-07-31)**: 헤더 행에 **스크롤 상단 고정**(`sticky top-0 z-40`) 추가. §1-1 로고: 소비 예시의 색을 `text-text-on-dark`(아이보리) → `text-white` 로 정정(같은 절의 "아이보리 워드마크 금지"와 모순이던 오기) + 텍스트와 나란히 둘 때의 `trim`·`items-baseline` 밑선 규칙 신설 + 4앱 텍스트 로고 legacy 허용 종료(ui-audit `header-wordmark` 강제). 상세 규격 = `internal-service-header-v1.md` v1.5.
