@@ -28,3 +28,11 @@ hub 만 `components.json` 이 없어 손복사본이다.
 로고는 전용 워드마크다. **어떤 폰트로도 글자를 타이핑해 흉내 내지 않는다.**
 정본 SVG = `assets/logos/svg/`, 코드 소비는 `@maria/brand-logo`.
 어두운 배경에서는 100% 흰색(`text-white`)이고 아이보리(`text-on-dark`)는 금지다.
+
+## UI 작업의 완료 조건
+
+**UI 를 건드린 작업은 `node ~/maria-ui/scripts/ui-audit.mjs --static-only` 가 통과해야
+끝난 것이다**(권고가 아니라 완료 조건).
+사람이 의도하지 않은 시각 변화는 주로 옆문으로 들어온다 — **오래된 브랜치 병합 ·
+Tailwind/의존성 업그레이드 · codemod · GitHub 웹 편집**도 UI 변경으로 친다.
+사전 확인 모델은 그 경로들을 스스로 막지 못하므로, 이 확인이 마지막 그물이다.
