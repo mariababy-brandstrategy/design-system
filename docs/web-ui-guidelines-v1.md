@@ -16,7 +16,7 @@
 |---|---|
 | **파비콘** | iR 마크. `app/icon.png`(1000×1000) + `app/apple-icon.png`(512×512). 원본 = `assets/web-icons/`. Next 기본 ▲(`favicon.ico`)는 **삭제**. |
 | **폰트** | Pretendard `@v1.3.9` **variable**: `https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css`. `@latest`·static 금지(버전 드리프트). |
-| **헤더** | `docs/internal-service-header-v1.md` 참조. `bg-maria-green` → `max-w-7xl mx-auto px-6 py-4`. 스크롤 시 상단 고정(`sticky top-0 z-40`). 로고 = **브랜드 워드마크**(§로고: `@maria/brand-logo`, 헤더는 `h-[18px] text-white` + `trim`) + 짧은 영문 서비스명 병기. 글자 타이핑 금지. 활성 탭 = 알약 `bg-text-on-dark text-maria-green`, 비활성 `text-maria-green-300 hover:text-text-on-dark`. |
+| **헤더** | `docs/internal-service-header-v1.md` 참조. `bg-maria-green` → `max-w-7xl mx-auto px-6 py-4`. 스크롤 시 상단 고정(`sticky top-0 z-40`). 로고 = **브랜드 워드마크**(§로고: `@maria/brand-logo`, 헤더는 `h-[18px] text-white` + `trim`) + 짧은 영문 서비스명 병기. 글자 타이핑 금지. 활성 탭 = 알약 `bg-text-on-dark text-maria-green` + `aria-current="page"`(비활성은 속성 없음), 비활성 `text-maria-green-300 hover:text-text-on-dark`. |
 | **로고** | 전용 워드마크. §로고 참조. `assets/logos/svg/` 정본. 어두운 배경=흰색, 밝은 배경=그린. |
 | **본문 너비** | 페이지 외곽 셸(컨테이너)은 전 앱 `max-w-7xl`(1280px) — 셸을 별도로 더 좁히지 말 것. 가독성 목적의 **내부 콘텐츠 컬럼** 축소(예: hub 자료실 `max-w-4xl`)는 허용 — `internal-service-header-v1.md` v1.4 §8과 정합(2026-07-30). |
 | **페이지 제목** | `text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl`(=text-foreground). 제목 블록 하단 `mb-6`. 상단 여백은 레이아웃 `<main>`의 `py-6` 단일소스(페이지가 추가 py 주지 말 것). |
@@ -107,6 +107,7 @@ MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/brand-logo   # 워드�
 
 ## 9. 변경 이력
 
+- **v1.3 (2026-07-31)**: 헤더 행에 활성 탭 `aria-current="page"` 추가(알약 배경은 시각 사용자에게만 현재 위치를 알린다). 상세 규격 = `internal-service-header-v1.md` v1.6.
 - **v1.2 (2026-07-31)**: 헤더 행에 **스크롤 상단 고정**(`sticky top-0 z-40`) 추가. §1-1 로고: 소비 예시의 색을 `text-text-on-dark`(아이보리) → `text-white` 로 정정(같은 절의 "아이보리 워드마크 금지"와 모순이던 오기) + 텍스트와 나란히 둘 때의 `trim`·`items-baseline` 밑선 규칙 신설 + 4앱 텍스트 로고 legacy 허용 종료(ui-audit `header-wordmark` 강제). 상세 규격 = `internal-service-header-v1.md` v1.5.
 - **v1.1 (2026-06-17)**: §1-1 로고(브랜드 워드마크) 신설. 정본 SVG(`assets/logos/svg/`, currentColor·green·white) + 색/비율/소비 규칙 + "글자 타이핑 금지" 명문화. 헤더 로고를 텍스트→워드마크로 변경(앱 적용은 `@maria/brand-logo`로 단계 이행, 별도 롤아웃). 기존 PNG 로고는 벡터 부재로 코드 산출물에 미사용되던 갭 해소.
 - **v1 (2026-06-04)**: claim·console·popo·mou 4앱 전수 UI 통일 작업에서 추출. 파비콘·헤더·너비·로그인·제목·폰트·on-dark(아이보리) 확정 + 토큰 override 드리프트 함정 명문화.

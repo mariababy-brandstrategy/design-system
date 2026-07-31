@@ -21,6 +21,7 @@
 | 헤더 텍스트 (보조) | `#A8BABA` | `text-maria-green-300` |
 | 활성 탭 배경 | 아이보리 `#F4EEED` | `bg-text-on-dark` |
 | 활성 탭 글자 | `#1E3131` | `text-maria-green` |
+| 활성 탭 표시(비시각) | 현재 위치 노출 | `aria-current="page"` (비활성은 속성 없음) |
 | 좌우 패딩 | 24px | `px-6` |
 | 상하 패딩 | 16px | `py-4` |
 | 좌측 영역 gap | 16px | `gap-4` (구분선 양옆 균형 — 2026-07-31 이전엔 `gap-6`) |
@@ -54,6 +55,12 @@
 > ⚠️ 워드마크 원본 `viewBox`는 `.ai` 페이지 박스라 마크 아래에 52.4/228.8 만큼 여백이 남는다.
 > 그대로 가운데 정렬하면 **서비스명과 밑선이 어긋난다.** `trim`(마크 실제 경계 viewBox)
 > + `items-baseline` 으로 상자 밑변을 글자 밑선에 일치시킨다.
+
+> **활성 탭 표시 규칙(2026-07-31)**: 알약 배경은 **눈으로 보는 사용자에게만** 현재 위치를
+> 알린다. 스크린리더에도 알리려면 활성 탭 링크에 `aria-current="page"`를 준다.
+> 비활성 탭은 **속성 자체를 빼야** 한다 — `aria-current="false"`로 렌더하면 일부 보조기술이
+> 여전히 읽는다. 정본은 `aria-current={active ? "page" : undefined}` 형태다.
+> `aria-current={active}`(boolean)는 `"true"`로 렌더돼 규격 밖이므로 쓰지 않는다.
 
 > **탭 넘침 규칙(2026-07-30, hub 사고 유래)**: 화면이 좁아 탭이 잘리면 `overflow-x-auto`만으로는
 > 사용자가 스크롤 가능한 줄 모른다(hub 모바일에서 끝 메뉴가 통째로 숨었던 실사고). 잘렸을 때만
@@ -143,6 +150,9 @@ export function PageShell({
                 <Link
                   key={t.key}
                   href={t.href}
+                  // 현재 위치를 스크린리더에 알린다(§2 활성 탭 표시 규칙).
+                  // 비활성은 속성 자체를 빼야 한다 — "false" 는 일부 AT 가 여전히 읽는다.
+                  aria-current={active === t.key ? "page" : undefined}
                   className={cn(
                     "rounded-md px-3 py-1.5 text-sm font-semibold transition-colors",
                     active === t.key
@@ -249,6 +259,7 @@ export function PageShell({
 - **v1.1 (2026-06-04)**: 4앱(claim·console·popo·mou) 전수 통일 반영. 본문 폭 `max-w-7xl` 통일, `text-on-dark` = 아이보리 `#F4EEED` 로 정정(§5 필수토큰의 `#FFFFFF` 오기 수정 — 이 오기를 console·popo 가 globals override 로 따라가 drift 원인이 됐음). 활성 탭 알약·로그인·파비콘·제목 등 전체 규칙은 같은 폴더 `web-ui-guidelines-v1.md` 참조.
 - **v1.2 (2026-06-11)**: §5에 `--color-*` = Tailwind v4 `@theme` 계층 명시(`:root` 오배치 방지) + var() 매핑 표준 적용형 추가. §6.3 UserMenu 정본을 maria-ui 레지스트리 `@maria/user-menu`로 지정(TODO 해소).
 - **v1.3 (2026-07-30)**: 탭 넘침 가장자리 스크롤 그림자 규칙 추가(§2·§4 — hub 모바일 실사고 유래, 5앱 정본 일괄 반영). 정본 구현을 maria-ui 레지스트리 `@maria/app-header`로 명시(§4). hub 합류(§6.4 Clerk 게이트 이식본 변형·§8). 미해결: 헤더 `print:hidden`이 §2·§7 계약과 달리 4앱 설치본에 없음(결정 대기) · hub 본문 폭 `max-w-6xl`(§3 통일 미실시).
+- **v1.4 (2026-07-30)**: v1.3 미해결 2건 종결. ① `print:hidden`을 레지스트리 정본+5앱 설치본에 실반영(§2·§7 계약 준수로 결정). ② hub 본문 폭 `max-w-6xl`→`max-w-7xl` 통일(§3 합류 — 홈·언론보도·비품·푸터·인쇄도구 셸 5곳, 페이지 내부의 좁은 콘텐츠 컬럼 `max-w-4xl`은 유지).
 - **v1.5 (2026-07-31)**: ① **스크롤 고정** — 네비게이션 바가 있는 사내 서비스는 헤더가 상단에
   붙어 따라온다(`sticky top-0 z-40`). 동반 조치 2건을 §2에 못박음: 헤더만 감싸는 래퍼 div 금지
   (claim 실사고), `<html>`에 `scroll-pt-20`(앵커·포커스 대상이 헤더 뒤로 숨는 회귀 방지 — Codex 지적).
@@ -256,4 +267,8 @@ export function PageShell({
   워드마크(흰색) + 짧은 영문 서비스명으로 교체. 원본 viewBox 의 아래 여백 탓에 밑선이 어긋나는
   문제는 `trim` + `items-baseline` 으로 해소(사용자 시각 QA 지적). ③ 브랜드와 네비 사이 세로 구분선(좌측 gap-6→gap-4). 서비스명 색은 워드마크와 같은 흰색.
   ④ 서비스명 표기를 §8 표에 명시(Console·Studio·MOU·Claims·Hub).
-- **v1.4 (2026-07-30)**: v1.3 미해결 2건 종결. ① `print:hidden`을 레지스트리 정본+5앱 설치본에 실반영(§2·§7 계약 준수로 결정). ② hub 본문 폭 `max-w-6xl`→`max-w-7xl` 통일(§3 합류 — 홈·언론보도·비품·푸터·인쇄도구 셸 5곳, 페이지 내부의 좁은 콘텐츠 컬럼 `max-w-4xl`은 유지).
+- **v1.6 (2026-07-31)**: **활성 탭 `aria-current="page"`**(§2 표·활성 탭 표시 규칙·§4 코드).
+  지금까지 현재 위치가 알약 배경으로만 표시돼 스크린리더 사용자에게는 전달되지 않았다.
+  비활성 탭은 속성 자체를 뺀다(`"false"` 는 일부 AT 가 읽음). ui-audit `header-aria-current`
+  가 세 조건(active 조건부·`"page"`·비활성 `undefined`)을 강제한다.
+  ※ 이 절의 v1.4/v1.5 순서가 뒤바뀌어 있어 함께 바로잡았다(내용 변경 없음).
