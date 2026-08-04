@@ -62,7 +62,20 @@
   - 입력: `w-full rounded-md bg-bg-default border border-border-default px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
   - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
   - 에러: `rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg` (#FCEEED / #8B4540)
+  - 인증 코드 필드 라벨 옆 **OTP 도움말**: `@maria/auth-primitives`의 `AuthOtpHelp` — `?` 아이콘(`h-4 w-4 cursor-help rounded-full border-border-default`), hover·키보드 포커스·모바일 탭 시 실제 인증 메일을 축소 재현한 팝오버. 팝오버는 떠 있는 층이라 그림자 허용. 메일 재현부는 외부 메일 모사라 마리아 토큰이 아닌 원문 색·서체(Helvetica·`#111827`)를 쓴다(실물과 같아야 사용자가 알아봄). 예시 코드는 가짜 고정값 852937. (v1.6)
 - 푸터: `<p className="mt-6 text-center text-xs text-text-muted">마리아의료재단 CX부</p>`
+
+### 3-1. 로그인 문구 표준 (v1.6, 2026-08-04 사용자 결정)
+
+사용자 노출 문구에서 **"가입"이라는 말을 쓰지 않는다** — 사내 SSO에 회원가입 개념이 없기 때문(계정은 이메일 인증만으로 생기고, 앱 권한은 신청·승인이다). 세 단어로 통일:
+
+| 개념 | 표준 용어 | 예 |
+|---|---|---|
+| 계정이 SSO에 있음/없음 | **등록** | "등록된 이메일은 즉시 로그인됩니다" · "등록되지 않은 이메일입니다" |
+| OTP 본인 확인 | **이메일 인증** | hub 신규 버튼 "인증하기" |
+| 앱 권한 요청(전 앱 공통) | **접근 신청** | popo·claim 신규 버튼 "접근 신청" · console "접근 승인" |
+
+운영자 화면·Slack 알림도 같은 용어를 쓴다(직원-운영자 용어 이원화 금지). 코드 식별자·계약 문서 내부 용어는 불변.
 
 ## 4. `@maria` 레지스트리 설치
 
@@ -137,6 +150,7 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
   앞 2토큰만 검사하고 있었다. ②**§1 브랜드 색**: `maria-green`·`popo-teal`·`bg-ivory` 의 **값**을
   아무도 안 봤다(§6 아래 주 참조). 5앱 실측 결과 **이탈 0**이라 앱 수정 없이 검사만 넓혔다 —
   로그인 카드의 `border` 처럼, 공백이 비어 있는지는 닫아 보기 전엔 알 수 없다.
+- **v1.6 (2026-08-04)**: §3 에 **OTP 도움말 부품(`AuthOtpHelp`)** 추가(사용자 결정 — 시안 A: `?` 아이콘 hover 시 실제 인증 메일 축소 재현) + **§3-1 로그인 문구 표준** 신설("가입" 금지 — 등록/이메일 인증/접근 신청 3용어, 전 앱·운영자 화면·Slack 공통). ui-audit `login(static)`에 `otpHelp` 항목 추가. 배경: 사용자 지적 "OTP만 넣으면 바로 쓰는데 '가입 완료'라고 나온다"(hub 실측 스크린샷).
 - **v1.5 (2026-07-31)**: §8 에 **hub §3 로그인 예외**(바깥 컨테이너·푸터) 추가 — `(bare)` 레이아웃 안에서 렌더되는 구조상 차이. 아울러 ui-audit 에 **§3 로그인 템플릿 검사(`login(static)`)** 를 신설했더니 **5앱 전부가 §3 의 `shadow-sm` 제거(v1 2026-07-08 결정)를 이행하지 않은 채** 돌고 있었다 — 원인은 레지스트리 정본 `AuthPrimitives.tsx` 에 `shadow-sm` 이 남아 있던 것. 문서만 고치고 구현을 안 고친 전형이라, 정본 수정 + 5앱 재동기로 이행했다. 규칙 자체는 변경 없음(§3 문구 그대로).
 - **v1.4 (2026-07-31)**: **§8 예외 표 신설**(비어 있던 절) — hub 페이지 제목 `text-[25px] font-bold`(2026-07-21 승인 시안) · hub 자체 호스팅 폰트 · popo 페이지 제목 없음(구조적)을 승인된 예외로 명문화. 폰트 행의 **`.min` 강제 해제** — 이 CSS 는 `@font-face` 한 줄(526B)이라 압축 이득이 없고 `.min` 이 오히려 588B 로 크다(실측). 고정 대상은 버전·variant 뿐. 아울러 ui-audit 의 `x-ui-standard` 마커 검사를 **폐기**했다 — 이 문서에 없는 규칙을 점검표가 단독으로 요구하던 것으로, 5앱 전부 MISSING 이 정상이었다(규칙 미채택).
 - **v1.3 (2026-07-31)**: 헤더 행에 활성 탭 `aria-current="page"` 추가(알약 배경은 시각 사용자에게만 현재 위치를 알린다). 상세 규격 = `internal-service-header-v1.md` v1.6.
