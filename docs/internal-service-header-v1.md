@@ -327,6 +327,14 @@ BrandLogo 는 `registryDependencies` 없는 순수 SVG 라 Clerk 와 무관하�
 > 고치고, `node scripts/ui-audit.mjs --static-only --app hub` 로 확인한다(2026-07-31 부터
 > hub 는 ui-audit 대상이다). 파일 사본은 `shasum` 으로 정본과 대조한다.
 
+### 6.5 헤더 링크 prefetch 를 꺼야 하는 앱 (labs)
+
+정본 AppHeader 의 `linkPrefetch?: boolean` prop(v1.9). 미지정 = Next 기본(다른 앱 변화 없음).
+`linkPrefetch={false}` 는 **헤더가 화면에 떠 있는 것만으로 링크 대상 페이지의 SSR·DB 조회가
+발화하면 안 되는 앱**용이다 — labs 는 유휴 DB(Neon autosuspend)를 헤더 prefetch 가 계속
+깨워 과금이 커지던 실사고(P6-C, 2026-07-07) 재발 방지로 이 값을 켠다(끈다). 브랜드 링크·네비
+탭 링크 양쪽에 적용된다. 일반 앱은 지정하지 말 것 — 체감 속도를 이유 없이 포기하게 된다.
+
 ### 6.3 UserMenu
 
 별도 패턴 — 정본 구현은 maria-ui 비공개 레지스트리 `@maria/user-menu`(`registry/components/UserMenu.tsx`, console·popo 정본의 byte-identical 복제층). 신규 앱은 `shadcn add @maria/user-menu`로 설치한다(@maria/tokens 동반 설치됨). 이니셜 아바타 + 이름·이메일·로그아웃만. Clerk의 `UserButton` 그대로 쓰지 말 것 (사내 도구에 불필요한 "계정 관리" 노출 방지).
@@ -344,6 +352,7 @@ BrandLogo 는 `registryDependencies` 없는 순수 SVG 라 Clerk 와 무관하�
 | popo-studio | popo-studio.maria-baby.com | Studio | `max-w-7xl` | 미디어 생성 |
 | mou-admin | mou-admin.maria-baby.com | MOU | `max-w-7xl` | 진료 접수 (토큰 클래스명만 `on-dark` 등으로 다름, 값 동일) |
 | hub | hub.maria-baby.com | Hub | `max-w-7xl` | 분원 허브. Clerk 게이트 이식본(§6.4) — 정본 파일을 직수입하지 않으므로 워드마크도 사본(`components/brand-logo.tsx`, 정본과 byte-identical)이다. 정본이 바뀌면 **손으로 따라와야** 하고, 그 드리프트는 ui-audit 이 잡는다. 좁은 콘텐츠 페이지(자료실·신청 등)의 `max-w-4xl` 본문 컬럼은 §3 위반 아님(페이지 내부 컬럼 폭) |
+| labs | labs.maria-baby.com | Labs | `max-w-7xl` | 배양기 보조 모니터링. **운영자 영역(`/`·`/trends`·`/alerts`·`/recipients`)만 헤더** — 공개 토큰 페이지(`/incubators/*`·`/overview/*`)는 Clerk JS 미주입 lean 유지라 헤더 비대상. `linkPrefetch={false}`(§6.5 — DB wake 방지) |
 
 **5앱 전수 적용 완료(2026-07-31)** — 헤더 계약(워드마크 브랜드·`sticky top-0 z-40`·`scroll-pt-20`·
 활성 탭 `aria-current`)이 5앱 모두에 들어갔고, 5앱 모두 ui-audit 대상이다.
@@ -392,3 +401,6 @@ BrandLogo 는 `registryDependencies` 없는 순수 SVG 라 Clerk 와 무관하�
   접은 뒤 320px 가로 넘침 0 · 탭 자리 73px · 활성 탭 100%, **1024px 이상 변화 없음**.
   이 규칙은 정적 감사로 강제하지 않는다(렌더해야 알 수 있고 파일명으로 대상을 못 가린다) —
   헤드리스 실측 절차로 대신한다. 대가: 좁은 화면에서 `사용 안내`·`휴지통` 에 헤더로 못 간다.
+- **v1.9 (2026-08-04)**: 정본 AppHeader 에 `linkPrefetch?: boolean` prop 추가(§6.5 — 미지정=Next
+  기본이라 기존 4앱 시각·동작 변화 0). labs 합류(§8 — 6번째 적용 앱, 운영자 영역 한정 헤더·
+  `linkPrefetch={false}`·서비스명 Labs).
