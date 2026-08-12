@@ -4,8 +4,10 @@
 + `tokens/design-tokens.css`(토큰 값). 다른 어디와 값이 갈리면 **여기가 우선한다.**
 
 소비 구조: 이 문서의 규칙을 `dyshin-maria/maria-ui` 의 비공개 레지스트리 `@maria/*` 가
-코드로 구현하고, 사내 5앱(console·popo-studio·mou-admin·claim·hub)이 그걸 설치해 쓴다.
+코드로 구현하고, 사내 7앱(console·popo-studio·mou-admin·claim·hub·labs·sns)이 그걸 설치해 쓴다.
 hub 만 `components.json` 이 없어 손복사본이다.
+(2026-08-12 정정: 오래 "5앱"으로 적혀 있어 **labs·sns 를 빠뜨릴 위험**이 있었다.
+앱 목록의 기계 정본은 `maria-ui/scripts/ui-audit.config.mjs` 의 `APPS` 다.)
 
 ## 문서를 고칠 때
 
@@ -13,7 +15,7 @@ hub 만 `components.json` 이 없어 손복사본이다.
 
 1. `maria-ui` 의 `registry/` 구현 갱신
 2. `maria-ui/scripts/ui-audit.mjs` 에 그 규칙을 강제하는 검사 추가·갱신
-3. 5앱 재동기(4앱은 `shadcn add --overwrite`, hub 는 손복사)
+3. 7앱 재동기(6앱은 `shadcn add --overwrite`, hub 는 손복사)
 4. `node ~/maria-ui/scripts/ui-audit.mjs --static-only` 로 전수 확인
 5. 문서 끝 **변경 이력에 버전 한 줄** 추가
 
