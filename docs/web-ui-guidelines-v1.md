@@ -70,7 +70,11 @@
 - 폼 카드: `<… className="w-full max-w-sm space-y-4 rounded-lg border border-border-default bg-bg-default p-6">` (2026-07-08: 장식용 `shadow-sm` 제거 — 경계는 1px border로. 그림자는 드롭다운·모달 등 떠 있는 층에만.)
   - 입력: `w-full rounded-md bg-bg-default border border-border-default px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
   - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
-  - 에러: `<div role="alert" className="rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg">` (#FCEEED / #8B4540). **`role="alert"` 는 필수다** — 앱들은 `{error && <AuthError …/>}` 로 오류가 난 순간 이 노드를 새로 끼워 넣으므로, 이 속성이 없으면 화면에는 사유가 떴는데 스크린리더에는 아무 일도 안 일어난 것과 같다(눈으로 볼 수 없는 직원은 "다음"을 눌러도 왜 안 넘어가는지 알 수 없다). `role="alert"` 가 `aria-live="assertive"`·`aria-atomic` 을 함의하므로 그 둘은 따로 적지 않는다. (v1.8)
+  - 에러: `<div role="alert" className="rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg">` (#FCEEED / #8B4540). **`role="alert"` 는 필수다** — 이 속성이 없으면 화면에는 사유가 떴는데 스크린리더에는 아무 일도 안 일어난 것과 같다(눈으로 볼 수 없는 직원은 "다음"을 눌러도 왜 안 넘어가는지 알 수 없다). `role="alert"` 가 `aria-live="assertive"`·`aria-atomic` 을 함의하므로 그 둘은 따로 적지 않는다. (v1.8)
+  - **에러 영역은 항상 그려 둔다 — 조건부로 감싸지 않는다.** (v1.9) 호출부는 `{error && <AuthError …/>}` 가 아니라 `<AuthError message={error} seq={errorSeq} />` 다. 오류가 없을 때는 `sr-only` 로 남아 화면·레이아웃에 영향을 주지 않는다. 이유 둘:
+    ① **live region 은 글이 들어오기 전부터 DOM 에 있어야 안내가 확실하다.** 영역과 글이 같은 순간에 삽입되면 읽지 않는 스크린리더가 있다.
+    ② **같은 오류가 연달아 나면 DOM 이 안 바뀌어 재발표가 안 된다.** 인증번호를 두 번 연속 틀리면 두 번째는 무음이었다. 특히 동기 검증 오류는 React batching 으로 `null → 같은 문자열` 이 커밋조차 되지 않는다. → 앱이 **오류 발생 횟수 `seq`** 를 넘기면 안쪽 노드가 교체되어 매번 다시 읽힌다.
+  - **입력 필드는 오류와 연결한다.** (v1.9) 오류가 있을 때 해당 입력에 `aria-invalid="true"` + `aria-describedby={AUTH_ERROR_ID}`. 연결이 없으면 필드로 이동했을 때 "무엇이 잘못됐는지"가 다시 안 읽힌다(오류 발표를 놓쳤거나 나중에 되짚는 경우).
   - 인증 코드 필드 라벨 옆 **OTP 도움말**: `@maria/auth-primitives`의 `AuthOtpHelp` — `?` 아이콘(`h-4 w-4 cursor-help rounded-full border-border-default`), hover·키보드 포커스·모바일 탭 시 실제 인증 메일을 축소 재현한 팝오버. 팝오버는 떠 있는 층이라 그림자 허용. 메일 재현부는 외부 메일 모사라 마리아 토큰이 아닌 원문 색·서체(Helvetica·`#111827`)를 쓴다(실물과 같아야 사용자가 알아봄). 예시 코드는 가짜 고정값 852937. (v1.6)
 - 푸터: `<p className="mt-6 text-center text-xs text-text-muted">마리아의료재단 CX부</p>`
 
@@ -151,6 +155,14 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.9 (2026-08-12)**: §3 에러 박스 계약을 **속성에서 구조로** 넓혔다. v1.8 은 `role="alert"` 만 요구했는데,
+  그것만으로는 두 구멍이 남아 있었다. ①**영역과 글이 동시에 삽입되면** 안 읽는 스크린리더가 있다 →
+  오류가 없을 때도 `sr-only` 로 노드를 남기는 **상시 live region** 으로 전환. ②**같은 오류가 연속되면
+  DOM 이 안 바뀌어 무음** — 특히 동기 검증 오류는 React batching 으로 `null → 같은 문자열` 이 커밋조차
+  되지 않는다 → 앱이 넘기는 **`seq`**(오류 발생 횟수)로 안쪽 노드를 교체해 매번 재발표. 추가로 입력 필드에
+  **`aria-invalid` + `aria-describedby`** 연결을 요구한다. ui-audit `login-a11y-call(static)` 신설 —
+  정의가 아니라 **호출부**를 본다(조건부 마운트·`seq` 미전달을 FAIL).
+  ⚠ **v1.8 의 검증은 전부 정적 검사였다** — 이번에 처음 VoiceOver 실측으로 확인한다.
 - **v1.8 (2026-08-12)**: §3 **에러 박스에 `role="alert"` 필수** 명문화. 규칙 신설이 아니라 **7앱 전부가
   빠뜨리고 있던 접근성 공백을 닫은 것** — 로그인 실패 사유가 화면에만 뜨고 스크린리더에는 아무 일도
   안 일어나던 상태였다(`{error && <AuthError …/>}` 로 새로 삽입되는 노드라 이 속성이 유일한 통지 수단).
