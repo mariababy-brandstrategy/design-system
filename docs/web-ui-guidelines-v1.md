@@ -70,7 +70,7 @@
 - 폼 카드: `<… className="w-full max-w-sm space-y-4 rounded-lg border border-border-default bg-bg-default p-6">` (2026-07-08: 장식용 `shadow-sm` 제거 — 경계는 1px border로. 그림자는 드롭다운·모달 등 떠 있는 층에만.)
   - 입력: `w-full rounded-md bg-bg-default border border-border-default px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
   - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
-  - 에러: `rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg` (#FCEEED / #8B4540)
+  - 에러: `<div role="alert" className="rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg">` (#FCEEED / #8B4540). **`role="alert"` 는 필수다** — 앱들은 `{error && <AuthError …/>}` 로 오류가 난 순간 이 노드를 새로 끼워 넣으므로, 이 속성이 없으면 화면에는 사유가 떴는데 스크린리더에는 아무 일도 안 일어난 것과 같다(눈으로 볼 수 없는 직원은 "다음"을 눌러도 왜 안 넘어가는지 알 수 없다). `role="alert"` 가 `aria-live="assertive"`·`aria-atomic` 을 함의하므로 그 둘은 따로 적지 않는다. (v1.8)
   - 인증 코드 필드 라벨 옆 **OTP 도움말**: `@maria/auth-primitives`의 `AuthOtpHelp` — `?` 아이콘(`h-4 w-4 cursor-help rounded-full border-border-default`), hover·키보드 포커스·모바일 탭 시 실제 인증 메일을 축소 재현한 팝오버. 팝오버는 떠 있는 층이라 그림자 허용. 메일 재현부는 외부 메일 모사라 마리아 토큰이 아닌 원문 색·서체(Helvetica·`#111827`)를 쓴다(실물과 같아야 사용자가 알아봄). 예시 코드는 가짜 고정값 852937. (v1.6)
 - 푸터: `<p className="mt-6 text-center text-xs text-text-muted">마리아의료재단 CX부</p>`
 
@@ -151,6 +151,12 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.8 (2026-08-12)**: §3 **에러 박스에 `role="alert"` 필수** 명문화. 규칙 신설이 아니라 **7앱 전부가
+  빠뜨리고 있던 접근성 공백을 닫은 것** — 로그인 실패 사유가 화면에만 뜨고 스크린리더에는 아무 일도
+  안 일어나던 상태였다(`{error && <AuthError …/>}` 로 새로 삽입되는 노드라 이 속성이 유일한 통지 수단).
+  ui-audit 에 `login-a11y(static)` 신설 — **속성 유무가 아니라 값까지** 본다(`role="status"`·
+  `role="alertdialog"` 같은 그럴듯한 오답이 통과하지 않게. 변이 7종으로 판별력 확인).
+  정본 `AuthPrimitives.tsx` 수정 + 7앱 재동기로 이행. 발견 경로 = 로그인 Enter 수정 작업의 잔여 표류 점검.
 - **v1.7 (2026-08-04)**: §1-1 적용 현황 갱신 — labs 합류로 사내 웹앱 헤더 **6/6**(운영자 영역 한정). 헤더 규격 포인터 v1.9(`linkPrefetch` 옵션 신설·labs 행 추가)로 갱신. 규칙 변경 없음.
 - **v1.6 (2026-07-31)**: **규칙 변경 없음 — 검사 범위만 규격을 따라잡았다.** 이 문서가 이미 적어둔 값 중
   ui-audit 이 안 보던 두 자리를 닫았다. ①**§1 페이지 제목**: 규격 5토큰 중 `tracking-tight` 와 색 토큰
