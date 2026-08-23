@@ -2,11 +2,11 @@
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "name": "마리아병원 디자인 시스템",
   "version": "2.1",
-  "description": "마리아의료재단 색상·타이포 공식 토큰. v2.1 실무자용 기준.",
+  "description": "마리아의료재단 색상·타이포 공식 토큰. 정본 문서 = design-system docs/web-ui-guidelines-v1.md(웹, §1-4 액션 색·위계) + v2.1 실무자용(인쇄·홍보). 2026-08-23 §1-4 대비 하한(텍스트 4.5:1 · 비텍스트 3.0:1) 목표값 반영.",
   "color": {
     "core": {
       "maria-green":  { "value": "#1E3131", "description": "병원 대표색. 가장 격식 있고 공식적인 느낌. 제목·공식 버튼·표지 배경." },
-      "popo-teal":    { "value": "#1D9581", "description": "마스코트 캐릭터 POPO에서 추출. v2.1에서 공식 강조색으로 도입. CTA·링크 전용." },
+      "popo-teal":    { "value": "#1D9581", "description": "마스코트 캐릭터 POPO에서 추출. 비텍스트 전용(아이콘·게이지·상태 표식·장식) — 글자를 얹지도, 글자로 쓰지도 않는다(§1-4, 흰 3.70). 글자가 걸리면 popo-teal-700." },
       "maria-pink":   { "value": "#E0A793", "description": "따뜻·모성적 이미지. 부드러운 강조, 따뜻한 콘텐츠." },
       "maria-ivory":  { "value": "#F4EEED", "description": "배경 구분. 흰색과 구분이 필요할 때의 베이스 배경." }
     },
@@ -15,8 +15,9 @@
         "50":  { "value": "#EFF3F3", "description": "연한 그린 — 정보 박스·안내 영역 배경" },
         "100": { "value": "#D2DCDC", "description": "구분선·보더" },
         "300": { "value": "#A8BABA", "description": "어두운 배경 위 보조 텍스트" },
-        "400": { "value": "#7E9897", "description": "보조 정보 — 날짜·캡션 (14px 이상 굵은 글씨만)" },
-        "500": { "value": "#6E827D" },
+        "400": { "value": "#7E9897", "description": "장식 전용 — 텍스트·식별 테두리 금지(§1-4: 아이보리 2.68). 옛 '14px 이상 굵은 글씨만' 단서 폐지" },
+        "500": { "value": "#6E827D", "description": "= border-input (식별 테두리)" },
+        "550": { "value": "#5A6F6B", "description": "= text-muted. 보조 텍스트 하한 충족용 신설(§1-4: 흰 5.36 · 아이보리 4.67)" },
         "600": { "value": "#4A605C", "description": "본문 텍스트 기본값" },
         "700": { "value": "#2D4544" },
         "900": { "value": "#1E3131", "description": "제목·공식 버튼 (코어 마리아 그린과 동일)" }
@@ -24,9 +25,9 @@
       "popo-teal": {
         "50":  { "value": "#E6F5F2", "description": "연한 틸 — 이벤트 배너·강조 영역 배경" },
         "200": { "value": "#A3DDD4", "description": "장식용" },
-        "500": { "value": "#1D9581", "description": "강조 버튼·링크 (코어 포포 틸과 동일)" },
-        "700": { "value": "#167565", "description": "마우스 오버" },
-        "900": { "value": "#0E4D43", "description": "연한 틸 배경 위 진한 텍스트" }
+        "500": { "value": "#1D9581", "description": "비텍스트 전용 — §1-4 (코어 포포 틸과 동일)" },
+        "700": { "value": "#167565", "description": "확정 톤 1차 채움·링크(§1-4, 흰 5.58 · 아이보리 4.86)" },
+        "900": { "value": "#0E4D43", "description": "확정 톤 채움 hover · 연한 틸 배경 위 진한 텍스트" }
       },
       "maria-pink": {
         "50":  { "value": "#FDF6F4", "description": "연한 핑크 — 따뜻한 섹션 배경 (성공 사례·후기)" },
@@ -34,15 +35,15 @@
         "200": { "value": "#F2D5CA", "description": "장식용" },
         "500": { "value": "#E0A793", "description": "부드러운 버튼 (코어 마리아 핑크와 동일)" },
         "700": { "value": "#C88973", "description": "마우스 오버" },
-        "900": { "value": "#A86B56", "description": "진한 강조" }
+        "900": { "value": "#9A5F4B", "description": "진한 강조 (§1-4 개정: 舊 #A86B56 은 흰 4.28 미달 → 흰 5.11 · 연핑크 4.78)" }
       }
     },
     "semantic": {
       "text": {
         "primary":  { "value": "#1E3131", "description": "제목·강조 텍스트" },
         "body":     { "value": "#4A605C", "description": "본문 텍스트" },
-        "muted":    { "value": "#7E9897", "description": "보조 정보 — 14px 이상 굵은 글씨에서만 사용" },
-        "link":     { "value": "#1D9581", "description": "링크·전화번호·클릭 유도 텍스트" },
+        "muted":    { "value": "#5A6F6B", "description": "보조 정보 (= maria-green-550. §1-4 개정: 舊 #7E9897 은 흰 3.08 미달)" },
+        "link":     { "value": "#167565", "description": "링크·전화번호·클릭 유도 텍스트 (= popo-teal-700. §1-4 개정: 舊 #1D9581 은 흰 3.70 미달. 본문 속 인라인 링크는 평상시 밑줄 병행)" },
         "on-dark":  { "value": "#F4EEED", "description": "마리아 그린 배경 위 글자" }
       },
       "background": {
@@ -54,13 +55,14 @@
         "dark":     { "value": "#1E3131", "description": "표지·헤더·푸터" }
       },
       "border": {
-        "default": { "value": "#E8DDDA" },
+        "default": { "value": "#E8DDDA", "description": "장식 전용(카드 테두리·구분선) — 식별 테두리로 쓰지 않는다(§1-4: 흰 1.33)" },
+        "input":   { "value": "#6E827D", "description": "식별 테두리(입력 외곽선 등) 신설 — = maria-green-500 (§1-4: 밝은 배경 7종 전부 ≥ 3.0, 배경별 분기 불요)" },
         "subtle":  { "value": "#EFF3F3" }
       },
       "state": {
         "success": { "bg": { "value": "#E8F3ED" }, "fg": { "value": "#3D6B54" } },
-        "warning": { "bg": { "value": "#FBF4E4" }, "fg": { "value": "#8A6E30" } },
-        "error":   { "bg": { "value": "#FCEEED" }, "fg": { "value": "#8B4540" } },
+        "warning": { "bg": { "value": "#FBF4E4" }, "fg": { "value": "#7E6429", "description": "§1-4 개정: 舊 #8A6E30 은 warning-bg 위 4.40 미달 → 5.12 · 흰 5.61. 경고 톤 1차 채움 겸용" }, "fg-hover": { "value": "#53421B", "description": "경고 톤 채움 hover 신설(§1-4 — 확정 톤 700→900 스텝(≈RGB×0.66 감쇠)과 같은 방법, 흰 9.71)" } },
+        "error":   { "bg": { "value": "#FCEEED" }, "fg": { "value": "#8B4540", "description": "파괴 톤 1차 채움 겸용(흰 6.95)" }, "fg-hover": { "value": "#5C2E2A", "description": "파괴 톤 채움 hover 신설(§1-4 — 같은 ≈×0.66 감쇠, 흰 11.17)" } },
         "info":    { "bg": { "value": "#EFF3F3" }, "fg": { "value": "#4A605C" } },
         "active":  { "bg": { "value": "#E6F5F2" }, "fg": { "value": "#0E4D43" } }
       },
@@ -70,8 +72,8 @@
           "description": "격식 있는 안내·진료 예약·문의"
         },
         "emphasis": {
-          "bg": { "value": "#1D9581" }, "fg": { "value": "#FFFFFF" },
-          "description": "눈에 띄어야 하는 행동 유도 — 온라인 예약, 이벤트 신청"
+          "bg": { "value": "#167565" }, "fg": { "value": "#FFFFFF" },
+          "description": "눈에 띄어야 하는 행동 유도 — 온라인 예약, 이벤트 신청 (= popo-teal-700. §1-4 개정: 舊 #1D9581 은 흰 글자 3.70 미달 → 5.58)"
         },
         "soft": {
           "bg": { "value": "#E0A793" }, "fg": { "value": "#1E3131" },

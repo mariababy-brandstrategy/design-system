@@ -3,7 +3,7 @@
 마리아의료재단 **사내 웹 서비스**(로그인 뒤 직원이 쓰는 도구)를 만들 때 따라야 하는 단일 기준.
 신규 앱은 **이 문서에서 시작**한다.
 
-레퍼런스 구현: **claim**(claims.maria-baby.com) · **console**(console.maria-baby.com) · **popo-studio**(popo-studio.maria-baby.com) · **mou-admin**(mou-admin.maria-baby.com) — 4앱 모두 이 기준에 맞춰져 있음.
+레퍼런스 구현: **console**(console.maria-baby.com) · **popo-studio**(popo-studio.maria-baby.com) · **mou-admin**(mou-admin.maria-baby.com). (v1 추출 당시의 4앱 중 **claim 은 2026-08-22 앱 폐기** — 아래 본문의 claim 언급은 실측 당시의 이력 기록이다.)
 
 > **이 repo(design-system)가 단일 출처(SoT)다.** 토큰값은 `tokens/design-tokens.css`, 헤더는 `docs/internal-service-header-v1.md`, 전체 규칙은 본 문서.
 > 코드 부품(토큰·컴포넌트)을 앱에 **설치**하는 건 shadcn 레지스트리 **`@maria`**(github `dyshin-maria/maria-ui`, https://maria-ui.vercel.app)가 담당 — 레지스트리는 이 repo의 토큰을 *복제*할 뿐, 값이 갈리면 **이 repo가 우선**이다.
@@ -35,7 +35,7 @@
 > "마우스 오버" 는 500의 hover 용도를 적은 것이지 700의 유일한 용도가 아니다.
 > → **v1.14 에서 이 선례는 §1-4 의 일반 규칙으로 승격됐다**(글자가 걸리는 틸은 전부 700).
 
-기술 스택(현 7앱 — console·popo-studio·mou·claim·hub·labs·sns): Next.js 16 + Tailwind v4 + Clerk + Pretendard.
+기술 스택(현 6앱 — console·popo-studio·mou·hub·labs·sns): Next.js 16 + Tailwind v4 + Clerk + Pretendard. (claim 은 2026-08-22 폐기 — 로컬 repo 가 남아 있어 ui-audit 대상 목록에는 아직 있다.)
 > 앱 목록의 **기계 정본은 maria-ui `scripts/ui-audit.config.mjs` 의 `APPS`** 다 — 이 문장과 갈리면 그쪽이 맞다.
 > (2026-08-21 정정: 오래 "4앱"으로 적혀 있어 labs·sns·hub 를 빠뜨릴 위험이 있었다.)
 
@@ -272,8 +272,12 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 |---|---|---|---|
 | 중립 | `maria-green` #1E3131 (13.65) | `maria-green-700` #2D4544 (10.26) | #1E3131 · 평문은 `text-body` #4A605C 허용 |
 | 확정 | **`popo-teal-700` #167565** (5.58) | `popo-teal-900` #0E4D43 (9.72) | #167565 (흰 5.58 · 아이보리 4.86) |
-| 경고 | `state-warning-fg` **#7E6429**(개정 목표값) (5.61) | (토큰 단계에서 신설) | #7E6429 |
-| 파괴 | `state-error-fg` #8B4540 (6.95) | (토큰 단계에서 신설) | #8B4540 |
+| 경고 | `state-warning-fg` #7E6429 (5.61) | `state-warning-fg-hover` #53421B (9.71) | #7E6429 |
+| 파괴 | `state-error-fg` #8B4540 (6.95) | `state-error-fg-hover` #5C2E2A (11.17) | #8B4540 |
+
+- 경고·파괴의 hover 값은 v1.15 토큰 단계에서 신설했다 — 도출은 확정 톤의 채움→hover 스텝
+  (`popo-teal-700`→`900`, ≈RGB×0.66 sRGB 감쇠 — 기존 스텝 자체가 반올림 근사라 "동일 수식"이
+  아니라 "같은 방법"이다)이고, 채움이 어두워지는 방향이라 흰 글자 대비는 오르기만 한다(9.71 · 11.17).
 
 - **`popo-teal`(500, `#1D9581`)에는 글자를 얹지도, 글자로 쓰지도 않는다** — 흰 글자 3.70 ·
   흰 배경 위 글자 3.70 으로 텍스트 하한 미달. **비텍스트**(아이콘·게이지·상태 표식·장식)로는
@@ -293,7 +297,10 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 
 ### 하한이 지금 값에 요구하는 개정 — 토큰 목표값
 
-| 토큰 | 현행(대비) | 개정 목표 | 개정 후 대비 |
+> **v1.15 (2026-08-23): 아래 표는 토큰 파일에 반영 완료됐다.** 표는 개정의 근거 기록으로 남긴다 —
+> 현행 값의 단일 출처는 `tokens/design-tokens.css`(=`.json`)다.
+
+| 토큰 | 개정 전(대비) | 개정 목표 | 개정 후 대비 |
 |---|---|---|---|
 | `--text-link` | #1D9581 (흰 3.70 · 아이보리 3.23) | **#167565** | 5.58 · 4.86 |
 | `--btn-emphasis-bg` | #1D9581 (흰 글자 3.70) | **#167565** | 5.58 |
@@ -311,11 +318,18 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 
 ### 이행 상태 (정직 표기)
 
-- 이 절은 **규칙 확정까지다.** `tokens/design-tokens.css` 값 반영 → maria-ui 레지스트리 →
-  **ui-audit 기계검사** → 앱 이행 순서로 후속 단계가 편성돼 있다(전수조사 PLAN §8 종료 게이트 —
-  접근성은 **검사가 앱 수정보다 앞**이다. 검사 없이 제품부터 고치면 다음 커밋에 다시 무너진다).
-- 토큰 파일이 아직 옛 값인 동안은 **이 절의 표가 우선**한다(SoT).
-- **적용 앱 0.** §1-2·§1-3 과 같은 방식으로, 토큰·검사가 갖춰진 뒤 각 앱을 손볼 때 수렴한다.
+- **토큰·배포층·검사까지 반영 완료(2026-08-23, v1.15).** `tokens/design-tokens.css`·`.json`,
+  maria-ui 레지스트리(`@maria/theme`·`@maria/tokens`), ui-audit 검사 3종(`action-tokens` ·
+  `action-contrast` · `teal-text`, 변이 시험 18케이스로 검출력 확인)이 이 절의 값으로 정렬됐다.
+  순서는 PLAN §8 게이트대로 — 접근성은 **검사가 앱 수정보다 앞**이다(검사 없이 제품부터 고치면
+  다음 커밋에 다시 무너진다). 남은 단계는 **앱 이행**뿐이다.
+- 토큰 파일이 이 절과 같은 값이 되었으므로 옛 "토큰이 옛 값인 동안은 표가 우선" 단서는 소멸 —
+  값이 갈리면 언제나처럼 design-system 저장소(이 문서 + 토큰 파일)가 우선한다.
+- **적용 앱 0.** §1-2·§1-3 과 같은 방식으로 각 앱을 손볼 때 수렴한다. 앱별 채택 선언 =
+  maria-ui `ui-audit.config.mjs` APPS 의 `s14adopted: true` — 그 전까지 "이행 대기"(구값·미신설)는
+  WARN(비차단)이고, **구·신 어느 정본에도 없던 제3의 값은 채택 여부와 무관하게 즉시 FAIL** 이다.
+  기계가 못 보는 규칙(hover 전용 식별·화면당 채움 1개·톤 승격 판정)은 검사 모듈 머리 주석에
+  정직 표기했고 §8 사전 확인 게이트가 맡는다.
 - **확인 게이트(되돌릴 수 없는 행동의 확인 절차)는 이 절의 범위가 아니다** — 색은 게이트를 대체하지
   못한다. 전수조사 F-6(B4·B5 41곳 중 33곳 게이트 없음)·F-7(금전 15곳 전부 원클릭)의 처분은 별도로
   진행된다.
@@ -336,14 +350,15 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 
 ## 3. 로그인 페이지 템플릿
 
-4앱 동일(claim·console·popo·mou). 공개 화면이라 미리보기로도 검증 가능.
+전 앱 동일 템플릿(2026-06 claim·console·popo·mou 4앱에서 추출 — claim 은 2026-08-22 폐기, 현재는 hub·labs·sns 포함 전 함대가 같은 규격). 공개 화면이라 미리보기로도 검증 가능.
 
 - 바깥: `<main className="flex min-h-screen flex-col items-center justify-center bg-bg-ivory p-6">`
 - 제목 블록: `<div className="mb-6 text-center">` 안에 `<h1 className="text-2xl font-bold tracking-tight text-text-primary">{앱이름}</h1>` + `<p className="mt-1 text-sm text-text-body">{한 줄 설명}</p>`
 - 폼 카드: `<… className="w-full max-w-sm space-y-4 rounded-lg border border-border-default bg-bg-default p-6">` (2026-07-08: 장식용 `shadow-sm` 제거 — 경계는 1px border로. 그림자는 드롭다운·모달 등 떠 있는 층에만.)
   - 입력: `w-full rounded-md bg-bg-default border border-border-default px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
     (⚠ v1.14: 테두리는 §1-4 에 따라 `border-border-input`(#6E827D)으로 **이행 예정** — `--border-default` 1.33 은
-    식별 테두리 하한 3.0 미달. 토큰·검사 단계에서 정본 부품·ui-audit `login(static)`·7앱을 **함께** 갱신한다.
+    식별 테두리 하한 3.0 미달. v1.15 에서 `--border-input` 토큰은 신설 완료 — 남은 것은 정본 부품
+    (AuthPrimitives)·ui-audit `login(static)`·7앱 재동기이며, 셋은 **한 묶음으로** 갱신한다.
     그 전까지는 현행 클래스가 검사 기준이다 — 문서만 앞서 가면 검사와 어긋난다.)
   - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
   - 에러: `<div role="alert" className="rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg">` (#FCEEED / #8B4540). **`role="alert"` 는 필수다** — 이 속성이 없으면 화면에는 사유가 떴는데 스크린리더에는 아무 일도 안 일어난 것과 같다(눈으로 볼 수 없는 직원은 "다음"을 눌러도 왜 안 넘어가는지 알 수 없다). `role="alert"` 가 `aria-live="assertive"`·`aria-atomic` 을 함의하므로 그 둘은 따로 적지 않는다. (v1.8)
@@ -441,6 +456,17 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.15 (2026-08-23)**: **§1-4 토큰 목표값을 토큰·배포층·검사에 반영 — 규칙이 실물이 된 판.**
+  `tokens/design-tokens.css`·`.json` 개정 5종(`text-link`·`btn-emphasis-bg` #167565 ·
+  `text-muted` #5A6F6B · `state-warning-fg` #7E6429 · `maria-pink-900` #9A5F4B) + 신설 4종
+  (`maria-green-550` · `border-input` #6E827D · 경고/파괴 채움 hover `state-warning-fg-hover`
+  #53421B·`state-error-fg-hover` #5C2E2A — 도출은 확정 톤 700→900 스텝(≈RGB×0.66 감쇠)과 같은 방법) +
+  역할 축소 주석 3건(`popo-teal` 비텍스트 전용 · `border-default` 장식 전용 · `maria-green-400`
+  장식 전용). maria-ui 레지스트리(`@maria/theme` primary/sidebar-primary #167565 ·
+  muted-foreground #5A6F6B · input #6E827D · chart-4 #7E6429, `@maria/tokens` 미러) 동시 갱신.
+  ui-audit 에 §1-4 검사 3종 신설(`action-tokens` 값 · `action-contrast` WCAG 실계산 ·
+  `teal-text` 글자 금지 — 변이 시험 18케이스, 앱별 `s14adopted` 단계 도입, 검출 한계 정직 표기).
+  "토큰이 옛 값인 동안 표 우선" 단서 소멸. 적용 앱 0 유지 — 남은 단계는 앱 이행.
 - **v1.14 (2026-08-23)**: **§1-4 액션 색·위계 신설 — 정본이 없던 자리를 채운 것**(§1-2 와 같은 성질).
   일반 화면 버튼 색 규칙이 §3 로그인 템플릿뿐이라 같은 "저장" 버튼이 앱마다 틸/딥그린으로 갈려
   있었다. 디자인 전수조사(maria-ui `docs/census/`)의 업무 행동 분류 466행 실측과 사용자 결정
