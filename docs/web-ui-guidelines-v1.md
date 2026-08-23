@@ -342,6 +342,76 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 
 ---
 
+## 1-5. 다이얼로그 — 시스템 알럿 대체 (v1.17, 2026-08-24 신설)
+
+제품 화면에서 **`window.alert` / `window.confirm` / `window.prompt` 를 쓰지 않는다**
+(사용자 결정 2026-08-23, 마리아·sidoyu 공통). 브라우저 기본 팝업은 스타일을 못 입히고,
+렌더를 통째로 막고, 창 상단에 떠서 어느 화면의 물음인지 알 수 없다.
+
+### 규칙
+
+- 대체 구현 정본 = **`@maria/modal`** — `AlertDialog`(알림) · `ConfirmDialog`(확인/취소,
+  `tone=default|warning`) · `ReasonDialog`(감사 기록용 사유 입력, 최소 길이 게이트) +
+  공용 껍데기 `ModalShell`. 네이티브 `<dialog>` + `showModal()` 기반이라 포커스 가두기·
+  배경 inert·Escape 처리를 브라우저 top layer 에 위임한다.
+- **div 오버레이 다이얼로그 자작 금지.** focus trap·포커스 복귀가 수작업이 되고, 실제로
+  그 부채가 남았던 선행 구현(mou 舊 modal.tsx)이 이 정본의 반면교사다. 앱 고유
+  다이얼로그가 필요하면 `ModalShell` 위에 조합한다.
+- 계약 5항목(설치본이 지켜야 하는 동작 — 정본 파일 머리 주석과 동일):
+  1. **열림 = 마운트**(open prop 없음, 부모 조건부 렌더). 닫힘 = onClose/onCancel →
+     부모 state 제거 → unmount **단일 경로**(Escape 도 preventDefault 후 같은 경로).
+     같은 자리에서 용건만 바꿔 연속 재사용하면 `key` 로 강제 remount(unmount 가 실제로
+     일어나야 입력 상태가 소거된다).
+  2. **초기 포커스 = 명시 지정**(showModal 직후 ref.focus) — Alert=확인 버튼,
+     Confirm=취소 버튼(안전 기본값), Reason=사유 입력란. DOM 순서에 맡기지 않는다 —
+     message 가 ReactNode 라 소비처가 링크를 넣으면 "첫 focusable"이 조용히 바뀐다
+     (Codex 2026-08-24 지적으로 초판의 DOM 순서 위임을 명시 지정으로 개정).
+  3. 닫힌 뒤 **열기 전 요소로 포커스 복귀 시도**(preventScroll — 여는 사이 opener 가
+     disabled 되면 복귀할 곳이 없어 시도만: 수용된 한계).
+  4. **pending=true 동안 컴포넌트가 제공하는 닫힘 경로**(Escape·바깥 클릭·취소)를
+     차단한다. **절대 잠금 보장이 아니다** — 새로고침·뒤로가기는 범위 밖이고, 브라우저가
+     cancel 없이 강제로 닫으면(연속 Escape 등) onClose 로 부모 state 를 동기화한다.
+  5. **동시 modal 1개 — 중첩 금지.** 필요하면 부모가 순차로 연다.
+- 색은 §1-4 를 따른다: 확정 톤 버튼 `popo-teal-700`(+hover `900`) + **흰 글자**
+  (`btn-emphasis-fg`=#FFF — 아이보리 아님) · 경고 톤 `state-warning-fg`(+hover 는 전용
+  토큰 `state-warning-fg-hover`) · 취소 버튼·사유 입력 외곽선 `border-input`(식별 테두리).
+- 한글 사유 입력의 Enter 는 **IME 조합 확정 Enter 를 제출로 오인하지 않는다**
+  (isComposing 가드 — 정본에 포함, 지우면 modal-canonical 이 잡는다).
+- 다이얼로그는 "떠 있는 층"이라 그림자 허용(§3 의 카드 shadow 금지와 다른 층위 —
+  그 조항 원문이 이미 "그림자는 드롭다운·모달 등 떠 있는 층에만"이라고 예외를 명시한다).
+
+### 검사 (ui-audit)
+
+- `no-system-alert(static)`: 주석 제거 후 `window|globalThis|self` 접두 호출(옵셔널
+  체이닝·bracket 접근 포함) + bare 호출을 UI 소스(.tsx/.ts/.jsx/.js)에서 검출(FAIL).
+  `scripts/`·테스트 파일 제외, 읽기 실패는 판정 불완전(WARN)으로 노출. claim 은 면제 —
+  앱 폐기(2026-08-22) **뒤에** 신설된 규칙이라 동결 이력에 소급하지 않는다.
+- `modal-canonical(static)`: 설치본 `components/ui/modal.tsx` 를 **정본 전문과 정규화
+  대조**(주석 제거·공백 1칸) — 정본은 검사 시점에 maria-ui 정본 파일에서 직접 파생하므로
+  기대값이 따로 늙지 않는다. 안전 기제 조각 5종(포커스 복귀 cleanup·Escape 단일 경로·
+  backdrop press-시작점 가드·IME Enter 가드·취소-앞 버튼 순서)은 실패 진단 라벨.
+  파일이 없으면 판정 제외(도입 시 자동 편입), 읽기 실패는 FAIL.
+
+### 검사의 한계 (정직 표기)
+
+- 문자열/eval 속 호출, 간접 참조(`const f = window.alert; f()`), alias 재수출은 정적으로
+  못 본다. 로컬 함수 이름이 `confirm`/`alert`/`prompt` 면 오탐한다(이름을 바꾸는 게 답).
+- div 오버레이 자작 금지는 기계 강제가 없다(§8 사전 확인 게이트가 맡는다) — "무엇이
+  다이얼로그인가"는 의미 판단이라 자동 차단이 오탐을 만든다.
+- pending 잠금·포커스 이동은 정적 검사가 **코드 원문의 존재**만 본다 — 런타임 동작
+  실측은 설치 시점 브라우저 검증(§5 수동 확인)이 맡는다.
+
+### 미수렴 (2026-08-24 현재)
+
+- mou `forms-list-client` 의 기존 기능 모달(div 오버레이·알럿 대체 아님) — `ModalShell`
+  조합으로 후속 이행 후보.
+- hub 는 손복사 앱 — modal 도입 시 손복사(§4 hub 예외와 동일).
+- `tone="destructive"`(§1-4 파괴 톤 confirm) — 현재 소비처 0 이라 신설 보류. 삭제·폐기
+  확인 다이얼로그가 처음 생길 때 §1-4 파괴 톤(`state-error-fg`+hover)으로 편입한다.
+- 소비처 fetch 의 timeout·멱등성(무한 pending 방어)은 이 절의 범위 밖 — 각 앱 소관.
+
+---
+
 ## 2. 신규 앱 적용 절차
 
 1. `tokens/design-tokens.css`를 앱 `globals.css`(또는 `styles/design-tokens.css`)에 그대로 가져온다. **값을 옮겨 적지 말고 파일째 복사**.
@@ -420,6 +490,7 @@ MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/brand-logo   # 워드�
 - ❌ **Lucide 외 아이콘 세트를 추가로 들이기**(§1-2). 획 굵기·광학 크기·모서리가 세트마다 달라 한 화면에 섞이면 바로 보인다. 필요한 글리프가 없으면 인라인 `<svg>` 를 그리기 전에 §8 사전 확인.
 - ❌ **`popo-teal`(500) 채움 위에 글자를 얹거나 `popo-teal` 을 글자색으로 쓰기**(§1-4). 텍스트 대비 하한(4.5:1) 미달 — 글자가 걸리면 `popo-teal-700`.
 - ❌ **행동의 톤·강조를 hover 에만 표시하기**(§1-4). 터치 기기에 hover 는 없다.
+- ❌ **`window.alert`/`confirm`/`prompt` 및 div 오버레이 다이얼로그 자작**(§1-5). 대체 = `@maria/modal`, 앱 고유 다이얼로그는 `ModalShell` 위 조합.
 - ⚠️ 검증은 토큰 파일이 아니라 **배포된 CSS**로(override가 파일엔 안 보이고 라이브에만 나타남).
 
 > **자동 검사 범위(2026-07-31~)**: 위 재정의 사고는 오랫동안 `--text-on-dark` 한 색에만 방어가 있었다.
@@ -459,6 +530,22 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.17 (2026-08-24)**: **§1-5 다이얼로그 신설 — 시스템 알럿 금지 규칙의 정본 편입.**
+  window.alert/confirm/prompt 금지(사용자 결정 2026-08-23)는 이미 7앱 이행이 끝나
+  잔여 0인데 규칙 정본에 조문이 없었다 — 공백을 메우고 구현 정본 `@maria/modal`
+  (AlertDialog·ConfirmDialog·ReasonDialog + ModalShell, 네이티브 `<dialog>`+showModal)을
+  maria-ui 레지스트리에 신설했다. 기초 = popo 판(2026-08-23 운영 실측: Escape·바깥
+  클릭·포커스 복귀·backdrop) + mou 판의 ReasonDialog·pending 흡수, §1-4 확정 톤
+  (popo-teal-700/900)·§3 입력 표준(border-input) 정렬. 계약 4항목(마운트=열림 단일
+  경로·초기 포커스=DOM 순서·포커스 복귀 시도·pending 중 닫힘 차단)을 문서·정본 주석·
+  검사 삼중으로 고정. ui-audit `no-system-alert(static)`(claim 은 폐기 후 신설 규칙이라
+  면제) + `modal-canonical(static)`(정본 전문 파생 대조 — 기대값이 늙지 않음, 조각 5종은
+  진단 라벨) 신설. div 오버레이 자작 금지는 기계 강제 없음을 정직 표기(§8 게이트 소관).
+  설치 = mou(포커스 부채 해소)·popo(정본 재설치) — 컴포넌트 시험(jsdom) 신설은 기각
+  (러너 부재·정적 검사 + 재동기 byte-identical 규율로 충분, 재판정 여지는 §1-5 한계 절에
+  남김). Codex 4h 검토 반영 6건: 확정 버튼 글자 아이보리→#FFF·경고 hover 전용 토큰·
+  취소 테두리 border-input·초기 포커스 DOM 순서 위임→명시 ref·pending "절대 잠금"→
+  "제공 경로 차단+강제 닫힘 동기화"·audit 조각 대조→정본 전문 파생 대조.
 - **v1.16 (2026-08-24)**: **§3 로그인 입력 테두리 이행 완료** — 입력 클래스 `border-border-default` →
   `border-border-input`(#6E827D). v1.14 의 "이행 예정" 단서 해소. `--border-default`(1.33)는
   카드(장식)에만 남고, focus 테두리·링은 비텍스트 3.0 충족이라 teal-500 유지. 정본 부품
