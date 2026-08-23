@@ -355,11 +355,10 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 - 바깥: `<main className="flex min-h-screen flex-col items-center justify-center bg-bg-ivory p-6">`
 - 제목 블록: `<div className="mb-6 text-center">` 안에 `<h1 className="text-2xl font-bold tracking-tight text-text-primary">{앱이름}</h1>` + `<p className="mt-1 text-sm text-text-body">{한 줄 설명}</p>`
 - 폼 카드: `<… className="w-full max-w-sm space-y-4 rounded-lg border border-border-default bg-bg-default p-6">` (2026-07-08: 장식용 `shadow-sm` 제거 — 경계는 1px border로. 그림자는 드롭다운·모달 등 떠 있는 층에만.)
-  - 입력: `w-full rounded-md bg-bg-default border border-border-default px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
-    (⚠ v1.14: 테두리는 §1-4 에 따라 `border-border-input`(#6E827D)으로 **이행 예정** — `--border-default` 1.33 은
-    식별 테두리 하한 3.0 미달. v1.15 에서 `--border-input` 토큰은 신설 완료 — 남은 것은 정본 부품
-    (AuthPrimitives)·ui-audit `login(static)`·7앱 재동기이며, 셋은 **한 묶음으로** 갱신한다.
-    그 전까지는 현행 클래스가 검사 기준이다 — 문서만 앞서 가면 검사와 어긋난다.)
+  - 입력: `w-full rounded-md bg-bg-default border border-border-input px-3 py-2.5 text-sm focus:border-popo-teal-500 focus:ring-1 focus:ring-popo-teal-500`
+    (v1.16: 테두리를 §1-4 에 따라 `border-border-input`(#6E827D)으로 **이행 완료** — `--border-default` 1.33 은
+    식별 테두리 하한 3.0 미달이라 카드(장식)에만 남는다. focus 테두리·링은 비텍스트 3.0 충족이라 teal-500 유지.
+    정본 부품(AuthPrimitives)·ui-audit `login(static)`·7앱 재동기를 한 묶음으로 갱신했다.)
   - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
   - 에러: `<div role="alert" className="rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg">` (#FCEEED / #8B4540). **`role="alert"` 는 필수다** — 이 속성이 없으면 화면에는 사유가 떴는데 스크린리더에는 아무 일도 안 일어난 것과 같다(눈으로 볼 수 없는 직원은 "다음"을 눌러도 왜 안 넘어가는지 알 수 없다). `role="alert"` 가 `aria-live="assertive"`·`aria-atomic` 을 함의하므로 그 둘은 따로 적지 않는다. (v1.8)
   - **에러 영역은 항상 그려 둔다 — 조건부로 감싸지 않는다.** (v1.9) 호출부는 `{error && <AuthError …/>}` 가 아니라 `<AuthError message={error} seq={errorSeq} />` 다. 오류가 없을 때는 `sr-only` 로 남아 화면·레이아웃에 영향을 주지 않는다. 이유 둘:
@@ -456,6 +455,11 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.16 (2026-08-24)**: **§3 로그인 입력 테두리 이행 완료** — 입력 클래스 `border-border-default` →
+  `border-border-input`(#6E827D). v1.14 의 "이행 예정" 단서 해소. `--border-default`(1.33)는
+  카드(장식)에만 남고, focus 테두리·링은 비텍스트 3.0 충족이라 teal-500 유지. 정본 부품
+  (maria-ui `AuthPrimitives.authInputClass`)·ui-audit `login(static)` input required·7앱 재동기를
+  **한 묶음**으로 갱신(S5-c 앱 이행 파도와 동시 — 재동기 1회).
 - **v1.15 (2026-08-23)**: **§1-4 토큰 목표값을 토큰·배포층·검사에 반영 — 규칙이 실물이 된 판.**
   `tokens/design-tokens.css`·`.json` 개정 5종(`text-link`·`btn-emphasis-bg` #167565 ·
   `text-muted` #5A6F6B · `state-warning-fg` #7E6429 · `maria-pink-900` #9A5F4B) + 신설 4종
