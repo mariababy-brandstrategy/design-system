@@ -461,22 +461,22 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
   대비·토큰·teal-글자·§3 다** — 원장 기반 행동 **톤×강조 이행**(B4·B5 · `money`·`pii`·`notify③`·
   `bulk`·`authz` 승격분의 채움 톤)과
   버튼 외곽선 재분류는 미착수 부채로 남는다(현황·부채 목록 정본 = maria-ui `docs/census/PLAN.md` 상태줄).
-- **톤×강조 = 규칙만 확정(v1.18, 2026-08-24) · 원장·검사·앱은 전부 미착수.** AGENTS.md
-  "문서를 고칠 때" 절차 1~5 중 지금 끝난 것은 **5(변경 이력)뿐이다** — 1 registry 구현 ·
-  2 검사 갱신 · 3 앱 재동기 · 4 전수 확인이 남아 있다. "문서만 고치면 아무것도 바뀌지 않는다"가
-  이 절에도 그대로 적용된다. 남은 이행 조건을 열거하면:
-  ① 원장 축C `authz` 신설 + `notify` ①②③ 세분(현 `taxonomy-map.tsv`·`apply-taxonomy.mjs` 에 없음) ·
-  ② 행별 원장에 예상 톤·강조·화면 대표 액션 기록(위 수동 판정 게이트) ·
-  ③ ui-audit 톤×강조 검사와 **별도 채택 상태**(`s14adopted` 재사용 금지) ·
-  ④ 앱 코드 반영 · ⑤ 전수 static 통과.
-  대상은 고영향 97행 중 **현역 6앱 58행**(sns·popo-studio·hub·console·mou-admin·labs)이며,
-  **claim 은 2026-08-22 앱 폐기로 제외**한다(`ui-audit.config.mjs` `historical: true` — live 제외·
-  static 유지). 행별 판정·근거 = maria-ui `docs/census/s6/S6-TONE-EMPHASIS-DECISION.html`.
-  파도가 끝나기 전까지 위 '앱 이행 완료(S5-c)'의 범위 표기는 유효하다.
+- **톤×강조 이행 완료(2026-08-24, S7 · v1.18~v1.20).** AGENTS.md "문서를 고칠 때" 절차 1~5 전부
+  수행했다 — 원장 축C `authz` 신설·`notify` ①②③ 세분(maria-ui `taxonomy-map.tsv`·`apply-taxonomy.mjs`,
+  함대 미세분은 FAIL) · 행별 판정 원장 `docs/census/s6/tone-map.tsv` · ui-audit 검사
+  `action-tone(static)` 신설(채택 플래그 `s14ActionsAdopted` — 토큰용 `s14adopted` 와 분리) ·
+  현역 6앱 코드 반영 · 전수 static 175/0 · 라이브 24/0 · 프로덕션 CSS 실측.
+  **claim 은 2026-08-22 앱 폐기로 제외**(`historical: true` — live 제외·static 유지).
+  ⚠ **이 완료의 범위는 v1.20 승격식에 걸리는 행동(45행)과 그 화면의 뷰×액션 검산분**이다 —
+  저위험 `discard`(로컬 행 삭제 등) 전수와 확인 게이트 부채(F-6·F-7)는 이 완료에 포함되지 않는다.
+  ⏳ **v1.20 이 색에서 게이트·라벨로 옮긴 부담은 아직 갚지 않았다** — 비용 표시 의무·일괄 확인
+  게이트 의무는 규칙만 섰고 구현은 별건이다. 그때까지 유료·일괄 행동은 "색은 확정, 게이트는 없음"
+  상태다(정직 표기).
 - 토큰 파일이 이 절과 같은 값이 되었으므로 옛 "토큰이 옛 값인 동안은 표가 우선" 단서는 소멸 —
   값이 갈리면 언제나처럼 design-system 저장소(이 문서 + 토큰 파일)가 우선한다.
-- **적용 앱 0.** §1-2·§1-3 과 같은 방식으로 각 앱을 손볼 때 수렴한다. 앱별 채택 선언 =
-  maria-ui `ui-audit.config.mjs` APPS 의 `s14adopted: true` — 그 전까지 "이행 대기"(구값·미신설)는
+- **적용 앱 = 현역 6앱**(2026-08-24 S7). 앱별 채택 선언 =
+  maria-ui `ui-audit.config.mjs` APPS 의 `s14adopted: true`(토큰·대비)와 `s14ActionsAdopted: true`
+  (톤×강조) **두 개다 — 합치지 않는다** — 그 전까지 "이행 대기"(구값·미신설)는
   WARN(비차단)이고, **구·신 어느 정본에도 없던 제3의 값은 채택 여부와 무관하게 즉시 FAIL** 이다.
   기계가 못 보는 규칙(hover 전용 식별·화면당 채움 1개·톤 승격 판정)은 검사 모듈 머리 주석에
   정직 표기했고 §8 사전 확인 게이트가 맡는다.
