@@ -616,7 +616,15 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
   있으면 FAIL. 서브트리 단위라 라이트박스·팝오버(입력 없음 — 가장자리 클릭 닫기가 원칙)는
   통과한다(전 함대 실측: 입력 보유 3곳만 검출, 오탐 0). 서브트리 균형 계산은 주석 속 태그를
   제외한다. 태그·서브트리 경계 판정 불가는 사각(MISSING)으로 노출한다. ⚠ `<dialog>` 기반
-  다이얼로그(자작 포함)는 이 검사 밖이다 — console tmp 사례처럼 계약 6·§8 게이트 소관.
+  다이얼로그(자작 포함)는 이 검사 밖이다 — 그쪽은 아래 `modal-backdrop-dismiss` 소관.
+- `modal-backdrop-dismiss(static)`(v1.24, 2026-08-25 신설): `<ModalShell ...>` 여는 태그의
+  **서브트리에 입력**(form-scrim-dismiss 와 같은 판정)이 있는데 `backdropDismiss` 가
+  `{false}` 가 아니면 FAIL. prop 생략도 FAIL(타입이 이미 막지만 통과로 세탁하지 않는다),
+  변수·표현식이면 사각(MISSING). 입력 없는 Alert/Confirm 은 `{true}` 여도 통과한다.
+  **계기**: 자작 오버레이 4곳을 `<dialog>` 조합으로 옮기면서 그 4곳이 `form-scrim-dismiss`
+  범위 밖으로 나갔고, 남은 방어가 "계약 6을 지킨다"는 **규율뿐**이었다. 타입은
+  `backdropDismiss: boolean` 이라 값을 강제하지 못해 한 곳을 `{true}` 로 바꿔도 tsc·기존 검사가
+  전부 통과했다(Codex 실증). 실물 변이(labs 수신자 다이얼로그를 `{true}` 로) 로 검출 확인.
 
 ### 검사의 한계 (정직 표기)
 
@@ -635,13 +643,23 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 
 - ~~자작 div 오버레이 4곳~~ → **이행 완료(2026-08-25)**: mou `forms-list-client`·mou 분원
   담당자·labs 수신자·popo 계정편집 전부 `ModalShell` 조합으로 옮겼다(`size` 는 각각
-  2xl·2xl·lg·md — 옛 폭 그대로). 이행으로 얻은 것: Escape 닫기·포커스 가두기·배경 inert·
-  닫힌 뒤 포커스 복귀(전부 이전엔 없었다) + 저장 중 닫힘 차단(`preventClose`). 초기 포커스는
+  2xl·2xl·lg·md — 옛 폭 그대로). 이행으로 얻은 것: Escape 닫기 · 포커스 가두기 · 배경 inert ·
+  닫힌 뒤 **ModalShell 이 opener 를 저장해 명시 복원**(전부 이전엔 없었다). 초기 포커스는
   ✕ 버튼이 아니라 첫 입력으로 명시(계약 2). labs 는 이때 `@maria/modal` 을 새로 설치했고
   `globals.css` 에 부품이 쓰는 색 유틸 4종(`bg-info`·`popo-teal-700/900`·
   `state-warning-fg-hover`)을 별칭으로 열었다.
-  ⚠ 남은 사각은 그대로다 — 이행으로 이 다이얼로그들은 `form-scrim-dismiss` 검사 밖으로
-  나갔고(`<dialog>` 기반), 이제 `modal-canonical`(계약 6)과 §8 게이트가 맡는다.
+  ⚠ **정정 2건(2026-08-25 Codex 지적 — 처음 적었던 문장이 사실이 아니었다)**:
+  ① `preventClose` 는 **Escape 와 바깥 클릭만** 막는다. 조합부가 직접 그린 ✕·취소 버튼에는
+  닿지 않으므로 **저장 중에도 그 둘로는 닫힌다**(닫아도 fetch 는 계속되므로 다시 열어 재시도하면
+  중복 가능). 4곳은 이행 전에도 취소가 잠기지 않았고 fetch timeout 도 없어 **동작은 그대로 두고
+  기록만 사실화**했다 — 모든 닫기 경로를 잠글지는 timeout·복구 경로와 함께 정할 문제다(미결).
+  ② 이행으로 이 다이얼로그들은 `form-scrim-dismiss` 검사 밖으로 나갔다(`<dialog>` 기반).
+  그 자리는 이제 **`modal-backdrop-dismiss(static)`(2026-08-25 신설)이 기계로 막는다** —
+  `<ModalShell>` 서브트리에 입력이 있는데 `backdropDismiss` 가 `{false}` 가 아니면 FAIL.
+  그전까지 "계약 6이 맡는다"는 **규율이지 자동 안전망이 아니었다**(타입은 prop 을 쓰라고만 할 뿐
+  값을 강제하지 못한다 — 한 곳을 `{true}` 로 바꿔도 tsc·기존 검사가 전부 통과했다).
+  ⚠ 아직 남은 것: 정본 `ApplyFlow`·`ModalShell` **자체의 동작 회귀**를 잡는 시험은 없다
+  (byte·정규화 대조는 드리프트만 막는다 — 정본이 몰래 틀리면 설치본에 그대로 전파된다).
 - hub 는 손복사 앱 — modal 도입 시 손복사(§4 hub 예외와 동일). **여전히 미도입.**
 - `tone="destructive"`(§1-4 파괴 톤 confirm) — 현재 소비처 0 이라 신설 보류. 삭제·폐기
   확인 다이얼로그가 처음 생길 때 §1-4 파괴 톤(`state-error-fg`+hover)으로 편입한다.
@@ -815,6 +833,11 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
   기존값 그대로(mou 396 · labs 349 · popo 27). 같은 날 별건: ui-audit 신설 검사 2종
   (`form-scrim-dismiss`·`apply-flow-canonical`)을 모듈로 분리해 **회귀 fixture 37케이스**를
   붙였다(검사기 변이 10종 전부 검출 · maria-ui `pnpm test:audit`, push-gate 가 부른다).
+  같은 날 **Codex 완료점검이 잡은 정정 2건**을 반영했다: ⓐ `preventClose` 가 조합부의 ✕·취소를
+  막지 않는데 "저장 중 닫힘 차단"이라 적었던 것(문서·정본 계약 4 주석 사실화, 동작은 유지 —
+  fetch timeout 이 없어 전면 잠금은 별도 결정) ⓑ 포커스 복귀를 "브라우저가 맡는다"고 적은 것
+  (실제는 ModalShell 이 opener 를 저장해 명시 복원). 그리고 그 점검이 드러낸 구멍을 닫는
+  **`modal-backdrop-dismiss(static)` 신설** — 위 §1-5 검사 항 참조.
   또 하나의 별건 — **`@maria/apply-flow` 신설**(사용자 결정): 4앱이 한 벌씩 갖는 신청 플로우의
   정본을 "console 사본을 기준점으로 친다"에서 **레지스트리 항목**으로 올렸다. 종전 구조는
   기준 자신이 조용히 틀리면 아무도 못 잡았다. 이제 modal 과 같은 자리에서 파생하고 어느 앱도
