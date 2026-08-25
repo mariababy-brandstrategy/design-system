@@ -992,6 +992,52 @@ CTA** 에서만 목적어 포함 서술형("제작 의뢰 접수하기") 을 허
 
 ---
 
+## 1-11. 컴포넌트 정본·설치 계약 (v1.29, 2026-08-26 신설)
+
+파도 3(A4 컴포넌트 — registry 부품 vs 앱 로컬 중복) 성문. 실측 원장 = maria-ui
+`docs/census/w3/`(A4-MANIFEST·A4-LEDGER·상신 w3-decision). 실측의 요지: **byte 대조 검사가
+있던 항목(modal·apply-flow·apps-access)은 전부 건강했고, 없던 항목에서만 결락이 났다**
+(auth-primitives 6앱 전부 정본과 다름 — 구 shadcn 이 머리말 주석을 strip 하던 시절의 설치본
+잔재. 시각·행위 차이는 0이었지만 검사가 아니라 우연한 실측으로만 드러났다).
+
+1. **byte 동일 의무 일반화** — registry 의 component 파일 전부가 전문 대조 대상이다.
+   목록의 기계 정본 = maria-ui `scripts/ui-audit.config.mjs` `CANONICAL_COMPONENTS`
+   (검사명 `<key>-canonical(static)` · 도입 앱은 파일 부재도 FAIL · 미도입 앱은 도입 시 자동
+   편입). 설치본이 갈라지면 언제나 설치본 쪽 위반이다 — 앱에서 고치지 말고 정본을 고친 뒤
+   재동기한다(maria-ui AGENTS.md 절차).
+2. **hub 이식 대장** — hub 는 components.json 부재 + `(bare)` 레이아웃 구조 제약으로 정본을
+   직수입하지 못하는 **시각 이식본** 3파일을 가진다: `site-header.tsx`(← app-header) ·
+   `auth-primitives.tsx` · `user-menu.tsx`. byte 대조가 원리상 불가하므로 검사가 아니라
+   **절차 의무**다: 위 3항목의 정본을 고치면 hub 이식본에 수동 반영하고, 반영 커밋에 이 절을
+   인용한다. 표시 규칙은 정본과 일치시킨다(2026-08-26 user-menu 이름 폴백 3단
+   metaName→unsafeName→firstName 수렴). hub 가 byte 동일을 유지하는 2파일(brand-logo·
+   auth-otp-help kebab 사본)은 이식이 아니라 손복사 설치본 — 1번 검사 대상이다.
+3. **신설 항목 2** —
+   `@maria/sign-out-block`: 로그인/게이트 화면 공용 로그아웃. 행위 계약 = 실패 시 pending
+   복구("로그아웃 중…" 고착 금지)·실패 라벨 재시도. 문구·상태 전이는 정본이 정하고 시각은
+   `className`·`label` 주입(ApplyFlow ui prop 선례). 도입 = console·labs·sns.
+   `@maria/image-lightbox`: 이미지 미리보기 = **같은 창 오버레이** 규격(§1-5 계열 — 새 창
+   전체화면 금지, 2026-08-12)의 구현 정본. 가장자리 클릭·ESC·닫기 버튼 닫힘 + 포커스
+   이동·가두기·복귀 + 배경 스크롤 잠금. 도입 = sns. hub preview-popover 같은 **특화**
+   미리보기는 대체 대상이 아니다 — 단 신규의 단순 이미지 미리보기는 이 정본을 설치한다.
+4. **cn 항목 폐기** — 소비 실측 0(앱 설치 0 · registry 컴포넌트 import 0)·설명 낡음.
+   class-merge 가 실제로 필요해지는 시점에 재신설한다.
+5. **헤더 소비 3갈래(성문)** — ① layout 직접 사용(mou·labs) ② **앱 래퍼**(console `Header.tsx`·
+   popo `Header.tsx`·sns `site-header.tsx` — nav 항목·역할 로직을 주입하는 자리, 정본 계약
+   "앱-고유는 props"의 정상 사용) ③ hub 이식(2번). 셋 다 규격 내 — 래퍼를 중복으로 세지
+   않는다.
+6. **존치 성문(통일하지 않는 것)** — 날짜 선택기 2구현: mou `form/date-picker`(공개 폼 ·
+   react-day-picker DS wrapper)와 sns `date-picker-input`(텍스트가 값의 정본·달력은 보조 —
+   2026-08-12/18 사용자 결정)은 각자 결정 이력이 있는 이종 구현으로 존치.
+   console `TmpActions` 자작 `<dialog>` 는 §1-5 규율(시스템 알럿 금지·네이티브 dialog)을
+   준수하므로 존치 — **신규** 앱 고유 다이얼로그는 ModalShell 조합이 기본이고 소급 재작성은
+   하지 않는다. Footer 는 registry 항목이 아니다(console·popo 2앱 수기 사본 — 2026-08-26
+   console 판으로 수렴: sign-in 경로에서 전역 푸터 숨김 = AuthScreen 크레딧과의 이중 표시
+   방지. 세 번째 앱이 푸터를 갖게 되면 승격 재검토).
+
+비시각 공용부품(`apply-client`·`auth-flow`·`sentry-sanitize`·`db-connection` 등 lib 사본군)은
+A4 와 **별도 판정 트랙**이다 — 실측은 원장 §3, 처분은 별도 상신.
+
 ## 2. 신규 앱 적용 절차
 
 1. `tokens/design-tokens.css`를 앱 `globals.css`(또는 `styles/design-tokens.css`)에 그대로 가져온다. **값을 옮겨 적지 말고 파일째 복사**.
@@ -1047,10 +1093,12 @@ CTA** 에서만 목적어 포함 서술형("제작 의뢰 접수하기") 을 허
 # components.json 의 registries 에 추가:
 #   "@maria": { "url": "https://maria-ui.vercel.app/r/{name}.json",
 #               "headers": { "Authorization": "Bearer ${MARIA_UI_TOKEN}" } }
-MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/theme        # 토큰
-MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@latest add @maria/brand-logo   # 워드마크 로고
+MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@4.10.0 add @maria/theme        # 토큰 (버전 고정 — maria-ui AGENTS.md)
+MARIA_UI_TOKEN=<토큰> pnpm dlx shadcn@4.10.0 add @maria/brand-logo   # 워드마크 로고
 ```
-토큰 발급/원문 보관·접근 검증은 `dyshin-maria/maria-ui`의 `RUNBOOK.md`. (헤더/로그인 컴포넌트는 레지스트리에 추가 예정 — 그 전엔 design-system 문서의 코드를 카피.)
+토큰 발급/원문 보관·접근 검증은 `dyshin-maria/maria-ui`의 `RUNBOOK.md`. 항목 대장 = maria-ui
+`registry.json`(헤더·로그인 프리미티브·모달·신청 플로우·로그아웃·라이트박스 등 — v1.29 §1-11).
+설치본은 정본과 byte 동일 의무가 있고 ui-audit canonical 검사가 강제한다(§1-11 1).
 
 ## 5. 필수 수동 확인 (배포 후)
 
@@ -1110,6 +1158,13 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.29 (2026-08-26)**: **§1-11 컴포넌트 정본·설치 계약 신설(파도 3 A4 성문)** — 사용자 결정
+  4건(Q1 byte 대조 검사 전 component 확대+auth-primitives 5앱 재동기+cn 폐기 · Q2 hub 이식
+  대장 3파일+user-menu 이름 폴백 수렴 · Q3 `@maria/sign-out-block`·`@maria/image-lightbox`
+  신설 승격 · Q4 popo Footer 수렴(sign-in 이중 크레딧 해소)+헤더 3갈래·date-picker 이종·
+  TmpActions 존치 성문). §4 낡은 문구 정정(레지스트리 항목 실태·shadcn 4.10.0 고정).
+  검사 = maria-ui `ui-audit-w3.mjs`(`<key>-canonical` 7종·목록 구동). 원장 = maria-ui
+  `docs/census/w3/`.
 - **v1.28 (2026-08-25)**: **§1-9 타이포·§1-10 형태 신설(파도 2 성문) + §1-7 이월 해소·비상태
   분류 색상계 절 신설** — 사용자 결정 4건(Q1 Tailwind 스케일 성문+`--font-size-*` 6종 폐기 ·
   Q2 임의 px 신규 금지+baseline(hub 287 집중)·배지 `text-xs`/밀집 `text-[11px]` 2단 ·
