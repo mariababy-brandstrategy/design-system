@@ -64,7 +64,8 @@
         "warning": { "bg": { "value": "#FBF4E4" }, "fg": { "value": "#7E6429", "description": "§1-4 개정: 舊 #8A6E30 은 warning-bg 위 4.40 미달 → 5.12 · 흰 5.61. 경고 톤 1차 채움 겸용" }, "fg-hover": { "value": "#53421B", "description": "경고 톤 채움 hover 신설(§1-4 — 확정 톤 700→900 스텝(≈RGB×0.66 감쇠)과 같은 방법, 흰 9.71)" } },
         "error":   { "bg": { "value": "#FCEEED" }, "fg": { "value": "#8B4540", "description": "파괴 톤 1차 채움 겸용(흰 6.95)" }, "fg-hover": { "value": "#5C2E2A", "description": "파괴 톤 채움 hover 신설(§1-4 — 같은 ≈×0.66 감쇠, 흰 11.17)" } },
         "info":    { "bg": { "value": "#EFF3F3" }, "fg": { "value": "#4A605C" } },
-        "active":  { "bg": { "value": "#E6F5F2" }, "fg": { "value": "#0E4D43" } }
+        "active":  { "bg": { "value": "#E6F5F2" }, "fg": { "value": "#0E4D43" } },
+        "neutral": { "bg": { "value": "#F0F0EE" }, "fg": { "value": "#5C5C58", "description": "§1-7 신설(2026-08-25): 비상태 배지·의미 없는 종결(초안·취소됨·만료·꺼짐)용 웜 그레이. info 와 혼용 금지. 대비 bg 위 5.89 · 흰 6.72 · 아이보리 5.85" } }
       },
       "button": {
         "official": {
