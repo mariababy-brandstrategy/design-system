@@ -4,8 +4,11 @@
 + `tokens/design-tokens.css`(토큰 값). 다른 어디와 값이 갈리면 **여기가 우선한다.**
 
 소비 구조: 이 문서의 규칙을 `dyshin-maria/maria-ui` 의 비공개 레지스트리 `@maria/*` 가
-코드로 구현하고, 사내 7앱(console·popo-studio·mou-admin·claim·hub·labs·sns)이 그걸 설치해 쓴다.
-hub 만 `components.json` 이 없어 손복사본이다.
+코드로 구현하고, 사내 현역 6앱(console·popo-studio·mou-admin·hub·labs·sns)이 그걸 설치해 쓴다
+(claim 은 2026-08-22 서비스 폐기 — 2026-08-25 검사 모집단에서도 제외됨. 되살리면 재등록).
+hub 는 `components.json` 이 없어 레지스트리 부품은 손복사본이고, **토큰은 design-system
+서브모듈**(`hub/design-system` → 이 repo)로 소비한다 — 토큰 개정 시 hub 는 서브모듈 포인터를
+올린다(2026-08-25 실측 정정: 종전 "토큰도 손복사" 기술은 사실과 달랐다).
 (2026-08-12 정정: 오래 "5앱"으로 적혀 있어 **labs·sns 를 빠뜨릴 위험**이 있었다.
 앱 목록의 기계 정본은 `maria-ui/scripts/ui-audit.config.mjs` 의 `APPS` 다.)
 
@@ -15,7 +18,7 @@ hub 만 `components.json` 이 없어 손복사본이다.
 
 1. `maria-ui` 의 `registry/` 구현 갱신
 2. `maria-ui/scripts/ui-audit.mjs` 에 그 규칙을 강제하는 검사 추가·갱신
-3. 7앱 재동기(6앱은 `shadcn add --overwrite`, hub 는 손복사)
+3. 6앱 재동기(5앱은 `shadcn add --overwrite`, hub 는 부품 손복사·토큰은 서브모듈 bump)
 4. `node ~/maria-ui/scripts/ui-audit.mjs --static-only` 로 전수 확인
 5. 문서 끝 **변경 이력에 버전 한 줄** 추가
 
