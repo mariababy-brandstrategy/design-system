@@ -80,6 +80,13 @@
   --state-active-bg: #E6F5F2;
   --state-active-fg: #0E4D43;
 
+  /* ── State — Neutral (§1-7 신설 2026-08-25) ──────────────── */
+  /* 비상태 배지(카테고리·건수)와 "의미 없는 종결"(초안·취소됨·만료·꺼짐)용.
+     info(정보 상태)와 섞지 않는다 — 웜 그레이로 그린 계열 info 와 시각 구분.
+     대비 fg/bg 5.89 · fg/흰 6.72 · fg/아이보리 5.85. labs 수신 unknown 실사용값 채택. */
+  --state-neutral-bg: #F0F0EE;
+  --state-neutral-fg: #5C5C58;
+
   /* ── Button — Official (마리아 그린) ─────────────────────── */
   --btn-official-bg: #1E3131;
   --btn-official-fg: #FFFFFF;
