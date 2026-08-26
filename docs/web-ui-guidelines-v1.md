@@ -556,7 +556,7 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
 
 ---
 
-## 1-5. 다이얼로그 — 시스템 알럿 대체 (v1.17, 2026-08-24 신설 · v1.22, 2026-08-24 개정 — 스크림 닫기 금지 · v1.24, 2026-08-25 — 자작 오버레이 4곳 이행·`size` · v1.31, 2026-08-26 — 저장 중 닫기 잠금 + 15초)
+## 1-5. 다이얼로그 — 시스템 알럿 대체 (v1.17, 2026-08-24 신설 · v1.22, 2026-08-24 개정 — 스크림 닫기 금지 · v1.24, 2026-08-25 — 자작 오버레이 4곳 이행·`size` · v1.31, 2026-08-26 — 저장 중 닫기 잠금 + 15초 · v1.34, 2026-08-26 — 스크림 blur 제거)
 
 제품 화면에서 **`window.alert` / `window.confirm` / `window.prompt` 를 쓰지 않는다**
 (사용자 결정 2026-08-23, 마리아·sidoyu 공통). 브라우저 기본 팝업은 스타일을 못 입히고,
@@ -587,6 +587,10 @@ page 의 제목 선언 존재 · 잘못된 구분자 · 루트 page 의 템플�
   `backdropDismiss` 가 **필수 prop**(기본값 없음 — 조합자가 명시 선언, 컴파일 강제)이고
   `ReasonDialog`=false · Alert/Confirm=true 다. **미디어 미리보기 라이트박스는 반대가
   원칙이다** — 입력이 없으므로 가장자리 클릭 닫기(전 제품 공통 결정)이며 충돌하지 않는다.
+- **스크림 = 불투명도만. `backdrop-blur` 를 쓰지 않는다.** (v1.34, 사용자 결정 2026-08-26)
+  값은 `backdrop:bg-maria-green/85` 다(종전 `/60` + `backdrop-blur-sm`). **판단 근거는 성능이 아니라 정본 내부 정합이다** — 같은 registry 의 미디어 라이트박스 정본 `ImageLightbox` 는 처음부터 blur 없이 `bg-black/75` 로 같은 일(뒤 화면 가림)을 하고 있었다. 두 정본이 한 목적에 서로 다른 방식을 쓰던 상태를 불투명도 쪽으로 통일했다. blur 의 실제 렌더 비용은 **측정하지 않았고**, 측정 결과를 근거로 삼지 않는다.
+  유리(glass)·굴절 계열 연출은 사내 업무앱에서 기본 금지라는 상위 방침과도 같은 방향이다.
+  ⚠ 라이트박스 정본을 쓰지 않고 자작한 오버레이(popo `history-client`·`SceneStudio` 2곳)는 `bg-maria-green/85 backdrop-blur-sm` 로 남아 있다 — 이 규칙의 대상이지만 **이번 묶음 밖**이다(정본 흡수와 함께 처리할 것). 등재해 두어 빈칸이 아니라 알려진 잔여로 남긴다.
 - 계약 6항목(설치본이 지켜야 하는 동작 — 정본 파일 머리 주석과 동일):
   1. **열림 = 마운트**(open prop 없음, 부모 조건부 렌더). 닫힘 = onClose/onCancel →
      부모 state 제거 → unmount **단일 경로**(Escape 도 preventDefault 후 같은 경로).
@@ -1195,7 +1199,7 @@ A4 와 **별도 판정 트랙**이다 — 실측은 원장 §3, 처분은 별도
 6. 폰트 CDN 링크(§1)를 `layout`에 추가.
 7. §5 필수 확인 체크 → §6 검증 → `internal-service-header-v1.md` §8 적용현황 표에 한 줄 추가.
 
-## 3. 로그인 페이지 템플릿
+## 3. 로그인 페이지 템플릿 (v1.34, 2026-08-26 — 버튼 focus 표시 신설·포커스 상위 규칙)
 
 전 앱 동일 템플릿(2026-06 claim·console·popo·mou 4앱에서 추출 — claim 은 2026-08-22 폐기, 현재는 hub·labs·sns 포함 전 함대가 같은 규격). 공개 화면이라 미리보기로도 검증 가능.
 
@@ -1206,7 +1210,8 @@ A4 와 **별도 판정 트랙**이다 — 실측은 원장 §3, 처분은 별도
     (v1.16: 테두리를 §1-4 에 따라 `border-border-input`(#6E827D)으로 **이행 완료** — `--border-default` 1.33 은
     식별 테두리 하한 3.0 미달이라 카드(장식)에만 남는다. focus 테두리·링은 비텍스트 3.0 충족이라 teal-500 유지.
     정본 부품(AuthPrimitives)·ui-audit `login(static)`·7앱 재동기를 한 묶음으로 갱신했다.)
-  - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50`
+  - 버튼: `w-full rounded-md bg-maria-green text-text-on-dark font-semibold py-2.5 hover:bg-maria-green-700 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-popo-teal-500`
+    (v1.34: **focus 항목 신설.** 그전까지 이 줄에는 focus 가 **한 항목도 없어** 바로 윗줄 입력이 teal 테두리·링을 명시하는 동안 버튼만 브라우저 기본 링에 맡겨져 있었다 — 같은 카드 안에서 두 필드의 포커스 표시가 서로 달랐다. `ring-offset` 이 아니라 `outline-*` 인 이유: ring 의 offset 은 틈을 **배경색으로 칠하므로** 소비처 배경마다 `ring-offset-color` 를 맞춰야 하는데, outline 의 offset 은 틈이 **투명**이라 한 클래스가 흰 카드에서도 아이보리에서도 맞는다. teal-500 은 비텍스트 3.0 충족(흰 3.71 · 아이보리 3.23). 정본 부품(AuthPrimitives)·hub 이식본·ui-audit `login(static)` `button` 항목·6앱 재동기를 한 묶음으로 갱신했다.)
   - 에러: `<div role="alert" className="rounded-md bg-state-error-bg px-3 py-2 text-sm text-state-error-fg">` (#FCEEED / #8B4540). **`role="alert"` 는 필수다** — 이 속성이 없으면 화면에는 사유가 떴는데 스크린리더에는 아무 일도 안 일어난 것과 같다(눈으로 볼 수 없는 직원은 "다음"을 눌러도 왜 안 넘어가는지 알 수 없다). `role="alert"` 가 `aria-live="assertive"`·`aria-atomic` 을 함의하므로 그 둘은 따로 적지 않는다. (v1.8)
   - **에러 영역은 항상 그려 둔다 — 조건부로 감싸지 않는다.** (v1.9) 호출부는 `{error && <AuthError …/>}` 가 아니라 `<AuthError message={error} seq={errorSeq} />` 다. 오류가 없을 때는 `sr-only` 로 남아 화면·레이아웃에 영향을 주지 않는다. 이유 둘:
     ① **live region 은 글이 들어오기 전부터 DOM 에 있어야 안내가 확실하다.** 영역과 글이 같은 순간에 삽입되면 읽지 않는 스크린리더가 있다.
@@ -1221,6 +1226,24 @@ A4 와 **별도 판정 트랙**이다 — 실측은 원장 §3, 처분은 별도
     둘 다 "email" 이면 통과(sns 가 그 산 증거였다).
   - 인증 코드 필드 라벨 옆 **OTP 도움말**: `@maria/auth-primitives`의 `AuthOtpHelp` — `?` 아이콘(`h-4 w-4 cursor-help rounded-full border-border-default`), hover·키보드 포커스·모바일 탭 시 실제 인증 메일을 축소 재현한 팝오버. 팝오버는 떠 있는 층이라 그림자 허용. 메일 재현부는 외부 메일 모사라 마리아 토큰이 아닌 원문 색·서체(Helvetica·`#111827`)를 쓴다(실물과 같아야 사용자가 알아봄). 예시 코드는 가짜 고정값 852937. (v1.6)
 - 푸터: `<p className="mt-6 text-center text-xs text-text-muted">마리아의료재단 CX부</p>`
+
+### 포커스 표시 상위 규칙 (v1.34, 2026-08-26 신설)
+
+**브라우저 기본 포커스 링을 대체 없이 지우지 않는다.** `outline-none`(또는 `outline: none`)을 쓰려면
+폭·색을 갖춘 대체 표시가 반드시 함께 있어야 한다.
+
+대체 표시는 같은 요소일 수도 있고 **그 요소를 감싼 래퍼일 수도 있다.** 로그인 이메일 입력이 그 예다
+(hub·console·mou·labs 4앱) — `@mariababy.com` 접미가 붙은 합성 필드라, 표시를 입력 자신이 아니라
+바깥 상자가 `focus-within:border-popo-teal-500 focus-within:ring-1 focus-within:ring-popo-teal-500` 로 그린다.
+합성 필드에서는 오히려 이쪽이 맞다(링이 상자 전체를 두른다).
+⚠ **그래서 이 규칙은 문자열 대조로 판정할 수 없다** — 대체가 어느 요소에 있는지를 봐야 한다.
+`ui-audit` 가 아니라 **사람 판정**으로 남는다(사각 명시).
+
+**기본 링을 그대로 두는 것이 이 규칙의 기본값이다.** 2026-08-26 실측에서 대체 없이 지운 곳은 **0건**이었고,
+hub 55/56 · console 19/20 · mou 38/40 이 브라우저 기본 링을 그대로 쓰고 있었다. 위 §3 버튼처럼 **정본 부품이
+명시 표시를 정한 자리만** 그 값을 따르고, 나머지 버튼을 teal 표시로 일괄 전환하지 않는다 — 전 함대 112개
+버튼을 바꿀 근거가 관찰에 없다.
+⚠ 이 항목은 **빈칸이 아니라 결정이다.** 다음 작업자가 "전 앱 focus-visible 미이행"으로 다시 열지 말 것.
 
 ### 3-1. 로그인 문구 표준 (v1.6, 2026-08-04 사용자 결정)
 
@@ -1304,6 +1327,30 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 > "제목을 새로 달 때 아무도 안 본다"는 공백을 동반한다 — 제목을 도입하면 이 표를 먼저 고칠 것.
 
 ## 9. 변경 이력
+
+- **v1.34 (2026-08-26)**: **UI 플레이북 대조 잔여 2건 마감 — §3 버튼 focus 표시 · §1-5 스크림 blur 제거**
+  (사용자 결정 2026-08-26). 같은 날 v1.32 가 여섯 건 중 넷을 닫고 남긴 둘이다.
+  ① **§3 버튼 focus (F2).** 이 줄에는 focus 가 한 항목도 없었다 — 바로 윗줄 입력이 teal 테두리·링을
+  명시하는 동안 버튼만 브라우저 기본 링에 맡겨져, 같은 카드 안 두 필드의 포커스 표시가 서로 달랐다.
+  `focus-visible:outline-2 outline-offset-2 outline-popo-teal-500` 신설. **`ring-offset` 을 쓰지 않은
+  이유**: ring 의 offset 은 틈을 배경색으로 칠해 소비처 배경마다 `ring-offset-color` 를 맞춰야 하는데,
+  outline 의 offset 은 틈이 투명이라 한 클래스가 흰 카드에서도 아이보리에서도 맞는다(공용 부품의 조건).
+  같이 성문한 **포커스 상위 규칙**은 "기본 링을 대체 없이 지우지 않는다" 하나뿐이다 — 실측에서 대체 없이
+  지운 곳이 **0건**이었고(hub 55/56 · console 19/20 · mou 38/40 이 기본 링 사용), 그래서 **함대 112개
+  버튼의 일괄 전환은 하지 않는다**고 명시 결정했다. 관찰이 요구하지 않는 이행을 규칙이 만들지 않는다.
+  ⚠ **초판 문구를 같은 자리에서 정정했다** — "같은 선택자에 대체가 있어야 한다"고 썼는데, 그러면 로그인
+  이메일 입력(hub·console·mou·labs 4앱)이 위반이 된다. 그 입력은 `@mariababy.com` 접미가 붙은 합성
+  필드라 포커스 표시를 **감싼 상자가 `focus-within` 으로** 그리는 의도된 구조다. 규칙이 정상 패턴을
+  위반으로 몰 뻔했고, 함대 실측으로 잡았다. 대체가 어느 요소에 있는지는 문자열로 못 보므로 사각 명시.
+  ② **§1-5 스크림 (F4).** `backdrop:bg-maria-green/60 + backdrop-blur-sm` → `backdrop:bg-maria-green/85`.
+  **근거는 성능이 아니라 정본 내부 정합이다** — 같은 registry 의 `ImageLightbox` 정본이 처음부터 blur 없이
+  `bg-black/75` 로 같은 일을 하고 있었고, 두 정본이 한 목적에 다른 방식을 쓰던 상태를 통일했다.
+  blur 의 렌더 비용은 **측정하지 않았고 근거로 쓰지 않았다**(정직 표기).
+  이행 = 정본 부품 2(`AuthPrimitives`·`Modal`) + 함대 재동기(auth-primitives 5앱 byte + hub 이식본 1,
+  modal 3앱 byte) + `ui-audit` `login(static)` `button` 항목 확장.
+  ⚠ **알려진 잔여 1건**: popo 자작 라이트박스 2곳(`history-client`·`SceneStudio`)이 `backdrop-blur-sm` 을
+  그대로 쓴다. 정본 `ImageLightbox` 를 안 쓰는 자작본이라 이번 묶음 밖 — §1-5 에 등재해 빈칸이 아니라
+  **알려진 잔여**로 남겼다.
 
 - **v1.33 (2026-08-26)**: **§1-8 취소/닫기 본판정 — 확인 게이트 거절 고정·알림 예외·도메인 취소
   하위 예외·헤더 dismiss 성문**(사용자 결정 2026-08-26 Q1~Q4). 파도 1 이 "취소/닫기 26건 전수
