@@ -34,6 +34,27 @@ hub 는 `components.json` 이 없어 레지스트리 부품은 손복사본이�
 정본 SVG = `assets/logos/svg/`, 코드 소비는 `@maria/brand-logo`.
 어두운 배경에서는 100% 흰색(`text-white`)이고 아이보리(`text-on-dark`)는 금지다.
 
+## 문서 레이어 — HTML→PDF 문서는 「문서를 고칠 때」 5단계 밖이다 (2026-09-03 신설)
+
+토큰을 소비하는 **정적 문서**(브라우저로 읽고 A4 로 인쇄하는 HTML→PDF)는 사내 웹 UI 가 아니다.
+registry 부품을 쓰지 않고 6앱과 재동기할 것도 없다.
+
+- **면제 기준은 바뀐 파일이다.** `styles/document-base.css` 와 `docs/` 의 문서 소스만 바뀌면 5단계를 발동하지
+  않는다. 같은 작업이 `tokens/design-tokens.css`·`docs/web-ui-guidelines-v1.md`·이 파일을 만지면 그 부분은 5단계로 판정한다.
+- **우선순위**: 공유 축(색·대비·굵기·크기 스케일·간격 스텝·폰트)은 이 파일 첫 문단의 정본이 우선한다 →
+  `styles/document-base.css`(문서 구현 — 절 리듬·판면·인쇄만 여기가 정한다) → 문서 자체 override(예외는 사유 주석과 함께).
+- **포함 순서 고정**: `tokens/design-tokens.css` → `styles/document-base.css` → 문서 override. base 는 스코프 루트 `.doc`
+  아래에서만 작동한다 — `.doc` 하위 요소 기본값(h1~h4·p·a·목록·표·figure·footer) + opt-in 기구(`.sheet`·`.sec-head`·`.cont` 등).
+  전역 리셋은 없지만 `@page` 는 전역 인쇄 규칙이라 스코프할 수 없다 → base 는 문서 전용이며 앱 번들에 넣지 않는다.
+- **적용되는 정본 축**: §1-1 로고 · §1-4 색·대비(값 기준) · §1-9 굵기·스케일 · §1-10 간격 스텝 · Pretendard 고정 버전
+  (문서 임베드용 서브셋 = `assets/fonts/pretendard/`, 웹 앱은 §1 표의 CDN).
+- **적용 대상 부재**(§1-12 셸과 같은 이유 — 오갈 화면이 없다): 헤더·본문 너비·`<main>` 여백·페이지 제목 블록 ·
+  §1-2 아이콘 세트 · §1-3 탭 제목 서식 · §1-5 다이얼로그 · §1-7 배지 · §1-8 행동 라벨 · §1-13 폼 버튼(상호작용 축 전부).
+- **소비자**: `docs/공간-브랜드-가이드-v1.0.{html,pdf}`(소스 `docs/space-brand-guide-src/`). base 를 고치면 소비자 전부를
+  재조립해 렌더 diff 로 확인하고 이 목록을 갱신한다. 기계 검사는 두지 않는다(소비자 1~2건 — 정직 표기).
+- 최초 신설(2026-09-03)은 5단계 계약이 있던 상태에서 이 파일을 바꾼 것이므로, `ui-audit.mjs --static-only` 를 1회 돌려
+  웹 UI 영향 없음을 확인하고 결과를 커밋 메시지에 남겼다.
+
 ## UI 작업의 완료 조건
 
 **UI 를 건드린 작업은 `node ~/maria-ui/scripts/ui-audit.mjs --static-only` 가 통과해야
