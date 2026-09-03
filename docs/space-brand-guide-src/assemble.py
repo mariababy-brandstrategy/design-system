@@ -18,7 +18,8 @@ rep={'{{TOKENS_CSS}}':(REPO/'tokens/design-tokens.css').read_text(encoding='utf-
      '{{FONT_B64}}':b64(FONT),
      '{{WM_PATHS}}':paths,
      '{{IMG_SIGNAGE}}':b64(S/'img/signage.png'),'{{IMG_BADGE}}':b64(S/'img/badge.png'),
-     '{{IMG_SPACE_LOUNGE}}':b64(S/'img/space-lounge.jpg'),'{{IMG_SPACE_CORRIDOR}}':b64(S/'img/space-corridor.jpg'),'{{IMG_SPACE_RECEPTION}}':b64(S/'img/space-reception.jpg')}  # AI 생성(Gemini 3 Pro Image, 2026-09-03) — 후보·프롬프트는 maria-ops-archive/handoffs/space-brand-guide/img/candidates/
+     '{{IMG_SPACE_LOUNGE}}':b64(S/'img/space-lounge.jpg'),'{{IMG_SPACE_CORRIDOR}}':b64(S/'img/space-corridor.jpg'),'{{IMG_SPACE_RECEPTION}}':b64(S/'img/space-reception.jpg'),   # §1 공간 인상 = AI 생성(Gemini 3 Pro Image, 2026-09-03) — 후보·프롬프트는 maria-ops-archive/handoffs/space-brand-guide/img/candidates/
+     '{{IMG_SIGN_DOORSIGN}}':b64(S/'img/sign-doorsign.png'),'{{IMG_SIGN_DIRECTORY}}':b64(S/'img/sign-directory.png'),'{{IMG_SIGN_PICTOGRAMS}}':b64(S/'img/sign-pictograms.png')}   # §5 미시 사례 = 실제 렌더(HTML→PNG 1080×1920, AI 아님) — 출처·재현 = img/sign-sources.md · maria-ops-archive/handoffs/space-brand-guide/mock/
 assert 'tag prop' not in t and 'tag check' not in t, '절차용 표식 잔존'
 out=t
 for k,v in rep.items(): out=out.replace(k,v)
