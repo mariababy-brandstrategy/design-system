@@ -119,6 +119,7 @@
   .doc thead{display:table-header-group}
   .doc tr,.doc figure{break-inside:avoid}
   .doc h2,.doc h3,.doc h4,.doc .sec-head{break-after:avoid}
+  .doc .sec-head{break-inside:avoid}   /* 절 머리(번호·제목·리드)가 쪽 경계에서 갈라지지 않는다 — 2026-09-03 §5 3열 삽입 후 §6 머리가 11/12쪽에 걸친 실측 */
   .doc .kv{grid-template-columns:120px 1fr}
   /* 링크는 인쇄에서도 색+밑줄을 유지한다(정본③ "색 말고도 링크임을 알 수 있는 표시" — PDF 는 화면에서도 읽힌다) */
 }
