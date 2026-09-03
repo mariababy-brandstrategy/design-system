@@ -1,139 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>마리아 공간 브랜드 가이드</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
-@font-face{font-family:"Pretendard DS";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
-:root{
-  color-scheme:light;
-  --green:#1E3131;--body:#4A605C;--muted:#5A6F6B;--line:#6E827D;--line-soft:#D2DCDC;--green-bg:#EFF3F3;
-  --teal:#1D9581;--teal-deep:#167565;--teal-bg:#E6F5F2;
-  --pink:#E0A793;--pink-deep:#9A5F4B;--pink-bg:#FDF6F4;
-  --ivory:#F4EEED;--white:#FFFFFF;
-  --warn-bg:#FBF4E4;--warn-fg:#7E6429;
-  --font:"Pretendard DS",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-}
-*{box-sizing:border-box}
-html{background:var(--ivory)}
-body{margin:0;background:var(--ivory);color:var(--body);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
-h1,h2,h3,h4{color:var(--green);margin:0;text-wrap:balance;line-height:1.3}
-p{margin:0}
-a{color:var(--teal-deep);text-decoration:underline;text-underline-offset:3px}
-.sheet{max-width:920px;margin:0 auto;background:var(--white)}
-/* 표지 */
-.cover{background:var(--green);color:var(--white);padding:72px 64px 56px}
-svg.wm{fill:currentColor}
-.cover .wm{width:220px;height:auto;color:var(--white);display:block}
-.cover h1{color:var(--white);font-size:44px;font-weight:600;letter-spacing:-.02em;margin-top:88px}
-.cover .sub{font-size:20px;font-weight:400;color:var(--white);margin-top:12px;opacity:.92}
-.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid rgba(255,255,255,.35);font-size:14px}
-.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:2px}
-.cover .status{margin-top:28px;font-size:14px;line-height:1.6;max-width:60ch;opacity:.92}
-/* 본문 */
-.body{padding:8px 64px 72px}
-section{padding-top:56px}
-section+section{border-top:1px solid var(--line-soft);margin-top:56px}
-.sec-head{display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:baseline;margin-bottom:28px}
-.sec-head .no{font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--muted);font-variant-numeric:tabular-nums}
-.sec-head h2{font-size:28px;font-weight:600;letter-spacing:-.01em}
-.sec-head .lead{grid-column:2;font-size:17px;color:var(--body);max-width:62ch;margin-top:6px}
-h3{font-size:18px;font-weight:600;margin:36px 0 12px}
-h3:first-of-type{margin-top:0}
-.prose{max-width:66ch}
-.prose p+p{margin-top:12px}
-ul,ol{margin:0;padding-left:1.25em}
-li+li{margin-top:6px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px}
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.kv{display:grid;grid-template-columns:140px 1fr;gap:10px 24px;font-size:15px}
-.kv dt{color:var(--muted);font-weight:500}
-.kv dd{margin:0}
-.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;padding:1px 7px;border:1px solid currentColor;vertical-align:2px;margin-left:6px;line-height:1.5;white-space:nowrap}
-.tag.check{color:var(--warn-fg);background:var(--warn-bg);border-color:transparent}
-.tag.prop{color:var(--teal-deep);background:var(--teal-bg);border-color:transparent}
-.tag.ref{color:var(--muted);background:var(--green-bg);border-color:transparent}
-.note{font-size:14px;color:var(--muted);max-width:66ch}
-.quote{font-size:24px;font-weight:500;color:var(--green);line-height:1.45;max-width:26ch;letter-spacing:-.01em}
-.values{margin-top:28px}
-.values h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--teal-deep);margin-bottom:6px}
-.values p{font-size:15px}
-/* 표 */
-table{width:100%;border-collapse:collapse;font-size:14.5px}
-th{text-align:left;font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;padding:0 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:bottom}
-td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line-soft);vertical-align:top}
-tr:last-child td{border-bottom:1px solid var(--line)}
-td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
-.tbl-wrap{overflow-x:auto}
-.nw{white-space:nowrap}
-.sw{display:inline-block;width:44px;height:44px;vertical-align:middle;border:1px solid var(--line-soft)}
-.rules td:first-child{color:var(--green);font-weight:500;width:160px}
-.pending td:first-child{color:var(--green);font-weight:500;width:56px;font-variant-numeric:tabular-nums}
-.pending td:last-child{color:var(--muted);white-space:nowrap}
+{{TOKENS_CSS}}
+{{BASE_CSS}}
+/* ── 공간 브랜드 가이드 v1.0 — 문서 override (tokens → document-base → 여기) ── */
+/* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋, 문서 실사용 문자 전부 포함).
+   서브셋은 OFL 의 Modified Version 이라 예약 글꼴명 "Pretendard" 를 못 쓴다 → "Maria Doc Sans" 로 개명해 토큰 사슬 앞에 둔다(글자 모양은 Pretendard 그대로) */
+@font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
+.doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+/* 페이지 바탕 — html 은 base 범위 밖(base 는 .doc 안만 다룬다). body 는 .doc 자신 */
+html{background:var(--bg-ivory)}
+/* 표지: 전면 그린. 첫 장은 페이지 여백 0 (@page :first) — 워드마크 여백 규칙을 문서 스스로 지키기 위해 */
+/* 어두운 배경 위 글자 = 아이보리(--text-on-dark, §1 표·정본③). 워드마크만 흰색(§1-1) */
+.cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
+.cover .wm{width:220px;height:auto;color:var(--bg-default);display:block}
+.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:88px}
+.cover .sub{font-size:20px;font-weight:400;margin-top:12px;opacity:.92}   /* 합성 대비 10.3 (§1-4 재측정) */
+.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}   /* 어두운 배경 위 장식선 = green-400(장식 전용) */
+.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}   /* 합성 대비 6.6 */
+.cover .status{margin-top:28px;font-size:14px;line-height:var(--line-height-base);max-width:60ch;opacity:.92}
 /* 로고 시연 */
 .logo-demo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.logo-demo .cell{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--line-soft)}
-.logo-demo .cell.on-ivory{background:var(--ivory);color:var(--green)}
-.logo-demo .cell.on-green{background:var(--green);color:var(--white);border-color:var(--green)}
+.logo-demo .cell{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--maria-green-100)}
+.logo-demo .cell.on-ivory{background:var(--bg-ivory);color:var(--text-primary)}
+.logo-demo .cell.on-green{background:var(--bg-dark);color:var(--bg-default);border-color:var(--bg-dark)}
 .logo-demo .wm{width:46%;height:auto}
-figcaption{font-size:13px;color:var(--muted);margin-top:8px}
-figure{margin:0}
-.clear-space{border:1px solid var(--line-soft);background:var(--white);padding:24px}
-.clear-space svg{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;color:var(--green)}
+.clear-space{border:1px solid var(--maria-green-100);background:var(--bg-default);padding:24px}
+.clear-space svg{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;color:var(--text-primary)}
 .dont{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.dont .cell{border:1px solid var(--line-soft);padding:18px 16px;font-size:14px}
-.dont .cell b{display:block;color:var(--pink-deep);font-weight:600;margin-bottom:4px}
-/* 색 */
-.role-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 32px;font-size:15px}
+.dont .cell{border:1px solid var(--maria-green-100);padding:20px 16px;font-size:14px}
+.dont .cell b{display:block;color:var(--maria-pink-900);font-weight:600;margin-bottom:4px}
+/* 색표·조합 예시 — 값이 콘텐츠인 자리(스와치)는 본문 style 속성의 HEX 리터럴 허용 */
+.sw{display:inline-block;width:44px;height:44px;vertical-align:middle;border:1px solid var(--maria-green-100)}
+.rules td:first-child{color:var(--text-primary);font-weight:500;width:160px}
+.role-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 32px;font-size:16px}
 .role-list div{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
-.role-list i{display:block;width:28px;height:28px;border:1px solid var(--line-soft);margin-top:4px}
+.role-list i{display:block;width:28px;height:28px;border:1px solid var(--maria-green-100);margin-top:4px}
 .combo{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.combo .c{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;border:1px solid var(--line-soft)}
+.combo .c{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;border:1px solid var(--maria-green-100)}
 .combo figcaption{margin-top:6px}
-.steps{counter-reset:step;list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.steps.five{grid-template-columns:repeat(5,1fr)}
-.steps li{counter-increment:step;padding-top:12px;border-top:2px solid var(--green);font-size:14.5px}
-.steps li::before{content:counter(step,decimal-leading-zero);display:block;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
-.steps li b{display:block;color:var(--green);font-weight:600;margin-bottom:4px;font-size:15px}
-/* 서체 */
-.specimen{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;display:grid;grid-template-columns:120px 1fr;gap:10px 24px;align-items:baseline}
-.specimen .lab{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.specimen .w600{font-size:30px;font-weight:600;color:var(--green);letter-spacing:-.01em}
-.specimen .w500{font-size:22px;font-weight:500;color:var(--green)}
-.specimen .w400{font-size:17px;font-weight:400;color:var(--body)}
-.specimen .latin{font-size:15px;color:var(--muted);letter-spacing:.01em}
-/* 이미지 */
-.ex img{width:100%;height:auto;display:block;border:1px solid var(--line-soft)}
-/* 체크리스트 */
-.check{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;font-size:15px}
-.check li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
-.check li::before{content:"";width:16px;height:16px;border:1.5px solid var(--line);margin-top:6px}
-/* 부록 */
-.blank td{height:44px}
-.blank td:first-child{white-space:nowrap}
-.hist td:first-child,.hist td:nth-child(2){white-space:nowrap;font-variant-numeric:tabular-nums}
-footer{padding:36px 64px 56px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-footer .wm{width:96px;height:auto;color:var(--green)}
+/* 서체 표본 */
+.specimen{border-top:1px solid var(--maria-green-100);border-bottom:1px solid var(--maria-green-100);padding:20px 0;display:grid;grid-template-columns:120px 1fr;gap:10px 24px;align-items:baseline}
+.specimen .lab{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.specimen .w600{font-size:30px;font-weight:600;color:var(--text-primary);letter-spacing:-.025em}
+.specimen .w500{font-size:24px;font-weight:500;color:var(--text-primary)}
+.specimen .w400{font-size:18px;font-weight:400;color:var(--text-body)}
+.specimen .latin{font-size:16px;color:var(--text-muted)}
+/* §1 브랜드 가치(Pride·Simple·Truth) 블록 — 이 문서 고유 */
+.values{margin-top:28px}
+.values h4{font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text-link);margin-bottom:6px}
+.values p{font-size:16px}
+/* 참고 이미지 */
+.space-ex figcaption{margin-top:6px}
+.ex img{width:100%;height:auto;display:block;border:1px solid var(--maria-green-100)}
 @media (max-width:720px){
-  .cover{padding:48px 24px 40px}.cover h1{font-size:34px;margin-top:56px}.cover .meta{grid-template-columns:1fr}
-  .body{padding:8px 24px 56px}.sec-head{grid-template-columns:1fr;gap:6px}.sec-head .lead{grid-column:1}
-  .two,.three,.role-list,.check,.logo-demo{grid-template-columns:1fr}
-  .dont,.combo{grid-template-columns:1fr 1fr}.steps,.steps.five{grid-template-columns:1fr 1fr}.kv{grid-template-columns:1fr}
-  .pending td:last-child{white-space:normal}
-  footer{grid-template-columns:1fr;padding:32px 24px 48px}
+  .cover{padding:48px 24px 40px}.cover h1{font-size:36px;margin-top:56px}.cover .meta{grid-template-columns:1fr}
+  .role-list,.logo-demo{grid-template-columns:1fr}
+  .dont,.combo{grid-template-columns:1fr 1fr}
 }
 @media print{
-  @page{size:A4;margin:16mm}
-  html,body{background:#fff}
-  .sheet{max-width:none}
-  .cover{padding:40mm 0 24mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .body{padding:0}
-  section{break-before:page;padding-top:0;border-top:0;margin-top:0}
-  section.cont{break-before:auto}
-  table,figure,.steps,.dont,.combo,.clear-space,.values,.specimen{break-inside:avoid}
-  #s1 .two{grid-template-columns:1fr}
-  .kv{grid-template-columns:120px 1fr}
-  a{text-decoration:none;color:inherit}
-  .sw,.combo .c,.role-list i,.logo-demo .cell,.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page :first{margin:0}
+  html{background:var(--bg-default)}
+  .cover{padding:44mm 24mm 32mm;height:297mm;box-sizing:border-box;overflow:hidden}
+  .cover h1{margin-top:96px}
+  #about .two{grid-template-columns:3fr 2fr}   /* 인쇄: kv(왼쪽)가 반폭이면 넘치고, 1열이면 마지막 주석이 다음 쪽으로 떨어진다 — 3:2 가 한 쪽에 들어가는 비율 */
+  .dont,.combo,.clear-space,.values,.specimen,.space-ex{break-inside:avoid}
 }
 </style>
+</head>
+<body class="doc">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="wm" viewBox="52.586 27.125 496.027 149.266" fill="currentColor">{{WM_PATHS}}</symbol>
@@ -144,320 +84,54 @@ footer .wm{width:96px;height:auto;color:var(--green)}
 <header class="cover">
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
   <h1>공간 브랜드 가이드</h1>
-  <p class="sub">인테리어 · 건축설계 · 사인 제작 협력사를 위한 기준</p>
+  <p class="sub">인테리어 · 건축설계 · 사인 제작 협력사를 위한 참고</p>
   <div class="meta">
-    <div><b>버전</b>v1.0 · 2026-09-02</div>
+    <div><b>버전</b>v1.0 · 2026-09-03</div>
     <div><b>발행</b>마리아의료재단 CX부</div>
     <div><b>정본 관계</b>마리아 디자인 시스템 v2.1의 파생본</div>
-    <div><b>적용 프로젝트</b>전달 시 기입</div>
   </div>
-  <p class="status">시안을 그리기 전에 §1과 §2를 읽고, 제출할 때 §7 자가점검표를 함께 보냅니다. 적용 프로젝트와 현장 담당자는 CX부가 전달 시점에 적어 보냅니다.</p>
+  <p class="status">마리아 브랜드를 공간에 옮길 때 참고하는 방향 안내입니다. 로고, 브랜드 색, 서체는 그대로 지켜 주시고, 나머지는 이 문서의 방향 안에서 협력사가 판단해 주십시오.</p>
 </header>
 
 <main class="body">
 
-<section id="s1">
+<section id="about">
   <div class="sec-head">
-    <span class="no">§1</span>
-    <h2>먼저 확인할 것</h2>
-    <p class="lead">시안을 그리기 전에 이 한 절만 읽어도 무엇을 받아야 하고, 무엇을 제출해야 하며, 어디에 물어야 하는지 알 수 있습니다.</p>
+    <span class="no"></span>
+    <h2>이 문서에 대해</h2>
+    <p class="lead">마리아 브랜드를 공간에 옮길 때 참고하는 방향 안내입니다. 승인 절차를 정한 규칙서가 아니라, 어디를 지향하면 되는지를 적은 문서입니다.</p>
   </div>
   <div class="two">
     <dl class="kv">
-      <dt>대상</dt><dd>인테리어 업체, 건축설계사무소, 사인·그래픽 제작사. 하도급 업체에 전달할 때는 같은 사용 제한을 함께 알립니다.</dd>
-      <dt>다루는 것</dt><dd>로고, 지정색과 재현 절차, 서체, 사이니지(실명 사인, 층별 안내, 방향 유도)와 안내 문구, 시안 승인 절차.</dd>
-      <dt>다루지 않는 것</dt><dd>공간 구성, 마감재, 조명 설계, 가구 사양. 소방·피난·접근성 등 법정·안전 사인은 관계 법령과 현장 기준이 우선하며, 이 문서는 그 요건을 대체하지 않습니다. 포포 패밀리 캐릭터는 공간 매체에 쓰지 않으므로 이 문서에서 다루지 않습니다. 행사·공지용 임시 게시물은 CX부가 따로 만들므로 이 문서의 대상이 아닙니다. <span class="tag prop">초안 제안</span></dd>
-      <dt>정본 관계</dt><dd>마리아 디자인 시스템 v2.1에서 공간에 필요한 부분만 추린 파생본입니다. 값이 다르게 보이면 CX부에 확인합니다. 웹 화면 전용 기준(화면 대비, 픽셀 글자 크기, UI 부품)은 넣지 않았습니다.</dd>
-      <dt>받는 것</dt><dd>이 문서와 부록 B의 자산 묶음. 묶음에 없는 파일은 정본이 아닙니다.</dd>
-      <dt>제출하는 것</dt><dd>§2의 시안 제출물과 §7 자가점검표. 색 후보는 부록 A 형식으로.</dd>
+      <dt>대상</dt><dd>인테리어 업체, 건축설계사무소, 사인·그래픽 제작사. 하도급 업체가 있으면 이 문서를 함께 전달해 주십시오.</dd>
+      <dt>다루는 것</dt><dd>로고, 브랜드 색과 매체별 확인 방법, 서체, 사이니지와 안내 문구의 방향.</dd>
+      <dt>다루지 않는 것</dt><dd>공간 구성, 마감재, 조명 설계, 가구 사양은 협력사의 영역입니다. 소방·피난·접근성 등 법정·안전 사인은 관계 법령과 현장 기준이 우선합니다. 포포 패밀리 캐릭터는 공간에 쓰지 않습니다.</dd>
+      <dt>정본 관계</dt><dd>마리아 디자인 시스템 v2.1에서 공간에 필요한 부분만 추린 파생본입니다. 웹 화면 전용 기준은 넣지 않았습니다. 값이 다르게 보이면 CX부에 확인해 주십시오.</dd>
       <dt>문의</dt><dd>마리아의료재단 CX부 신동윤 차장<br><a href="mailto:dyshin@mariababy.com">dyshin@mariababy.com</a></dd>
     </dl>
     <div class="prose">
-      <h3>이 문서의 표식</h3>
-      <p><span class="tag prop" style="margin-left:0">초안 제안</span> 정본 v2.1에 없던 규칙을 이 문서에서 처음 정한 것입니다. 로고 최소 크기, 입체·조명 로고, 매체와 마감, 픽토그램, 제작 파일 형식, 사용 조건이 여기 해당하며, 확정 전까지는 권장 사항으로 읽습니다.</p>
-      <p><span class="tag ref" style="margin-left:0">참고 이미지</span> 규칙이 아니라 사례입니다. 이미지에 보이는 배치나 비율을 규칙으로 읽지 않습니다.</p>
+      <h3>그대로 지켜 주십시오</h3>
+      <ul>
+        <li>로고는 §2대로 씁니다. 제공한 원본 파일을 그대로 쓰고, 색은 마리아 그린과 흰색 두 가지이며, 사방 여백을 비웁니다.</li>
+        <li>사인, 그래픽, 강조 벽면처럼 브랜드가 드러나는 요소의 색은 §3의 표에서 고릅니다.</li>
+        <li>글자는 Pretendard로 적습니다.</li>
+        <li>포포 패밀리 캐릭터는 공간에 쓰지 않습니다.</li>
+      </ul>
+      <h3>방향으로 참고해 주십시오</h3>
+      <ul>
+        <li>색의 역할과 비율, 사인의 구성, 안내 문구의 톤, 매체와 마감은 협력사가 이 문서의 방향 안에서 판단합니다.</li>
+        <li>판단이 어렵거나 이 문서와 다르게 하고 싶은 자리가 있으면 CX부에 알려 주십시오. 승인 절차가 아니라 같이 보고 의견을 드리는 자리이며, 본문에서 "같이 보겠습니다"라고 적은 곳은 모두 이 뜻입니다.</li>
+      </ul>
+      <p class="note" style="margin-top:16px"><span class="tag ref" style="margin-left:0">참고 이미지</span> 표식이 붙은 이미지는 규칙이 아니라 사례입니다. 거기 보이는 배치나 비율을 규칙으로 읽지 않으셔도 됩니다.</p>
     </div>
   </div>
 </section>
 
-<section id="s2">
+<section id="brand">
   <div class="sec-head">
-    <span class="no">§2</span>
-    <h2>시안 검토와 승인</h2>
-    <p class="lead">로고, 색, 서체가 들어가는 모든 시안은 시공 전에 CX부 승인을 받습니다. 승인 뒤 바뀐 부분은 다시 승인을 받습니다.</p>
-  </div>
-  <ol class="steps five">
-    <li><b>시안 제출</b>도면 또는 투시도에 로고 위치와 크기, 사용한 색 이름, 서체와 글자 높이, 매체별 색 번호 후보(부록 A 형식)를 표기해 보냅니다.</li>
-    <li><b>CX부 검토</b>이 문서의 규칙으로 검토하고, 반려 사유는 § 번호로 답합니다. 제출물이 갖춰진 날부터 영업일 5일 안에 회신합니다.</li>
-    <li><b>실물 확인</b>색과 재질은 §4 절차대로 실물로 확인합니다. 로고와 글자는 실제 크기 출력물로 확인합니다. 승인한 샘플은 CX부가 보관합니다.</li>
-    <li><b>양산 전 확인</b>생산 로트가 바뀌거나 재질·마감이 달라지면 시공 전에 샘플을 다시 대조합니다. 승인 샘플과 다르면 재승인 대상입니다. <span class="tag prop">초안 제안</span></li>
-    <li><b>현장 검수</b>시공 뒤 CX부가 현장에서 승인 샘플과 대조합니다. 불일치 시 재시공 여부와 비용 책임은 공사 계약이 정합니다. 사진을 남겨 부록 A를 갱신합니다.</li>
-  </ol>
-  <h3>중단 조건</h3>
-  <ul class="prose">
-    <li>이 문서가 정하지 않은 값을 임의로 채운 시안은 그 부분을 검토하지 않고 되돌립니다.</li>
-    <li>포포 패밀리 캐릭터가 들어간 시안은 캐릭터를 뺀 뒤 다시 제출합니다.</li>
-    <li>로고를 다시 그렸거나 서체로 타이핑한 시안은 전체를 반려합니다.</li>
-    <li>§4 표 밖의 색이 들어 있으면 색 지정을 다시 받습니다. CX부가 미리 승인한 색이면 승인 근거를 함께 적어 제출합니다.</li>
-  </ul>
-</section>
-
-<section id="s3">
-  <div class="sec-head">
-    <span class="no">§3</span>
-    <h2>로고</h2>
-    <p class="lead">마리아 로고는 글자가 아니라 전용 워드마크입니다. R 자 위의 점은 사람을 뜻하며, 어떤 서체로도 다시 타이핑해 만들 수 없습니다.</p>
-  </div>
-  <figure class="logo-demo">
-    <div class="cell on-ivory"><svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA 워드마크, 아이보리 바탕에 마리아 그린"><use href="#wm"/></svg></div>
-    <div class="cell on-green"><svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA 워드마크, 마리아 그린 바탕에 흰색"><use href="#wm"/></svg></div>
-    <figcaption>밝은 바탕에는 마리아 그린 #1E3131, 어두운 바탕에는 100% 흰색. 이 두 가지가 허용된 색 전부입니다.</figcaption>
-  </figure>
-
-  <h3>규칙</h3>
-  <div class="tbl-wrap"><table class="rules">
-    <tr><td>정본 파일</td><td>부록 B의 벡터 파일만 사용합니다. 화면 캡처, 웹에서 내려받은 이미지, 다시 그린 로고, 자동 벡터화한 로고는 사용할 수 없습니다.</td></tr>
-    <tr><td>색</td><td>밝은 바탕 위에는 마리아 그린 #1E3131, 어두운 바탕 위에는 흰색 #FFFFFF. 아이보리 색 워드마크는 쓰지 않습니다.</td></tr>
-    <tr><td>비율</td><td>가로 : 세로 = 601 : 229 (약 2.63 : 1). 늘리거나 눌러서 비율을 바꾸지 않습니다.</td></tr>
-    <tr><td>여백</td><td>워드마크 사방에 워드마크 높이의 1/2 이상을 비웁니다. 이 안에는 글자, 선, 다른 그래픽, 벽면과 판면의 모서리가 들어오지 않습니다.</td></tr>
-    <tr><td>최소 크기</td><td>숫자로 정하지 않고 시안마다 승인합니다. 시안에 설치 크기(mm)와 시거리(m)를 적어 제출하며, R 자 위의 점이 시거리에서 점으로 보이지 않는 크기는 반려합니다. <span class="tag prop">초안 제안</span></td></tr>
-    <tr><td>바탕</td><td>단색 바탕 위에만 놓습니다. 사진, 패턴, 그라데이션, 두 색이 만나는 경계 위에는 놓지 않습니다.</td></tr>
-    <tr><td>입체·조명</td><td>입체 문자, 절삭, 채널 문자, 배면 조명은 자동으로 허용되지 않습니다. 두께, 돌출, 테두리, 점등 상태를 보이는 목업으로 CX부 승인을 따로 받습니다. <span class="tag prop">초안 제안</span></td></tr>
-    <tr><td>병기</td><td>기관명을 함께 적을 때는 워드마크 옆이나 아래에 Pretendard로 적고 여백 규칙을 지킵니다. 표기는 "마리아 난임병원 / Maria Fertility Center"이며, 국문을 앞이나 위에 둡니다.</td></tr>
-  </table></div>
-
-  <h3>여백</h3>
-  <figure class="clear-space">
-    <svg viewBox="-60 -85 720 372" role="img" aria-label="워드마크 주변 여백 도해. 사방에 워드마크 높이의 절반을 비운다.">
-      <rect x="-22.05" y="-47.51" width="645.29" height="298.53" fill="none" stroke="#6E827D" stroke-width="1.5" stroke-dasharray="6 5"/>
-      <rect x="52.586" y="27.125" width="496.027" height="149.266" fill="none" stroke="#D2DCDC" stroke-width="1"/>
-      <g fill="currentColor">{{WM_PATHS}}</g>
-      <g stroke="#6E827D" stroke-width="1.5" fill="none">
-        <line x1="548.6" y1="-47.5" x2="548.6" y2="27.1"/><line x1="52.6" y1="176.4" x2="52.6" y2="251"/>
-        <line x1="-22" y1="27.1" x2="52.6" y2="27.1"/><line x1="548.6" y1="176.4" x2="623.2" y2="176.4"/>
-      </g>
-      <g font-family="Pretendard DS, Pretendard, sans-serif" font-size="18" fill="#5A6F6B">
-        <text x="560" y="-8">½H</text><text x="8" y="222">½H</text><text x="-58" y="20">½H</text><text x="574" y="200">½H</text>
-        <text x="558" y="106" font-size="16">H</text>
-      </g>
-    </svg>
-    <figcaption>점선 안쪽이 비워 두는 영역입니다. H는 워드마크의 높이이며 설치 크기와 무관하게 같은 비율을 지킵니다.</figcaption>
-  </figure>
-
-  <h3>하지 않는 것</h3>
-  <div class="dont">
-    <div class="cell"><b>서체로 타이핑</b>어떤 서체로 "MARIA"를 적어도 로고가 아닙니다. 비슷한 세리프체도 안 됩니다.</div>
-    <div class="cell"><b>변형</b>기울이기, 회전, 외곽선 추가, 그림자, 글자 간격 조정. 그래픽으로 두께를 흉내 내는 처리도 안 됩니다. 실물 입체 제작은 규칙표의 입체·조명 항목을 따릅니다.</div>
-    <div class="cell"><b>색 바꾸기</b>그린과 흰색 외의 색, 아이보리, 그라데이션, 금속색.</div>
-    <div class="cell"><b>바탕 위 겹침</b>사진, 패턴, 두 가지 이상의 색이 만나는 경계 위에 놓기.</div>
-    <div class="cell"><b>낮은 대비</b>그린 워드마크를 어두운 바탕에, 흰 워드마크를 밝은 바탕에 놓기.</div>
-    <div class="cell"><b>여백 침범</b>여백 안에 기관명, 화살표, 층 번호를 붙여 넣기.</div>
-  </div>
-</section>
-
-<section id="s4">
-  <div class="sec-head">
-    <span class="no">§4</span>
-    <h2>색</h2>
-    <p class="lead">기준은 HEX 값입니다. CMYK와 PANTONE은 브랜드 디자이너가 지정한 인쇄용 값이며, 도료·시트·아크릴의 발주 코드로 바꿔 쓰지 않습니다. 공간 매체의 색은 아래 절차로 실물로 정하고 부록 A에 기록합니다.</p>
-  </div>
-  <h3>기준값과 인쇄 지정값</h3>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th></th><th>이름</th><th class="num">HEX · 기준</th><th class="num">RGB</th><th class="num">CMYK · 인쇄</th><th class="nw">PANTONE · 인쇄</th><th>쓰는 곳</th></tr></thead>
-    <tbody>
-      <tr><td><i class="sw" style="background:#1E3131"></i></td><td class="nw">마리아 그린</td><td class="num">#1E3131</td><td class="num">30 · 49 · 49</td><td class="num">87 · 72 · 73 · 48</td><td class="nw">5467 C</td><td>로고, 글자, 픽토그램, 공식 사인의 판면</td></tr>
-      <tr><td><i class="sw" style="background:#F4EEED"></i></td><td class="nw">마리아 아이보리</td><td class="num">#F4EEED</td><td class="num">244 · 238 · 237</td><td class="num">5 · 8 · 6 · 0</td><td class="nw">663 C</td><td>넓은 바탕, 사인 판면</td></tr>
-      <tr><td><i class="sw" style="background:#E0A793"></i></td><td class="nw">마리아 핑크</td><td class="num">#E0A793</td><td class="num">224 · 167 · 147</td><td class="num">15 · 42 · 38 · 0</td><td class="nw">487 C</td><td>환영과 정서를 전하는 작은 요소</td></tr>
-      <tr><td><i class="sw" style="background:#1D9581"></i></td><td class="nw">포포 틸</td><td class="num">#1D9581</td><td class="num">29 · 149 · 129</td><td class="num">PANTONE 기준</td><td class="nw">P 124-15 U</td><td>한 면에서 눈에 띄어야 하는 요소 하나. 글자와 바탕에는 쓰지 않음</td></tr>
-      <tr><td><i class="sw" style="background:#6E827D"></i></td><td class="nw">연한 그린</td><td class="num">#6E827D</td><td class="num">110 · 130 · 125</td><td class="num">64 · 45 · 50 · 0</td><td class="nw">4186 C</td><td>구분선, 테두리, 보조 요소</td></tr>
-      <tr><td><i class="sw" style="background:#D2DCDC"></i></td><td class="nw">블루 그레이</td><td class="num">#D2DCDC</td><td class="num">210 · 220 · 220</td><td class="num">21 · 10 · 13 · 0</td><td class="nw">5455 C</td><td>옅은 구분면, 배경 구획</td></tr>
-      <tr><td><i class="sw" style="background:#FFFFFF"></i></td><td class="nw">흰색</td><td class="num">#FFFFFF</td><td class="num">255 · 255 · 255</td><td class="num">0 · 0 · 0 · 0</td><td class="nw">없음</td><td>기본 바탕, 어두운 바탕 위의 글자와 로고</td></tr>
-    </tbody>
-  </table></div>
-  <p class="note" style="margin-top:12px">이 일곱 가지 밖의 색은 쓰지 않습니다. 인쇄물의 CMYK는 코팅과 용지에 따라 다르게 나오므로 인쇄 전 교정지로 확인합니다. 포포 틸의 PANTONE 값은 2026-09-02 브랜드 디자이너 확인분이며 Uncoated(U) 기준입니다. 나머지 색은 Coated(C) 기준이므로 한 인쇄물에 함께 쓸 때는 교정지로 대조합니다. 포포 틸의 공간 매체 승인값은 그 프로젝트와 매체에 한정된 값이며, 브랜드 정본의 지정값으로 승격되지 않습니다.</p>
-
-  <h3>공간에서의 역할 <span class="tag prop">초안 제안</span></h3>
-  <p class="note" style="margin-bottom:14px">정본 v2.1이 인쇄물과 화면에 정한 역할을 공간으로 옮긴 것입니다. 면적 비율은 정하지 않았으며, 어느 면에 어느 색을 쓸지는 시안 승인에서 정합니다.</p>
-  <div class="role-list">
-    <div><i style="background:#F4EEED"></i><p><b style="font-weight:600;color:var(--green)">바탕</b> 아이보리와 흰색이 벽면, 판면, 인쇄면의 넓은 부분을 맡습니다.</p></div>
-    <div><i style="background:#1E3131"></i><p><b style="font-weight:600;color:var(--green)">주조</b> 마리아 그린은 읽어야 하는 모든 것, 즉 글자, 로고, 픽토그램의 색입니다.</p></div>
-    <div><i style="background:#E0A793"></i><p><b style="font-weight:600;color:var(--green)">온기</b> 마리아 핑크는 환영과 축하를 전하는 자리에 작게 씁니다. 그 자리의 면이나 장식 요소에 쓰고 글자색으로는 쓰지 않습니다.</p></div>
-    <div><i style="background:#1D9581"></i><p><b style="font-weight:600;color:var(--green)">포인트</b> 포포 틸은 한 면(사인 한 장, 벽 한 면, 인쇄 한 면)에서 요소 하나에만 씁니다.</p></div>
-  </div>
-
-  <h3>지켜 주십시오</h3>
-  <div class="two">
-    <ul>
-      <li>글자는 마리아 그린으로, 어두운 바탕 위의 글자는 흰색으로 씁니다. 마리아 핑크는 글자색으로 쓰지 않습니다.</li>
-      <li>포포 틸은 한 면에서 요소 하나에만 씁니다. 판면이나 벽면의 바탕색으로 쓰지 않습니다.</li>
-      <li>포포 틸 위에 글자를 얹지 않고, 틸을 글자색으로 쓰지 않습니다.</li>
-      <li>마리아 그린 바탕 위에 포포 틸 요소를 놓지 않습니다.</li>
-    </ul>
-    <ul>
-      <li>아이보리, 블루 그레이처럼 옅은 색을 글자색으로 쓰지 않습니다.</li>
-      <li>포포 틸과 마리아 핑크를 같은 면에서 나란히 강조색으로 쓰지 않습니다.</li>
-      <li>표에 없는 색을 만들지 않습니다. 밝기를 조절한 파생색도 CX부 사전 승인 없이는 쓰지 않습니다.</li>
-      <li>금속색, 형광색, 그라데이션은 CX부 사전 승인 없이는 쓰지 않습니다. <span class="tag prop">초안 제안</span></li>
-    </ul>
-  </div>
-
-  <h3>조합 예시</h3>
-  <div class="combo">
-    <figure><div class="c" style="background:#F4EEED;color:#1E3131">진료실 안내</div><figcaption>아이보리 바탕 + 그린 글자. 기본 조합</figcaption></figure>
-    <figure><div class="c" style="background:#1E3131;color:#FFFFFF">진료실 안내</div><figcaption>그린 바탕 + 흰 글자. 공식·강조 사인</figcaption></figure>
-    <figure><div class="c" style="background:#1D9581;color:#FFFFFF;text-decoration:line-through">진료실 안내</div><figcaption>틸 바탕 위 글자. 쓰지 않음</figcaption></figure>
-    <figure><div class="c" style="background:#1E3131;color:#1D9581;text-decoration:line-through">진료실 안내</div><figcaption>그린 위 틸 글자. 쓰지 않음</figcaption></figure>
-  </div>
-
-  <h3>매체마다 다릅니다</h3>
-  <p class="prose">페인트, 출력 시트, 컬러 시트, 아크릴, 금속, 입체 문자, 조명 사인은 같은 색 번호로 같은 색이 나오지 않습니다. 바탕재, 광택, 두께, 빛의 투과와 현장 조명에 따라 달라집니다. 그래서 매체별 지정색은 아래 절차로 한 번 정한 뒤 부록 A에 기록해 두고 다음 공사에서 다시 씁니다. 적용 매체는 협력사가 시안에서 제안하고, 마감(무광·유광)은 시안 승인에서 정하며, 조명 사인은 §3의 입체·조명 로고와 같이 목업으로 따로 승인합니다. <span class="tag prop">초안 제안</span></p>
-
-  <h3>공간 매체의 색 재현 절차</h3>
-  <ol class="steps">
-    <li><b>후보 제안</b>협력사가 매체별로 제조사, 제품명, 색 번호, 마감, 바탕재를 적어 제안합니다. 한 색에 후보 두 가지까지.</li>
-    <li><b>실물 샘플</b>제안한 색의 실물 스와치 또는 시공 샘플을 준비합니다. 화면이나 인쇄된 색표로는 판정하지 않습니다. 샘플은 손바닥 크기 이상으로 준비하고, 벽면 전체처럼 넓은 면은 CX부가 요청하면 실제 위치에 시험 시공합니다. <span class="tag prop">초안 제안</span></li>
-    <li><b>현장 확인</b>실제 설치될 분원, 실제 위치의 조명 아래에서 CX부 담당자가 확인합니다. 낮과 저녁 조명이 다르면 두 번 보고, 조명 사인은 점등과 소등 상태를 각각 봅니다.</li>
-    <li><b>승인·기록</b>승인된 값과 확인 조건을 부록 A에 적습니다. 같은 분원의 같은 매체·마감에는 이 값을 다시 쓰고, 분원이나 조명 조건이 달라지거나 재질·마감·로트가 바뀌면 이 절차를 다시 밟습니다.</li>
-  </ol>
-</section>
-
-<section id="s5">
-  <div class="sec-head">
-    <span class="no">§5</span>
-    <h2>서체</h2>
-    <p class="lead">모든 글자는 Pretendard로 적습니다. 한글과 영문, 숫자를 한 서체로 쓰며 무료로 배포되는 서체라 별도 구매가 필요 없습니다.</p>
-  </div>
-  <div class="specimen">
-    <span class="lab">제목 · 600</span><span class="w600">인공수정실 Artificial Insemination Room</span>
-    <span class="lab">본문 · 500</span><span class="w500">진료 접수는 2층 원무과에서 도와드립니다.</span>
-    <span class="lab">보조 · 400</span><span class="w400">가나다라마바사아자차카타파하 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
-    <span class="lab">배포</span><span class="latin">Pretendard · SIL Open Font License 1.1 · github.com/orioncactus/pretendard</span>
-  </div>
-  <h3>규칙</h3>
-  <div class="two">
-    <ul>
-      <li>서체는 Pretendard 하나입니다. 명조체, 손글씨체, 장식 서체, 시스템 기본 서체로 바꾸지 않습니다.</li>
-      <li>굵기는 400, 500, 600 세 가지만 씁니다. 제목과 실명은 600, 본문 안내는 500, 보조 설명은 400. 다른 굵기는 CX부 사전 승인이 필요합니다.</li>
-      <li>영문 병기와 숫자도 Pretendard로 적습니다. 영문 전용 서체를 따로 쓰지 않습니다.</li>
-    </ul>
-    <ul>
-      <li>글자 간격과 자폭은 기본값을 유지합니다. 좁히거나 넓혀서 칸에 맞추지 않습니다.</li>
-      <li>사인 시안에는 글자 높이(mm)와 예상 시거리(m), 그 근거(협력사의 시거리 기준 문서명 또는 계산서)를 적어 제출합니다. 값이 없는 시안은 검토하지 않습니다. <span class="tag prop">초안 제안</span></li>
-      <li>로고는 서체가 아닙니다. Pretendard로 "MARIA"를 적어 로고 대신 쓰지 않습니다.</li>
-    </ul>
-  </div>
-</section>
-
-<section id="s6">
-  <div class="sec-head">
-    <span class="no">§6</span>
-    <h2>사이니지와 안내 문구</h2>
-    <p class="lead">사인은 아이보리 판면 위 그린 글자가 기본입니다. 규칙은 아래 목록이고, 이미지는 참고 사례입니다.</p>
-  </div>
-  <figure class="ex">
-    <img src="data:image/png;base64,{{IMG_SIGNAGE}}" alt="디자이너 원안 내부 사이니지. 아이보리 판면 왼쪽에 그린 화살표, 오른쪽에 영문 Artificial Insemination Room과 국문 인공수정실이 두 줄로 적혀 있다.">
-    <figcaption><span class="tag ref" style="margin-left:0">참고 이미지</span> 브랜드 디자이너 원안 · 내부 사이니지(2023). 판면 아이보리, 글자와 화살표 마리아 그린. 원안은 영문을 위에 두었으나, 이 문서의 규칙은 국문이 위입니다.</figcaption>
-  </figure>
-  <h3>규칙</h3>
-  <div class="two">
-    <ul>
-      <li>판면은 아이보리 또는 흰색, 글자와 화살표와 픽토그램은 마리아 그린. 공식 사인은 그린 판면에 흰색으로 적고, 이때 글자와 화살표와 픽토그램이 모두 흰색입니다. 공식 사인은 분원명이나 로고가 들어가는 사인을 말합니다. <span class="tag prop">초안 제안</span></li>
-      <li>한 면에서 포포 틸을 쓰는 요소는 하나입니다. 예를 들어 층 안내판의 현재 층 표시 하나.</li>
-      <li>픽토그램은 ISO 7001 계열의 공공안내 그림표지를 마리아 그린 단색으로 씁니다. 다른 세트를 쓰려면 시안에 출처를 적어 승인을 받습니다. 여러 색이 든 아이콘은 쓰지 않습니다. <span class="tag prop">초안 제안</span></li>
-      <li>국문과 영문을 병기하고 국문을 위에 둡니다. 가로로 나란히 배열하면 국문이 앞입니다.</li>
-      <li>영문 글자 높이는 국문을 넘지 않습니다. <span class="tag prop">초안 제안</span></li>
-    </ul>
-    <ul>
-      <li>문구는 존댓말로, 한 문장으로 적습니다. 금지형 명령 대신 그 공간이 어떤 곳인지 알려 주는 문장으로 씁니다. "출입금지"가 아니라 "직원 전용 공간입니다". <span class="tag prop">초안 제안</span></li>
-      <li>"실패", "부족", "불가" 같은 부정형 단어는 피하고, 같은 뜻을 중립 표현으로 바꿉니다.</li>
-      <li>이모지, 유행어, 과장된 수사는 쓰지 않습니다.</li>
-      <li>진료 과목명, 시술명, 층 이름의 정식 표기는 CX부가 목록으로 전달합니다. 목록에 없는 표기는 CX부 확인 뒤에만 씁니다. <span class="tag prop">초안 제안</span></li>
-    </ul>
-  </div>
-  <figure class="ex" style="max-width:520px;margin-top:28px">
-    <img src="data:image/png;base64,{{IMG_BADGE}}" alt="디자이너 원안 명찰. 왼쪽에 MARIA 워드마크, 오른쪽에 직함과 이름이 Pretendard 그린으로 적혀 있다.">
-    <figcaption><span class="tag ref" style="margin-left:0">참고 이미지</span> 브랜드 디자이너 원안 · 명찰(2023). 워드마크와 글자를 나란히 둘 때의 간격 사례.</figcaption>
-  </figure>
-</section>
-
-<section id="s7">
-  <div class="sec-head">
-    <span class="no">§7</span>
-    <h2>제출 전 자가점검</h2>
-    <p class="lead">시안과 함께 이 표를 채워 보냅니다. 한 항목이라도 비어 있으면 검토가 늦어집니다.</p>
-  </div>
-  <ul class="check">
-    <li>로고는 부록 B의 벡터 파일을 그대로 썼다.</li>
-    <li>"MARIA"를 서체로 타이핑한 곳이 없다.</li>
-    <li>로고 사방 여백이 워드마크 높이의 1/2 이상이다.</li>
-    <li>로고 색은 그린 또는 흰색이고, 단색 바탕 위에 있다.</li>
-    <li>입체·조명 로고가 있으면 목업과 함께 별도 승인을 요청했다.</li>
-    <li>사용한 색이 §4 표의 일곱 가지 안에 있다.</li>
-    <li>포포 틸 위에 글자가 없고, 그린 바탕 위에 틸 요소가 없다.</li>
-    <li>한 면에서 포포 틸 요소는 하나다.</li>
-    <li>모든 글자가 Pretendard이며 굵기는 400·500·600 중 하나다.</li>
-    <li>사인 시안에 글자 높이, 시거리, 근거를 적었다.</li>
-    <li>포포 패밀리 캐릭터를 쓴 곳이 없다.</li>
-    <li>매체별 색 후보를 부록 A 형식으로 첨부했다.</li>
-    <li>국문과 영문을 병기하고, 국문을 위(가로로 나란히 두면 앞)에 두었으며 영문 높이가 국문을 넘지 않는다.</li>
-    <li>로고 가로세로 비율을 601 : 229 그대로 두었다.</li>
-    <li>픽토그램은 ISO 7001 계열 단색이거나, 다른 세트라면 출처를 적었다.</li>
-    <li>한 면에서 포포 틸과 마리아 핑크를 함께 강조색으로 쓰지 않았다.</li>
-    <li>하도급 업체에 자산을 전달했다면 사용 제한을 함께 알렸다.</li>
-  </ul>
-</section>
-
-<section id="a1">
-  <div class="sec-head">
-    <span class="no">부록 A</span>
-    <h2>매체별 지정색 기록표</h2>
-    <p class="lead">§4 절차로 승인된 값을 적습니다. 한 번 승인된 값은 같은 분원의 같은 매체·마감에서 다시 쓰되, 분원이나 조명 조건이 달라지면 다시 확인합니다. 여기 적힌 값은 그 매체와 현장에 한정되며 브랜드 정본의 지정값이 아닙니다.</p>
-  </div>
-  <div class="tbl-wrap"><table class="blank">
-    <thead><tr><th>기준색</th><th>매체 · 부위</th><th>제조사 · 제품명 · 색 번호</th><th>마감 · 바탕재 · 로트</th><th>실물 확인 (분원 · 위치 · 조명 · 날짜 · 사진)</th><th>승인자</th></tr></thead>
-    <tbody>
-      <tr><td>마리아 그린</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>마리아 아이보리</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>마리아 핑크</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>포포 틸</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>연한 그린</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>블루 그레이</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>흰색</td><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section id="a2" class="cont">
-  <div class="sec-head">
-    <span class="no">부록 B</span>
-    <h2>전달 자산과 사용 조건</h2>
-    <p class="lead">아래 파일을 CX부가 한 묶음으로 전달하며, 묶음에는 이 문서와 같은 버전 표기를 넣습니다. 목록에 없는 파일은 정본이 아닙니다.</p>
-  </div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>구분</th><th>파일</th><th>용도</th></tr></thead>
-    <tbody>
-      <tr><td>로고 · 제작용</td><td>maria-wordmark-green.svg · maria-wordmark-white.svg · 로고 색상별.ai · 로고 색상별.pdf</td><td>사인 제작, 도면, 출력. 색이 고정된 파일을 씁니다.</td></tr>
-      <tr><td>로고 · 웹용</td><td>maria-wordmark.svg (색을 CSS로 제어하는 판)</td><td>웹 화면 전용. 제작 프로그램에서는 색이 다르게 열릴 수 있어 쓰지 않습니다.</td></tr>
-      <tr><td>로고 · 비트맵</td><td>로고 색상별 PNG 5종 · white.png</td><td>미리보기, 투시도</td></tr>
-      <tr><td>색</td><td>이 문서 §4 표 · MARIA_BI Color.png</td><td>색 지정</td></tr>
-      <tr><td>서체</td><td>Pretendard (github.com/orioncactus/pretendard 에서 내려받음)</td><td>모든 글자</td></tr>
-      <tr><td>원안 용례</td><td>명함 · 명찰 · 봉투 · 문서 · 안내책자 · 세로 포스터 · 내부 사이니지 · 옥외광고 (AI, 2023)</td><td>참고. 그대로 재사용하지 않고 이 문서 규칙으로 다시 검토</td></tr>
-    </tbody>
-  </table></div>
-  <p class="note" style="margin-top:8px">제작용 벡터는 AI, SVG, PDF 세 형식을 모두 제공합니다. 다른 형식이 필요하면 CX부에 요청합니다. <span class="tag prop">초안 제안</span></p>
-  <h3>사용 조건 <span class="tag prop">초안 제안</span></h3>
-  <div class="prose">
-    <p>이 문서와 함께 제공되는 로고와 그래픽 자산의 권리는 마리아의료재단 또는 해당 권리자에게 있습니다. 제공 자산은 마리아의료재단이 승인한 해당 프로젝트의 설계, 제작, 시공 목적으로만 쓸 수 있으며, 임의 수정, 재작성, 재판매, 다른 프로젝트 사용, 대외 공개, 포트폴리오 게시를 금합니다.</p>
-    <p>업무상 하도급 업체에 전달할 때는 같은 사용 제한을 알리고 필요한 범위로만 전달합니다. 프로젝트가 끝나거나 CX부가 요청하면 제공 자산을 폐기하고, 하도급 업체에 전달한 사본까지 폐기했음을 회신합니다. 이 가이드는 관계 법령, 안전·접근성 기준, 계약상 요구사항을 대체하지 않습니다.</p>
-    <p class="note">이 문안은 법무 검토 전입니다. 계약상 구속력이 필요하면 같은 조건을 공사 계약서에 넣습니다. 포트폴리오 게시는 CX부가 서면으로 허락한 경우에만 예외로 합니다.</p>
-  </div>
-</section>
-
-<section id="a3" class="cont">
-  <div class="sec-head">
-    <span class="no">부록 C</span>
-    <h2>브랜드 요약</h2>
-    <p class="lead">규칙의 배경입니다. 공간이 전해야 하는 인상은 전문성과 따뜻함, 그리고 길잡이의 태도입니다.</p>
+    <span class="no">§1</span>
+    <h2>브랜드</h2>
+    <p class="lead">뒤에 나오는 모든 안내의 배경입니다. 공간이 전해야 하는 인상은 전문성과 따뜻함, 그리고 길잡이의 태도입니다.</p>
   </div>
   <p class="quote">"마리아병원은 오직 난임 부부를 위해서만 존재합니다."</p>
   <div class="three values">
@@ -472,27 +146,221 @@ footer .wm{width:96px;height:auto;color:var(--green)}
     <li>눈에 띄어야 하는 것만 포포 틸로. 강조색이 넓은 면을 덮으면 강조가 사라집니다.</li>
     <li>말은 명료하고 부드럽게. 난임 치료를 받는 분이 읽는 공간이므로 "실패", "부족" 같은 부정형 단어를 피합니다.</li>
   </ul>
+  <h3>공간에서의 인상 <span class="tag ref">참고 이미지</span></h3>
+  <div class="three space-ex">
+    <figure class="ex"><img src="data:image/jpeg;base64,{{IMG_SPACE_LOUNGE}}" alt="AI 생성 참고 이미지, 대기 공간. 아이보리 벽과 오크 바닥, 아이보리 벤치, 벽에 그린 판면 하나, 틸 화병과 핑크 쿠션이 하나씩 있다."><figcaption>대기 공간</figcaption></figure>
+    <figure class="ex"><img src="data:image/jpeg;base64,{{IMG_SPACE_CORRIDOR}}" alt="AI 생성 참고 이미지, 복도와 사인. 아이보리 벽과 오크 문, 천장에 그린 화살표만 있는 아이보리 방향 사인, 문 옆 사인에 틸 점 하나."><figcaption>복도와 사인</figcaption></figure>
+    <figure class="ex"><img src="data:image/jpeg;base64,{{IMG_SPACE_RECEPTION}}" alt="AI 생성 참고 이미지, 접수 카운터. 흰 상판과 오크 전면의 카운터, 뒤로 그린 판면과 간접조명, 핑크 꽃과 틸 소품이 하나씩 있다."><figcaption>접수 카운터</figcaption></figure>
+  </div>
+  <p class="note" style="margin-top:12px">AI 생성 이미지입니다. 색 기준은 §3 표의 HEX이며 분위기를 참고하는 용도입니다. 공간 구성과 배치는 설계 기준이 아닙니다.</p>
 </section>
 
-<section id="a4" class="cont">
+<section id="logo">
   <div class="sec-head">
-    <span class="no">부록 D</span>
-    <h2>변경 이력</h2>
+    <span class="no">§2</span>
+    <h2>로고</h2>
+    <p class="lead">마리아 로고는 글자가 아니라 전용 워드마크입니다. R 자 위의 점은 사람을 뜻하며, 어떤 서체로도 다시 타이핑해 만들 수 없습니다.</p>
   </div>
-  <div class="tbl-wrap"><table class="hist">
-    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+  <figure class="logo-demo">
+    <div class="cell on-ivory"><svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA 워드마크, 아이보리 바탕에 마리아 그린"><use href="#wm"/></svg></div>
+    <div class="cell on-green"><svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA 워드마크, 마리아 그린 바탕에 흰색"><use href="#wm"/></svg></div>
+    <figcaption>밝은 바탕에는 마리아 그린 #1E3131, 어두운 바탕에는 100% 흰색. 이 두 가지가 허용된 색 전부입니다.</figcaption>
+  </figure>
+
+  <h3>쓰는 법</h3>
+  <div class="tbl-wrap"><table class="rules">
+    <tr><td>정본 파일</td><td>§6의 벡터 파일을 그대로 씁니다. 화면 캡처, 웹에서 내려받은 이미지, 다시 그린 로고, 자동 벡터화한 로고는 쓰지 않습니다.</td></tr>
+    <tr><td>색</td><td>밝은 바탕 위에는 마리아 그린 #1E3131, 어두운 바탕 위에는 흰색 #FFFFFF. 아이보리 색 워드마크는 쓰지 않습니다.</td></tr>
+    <tr><td>비율</td><td>글자 부분은 가로 : 세로가 약 3.3 : 1 입니다. 제공 파일의 캔버스는 601 × 229로 글자 주위 여백이 포함돼 있습니다. 어느 쪽 기준이든 가로와 세로를 함께 키우고 줄이며, 늘리거나 눌러서 비율을 바꾸지 않습니다.</td></tr>
+    <tr><td>여백</td><td>워드마크 사방에 워드마크 높이의 1/2 이상을 비웁니다. 이 안에는 글자, 선, 다른 그래픽, 벽면과 판면의 모서리가 들어오지 않습니다.</td></tr>
+    <tr><td>최소 크기</td><td>숫자로 정하지 않습니다. 설치 위치에서 봤을 때 R 자 위의 점이 점으로 보이면 됩니다. 시거리가 먼 자리는 그만큼 크게 잡아 주십시오.</td></tr>
+    <tr><td>바탕</td><td>단색 바탕 위에만 놓습니다. 사진, 패턴, 그라데이션, 두 색이 만나는 경계 위에는 놓지 않습니다.</td></tr>
+    <tr><td>입체·조명</td><td>입체 문자, 절삭, 채널 문자, 배면 조명 모두 가능합니다. 두께와 돌출, 점등 상태에 따라 인상이 크게 달라지니 목업이나 렌더를 한 번 공유해 주시면 같이 보겠습니다.</td></tr>
+    <tr><td>병기</td><td>기관명을 함께 적을 때는 워드마크 옆이나 아래에 Pretendard로 적고 여백 규칙을 지킵니다. 표기는 "마리아 난임병원 / Maria Fertility Center"이며, 국문을 앞이나 위에 둡니다.</td></tr>
+  </table></div>
+
+  <h3>여백</h3>
+  <figure class="clear-space">
+    <svg viewBox="-60 -85 720 372" role="img" aria-label="워드마크 주변 여백 도해. 사방에 워드마크 높이의 절반을 비운다.">
+      <rect x="-22.05" y="-47.51" width="645.29" height="298.53" fill="none" style="stroke:var(--maria-green-400)" stroke-width="1.5" stroke-dasharray="6 5"/>
+      <rect x="52.586" y="27.125" width="496.027" height="149.266" fill="none" style="stroke:var(--maria-green-100)" stroke-width="1"/>
+      <g fill="currentColor">{{WM_PATHS}}</g>
+      <g style="stroke:var(--maria-green-400)" stroke-width="1.5" fill="none">
+        <line x1="548.6" y1="-47.5" x2="548.6" y2="27.1"/><line x1="52.6" y1="176.4" x2="52.6" y2="251"/>
+        <line x1="-22" y1="27.1" x2="52.6" y2="27.1"/><line x1="548.6" y1="176.4" x2="623.2" y2="176.4"/>
+      </g>
+      <g font-size="18" style="fill:var(--text-muted)">
+        <text x="560" y="-8">½H</text><text x="8" y="222">½H</text><text x="-58" y="20">½H</text><text x="574" y="200">½H</text>
+        <text x="558" y="106" font-size="16">H</text>
+      </g>
+    </svg>
+    <figcaption>점선 안쪽이 비워 두는 영역입니다. H는 워드마크의 높이이며 설치 크기와 무관하게 같은 비율을 지킵니다.</figcaption>
+  </figure>
+
+  <h3>하지 않는 것</h3>
+  <div class="dont">
+    <div class="cell"><b>서체로 타이핑</b>어떤 서체로 "MARIA"를 적어도 로고가 아닙니다. 비슷한 세리프체도 안 됩니다.</div>
+    <div class="cell"><b>변형</b>기울이기, 회전, 외곽선 추가, 그림자, 글자 간격 조정, 그래픽으로 두께를 흉내 내는 입체 효과.</div>
+    <div class="cell"><b>색 바꾸기</b>그린과 흰색 외의 색, 아이보리, 그라데이션, 금속색.</div>
+    <div class="cell"><b>바탕 위 겹침</b>사진, 패턴, 두 가지 이상의 색이 만나는 경계 위에 놓기.</div>
+    <div class="cell"><b>낮은 대비</b>그린 워드마크를 어두운 바탕에, 흰 워드마크를 밝은 바탕에 놓기.</div>
+    <div class="cell"><b>여백 침범</b>여백 안에 기관명, 화살표, 층 번호를 붙여 넣기.</div>
+  </div>
+</section>
+
+<section id="color">
+  <div class="sec-head">
+    <span class="no">§3</span>
+    <h2>색</h2>
+    <p class="lead">기준은 HEX 값입니다. CMYK와 PANTONE은 브랜드 디자이너가 지정한 인쇄용 값이며, 도료·시트·아크릴의 발주 코드로 바꿔 쓰지 않습니다. 브랜드 색은 사인, 그래픽, 강조 벽면처럼 브랜드가 드러나는 요소에 적용합니다. 바닥재, 목재, 유리, 금속 같은 건축 마감재는 이 팔레트와 어울리게 협력사가 고르시면 됩니다.</p>
+  </div>
+  <h3>기준값과 인쇄 지정값</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th></th><th>이름</th><th class="num">HEX · 기준</th><th class="num">RGB</th><th class="num">CMYK · 인쇄</th><th class="nw">PANTONE · 인쇄</th><th>쓰는 곳</th></tr></thead>
     <tbody>
-      <tr><td>2026-09-02</td><td>v1.0</td><td>확정본. CX부 결정을 반영해 문의처와 회신 기한, 국문·영문 병기 순서, 포포 틸의 PANTONE 지정값을 채우고 미확정 항목을 없앴습니다. 포포 패밀리 캐릭터는 공간에 쓰지 않기로 하여 해당 절을 삭제했습니다. 발행 전 점검에서 드러난 규칙 충돌과 공백을 함께 정리했습니다. 초안 제안 {{N_PROP}}건.</td></tr>
-      <tr><td>2026-09-02</td><td>v0.1</td><td>검토본. 디자인 시스템 v2.1과 디자이너 BI 시트(2023)에서 공간에 필요한 규칙을 추렸습니다. 미확정 항목 4건, 초안 제안 14건.</td></tr>
+      <tr><td><i class="sw" style="background:#1E3131"></i></td><td class="nw">마리아 그린</td><td class="num">#1E3131</td><td class="num">30 · 49 · 49</td><td class="num">87 · 72 · 73 · 48</td><td class="nw">5467 C</td><td>로고, 글자, 픽토그램, 공식 사인의 판면</td></tr>
+      <tr><td><i class="sw" style="background:#F4EEED"></i></td><td class="nw">마리아 아이보리</td><td class="num">#F4EEED</td><td class="num">244 · 238 · 237</td><td class="num">5 · 8 · 6 · 0</td><td class="nw">663 C</td><td>넓은 바탕, 사인 판면, 어두운 바탕 위의 글자</td></tr>
+      <tr><td><i class="sw" style="background:#E0A793"></i></td><td class="nw">마리아 핑크</td><td class="num">#E0A793</td><td class="num">224 · 167 · 147</td><td class="num">15 · 42 · 38 · 0</td><td class="nw">487 C</td><td>환영과 정서를 전하는 작은 요소</td></tr>
+      <tr><td><i class="sw" style="background:#1D9581"></i></td><td class="nw">포포 틸</td><td class="num">#1D9581</td><td class="num">29 · 149 · 129</td><td class="num">PANTONE 기준</td><td class="nw">P 124-15 U</td><td>한 면에서 눈에 띄어야 하는 요소 하나. 글자와 바탕에는 쓰지 않음</td></tr>
+      <tr><td><i class="sw" style="background:#6E827D"></i></td><td class="nw">연한 그린</td><td class="num">#6E827D</td><td class="num">110 · 130 · 125</td><td class="num">64 · 45 · 50 · 0</td><td class="nw">4186 C</td><td>경계가 반드시 보여야 하는 테두리. 글자, 구분선, 장식에는 쓰지 않음</td></tr>
+      <tr><td><i class="sw" style="background:#D2DCDC"></i></td><td class="nw">블루 그레이</td><td class="num">#D2DCDC</td><td class="num">210 · 220 · 220</td><td class="num">21 · 10 · 13 · 0</td><td class="nw">5455 C</td><td>구분선, 장식 테두리</td></tr>
+      <tr><td><i class="sw" style="background:#FFFFFF"></i></td><td class="nw">흰색</td><td class="num">#FFFFFF</td><td class="num">255 · 255 · 255</td><td class="num">0 · 0 · 0 · 0</td><td class="nw">없음</td><td>기본 바탕, 어두운 바탕 위의 로고</td></tr>
     </tbody>
   </table></div>
+  <p class="note" style="margin-top:12px">브랜드 요소에는 이 일곱 가지 색을 씁니다. 인쇄물의 CMYK는 코팅과 용지에 따라 다르게 나오므로 교정지로 확인합니다. 포포 틸의 PANTONE 값은 Uncoated(U) 기준이고 나머지는 Coated(C) 기준이라, 한 인쇄물에 함께 쓸 때는 교정지로 대조합니다.</p>
+
+  <h3>공간에서의 역할</h3>
+  <p class="note" style="margin-bottom:14px">정본 v2.1이 인쇄물과 화면에 정한 역할을 공간으로 옮긴 것입니다. 면적 비율은 정하지 않았습니다. 어느 면에 어느 색을 둘지는 이 역할에 맞춰 협력사가 판단해 주십시오.</p>
+  <div class="role-list">
+    <div><i style="background:#F4EEED"></i><p><b style="font-weight:600;color:var(--maria-green)">바탕</b> 아이보리와 흰색이 벽면, 판면, 인쇄면의 넓은 부분을 맡습니다.</p></div>
+    <div><i style="background:#1E3131"></i><p><b style="font-weight:600;color:var(--maria-green)">주조</b> 마리아 그린은 밝은 바탕에서 읽어야 하는 모든 것, 즉 글자, 로고, 픽토그램의 색입니다.</p></div>
+    <div><i style="background:#E0A793"></i><p><b style="font-weight:600;color:var(--maria-green)">온기</b> 마리아 핑크는 환영과 축하를 전하는 자리에 작게 씁니다. 그 자리의 면이나 장식 요소에 쓰고 글자색으로는 쓰지 않습니다.</p></div>
+    <div><i style="background:#1D9581"></i><p><b style="font-weight:600;color:var(--maria-green)">포인트</b> 포포 틸은 한 면(사인 한 장, 벽 한 면, 인쇄 한 면)에서 요소 하나에만 씁니다.</p></div>
+  </div>
+
+  <h3>색을 쓸 때</h3>
+  <div class="two">
+    <ul>
+      <li>글자는 마리아 그린으로, 어두운 바탕 위의 글자는 마리아 아이보리로 씁니다. 어두운 바탕에서 흰색인 것은 로고뿐입니다. 마리아 핑크는 글자색보다 면과 장식 요소에 어울립니다.</li>
+      <li>포포 틸은 강조색이라 넓게 쓰면 힘을 잃습니다. 한 면에서 요소 하나 정도가 적당하고, 판면이나 벽면의 바탕색으로는 쓰지 않습니다.</li>
+      <li>포포 틸 위에 글자를 얹거나 틸을 글자색으로 쓰면 읽기 어렵습니다.</li>
+      <li>마리아 그린 바탕 위의 포포 틸은 대비가 낮아 피합니다.</li>
+    </ul>
+    <ul>
+      <li>아이보리, 블루 그레이처럼 옅은 색은 글자색으로 쓰지 않습니다.</li>
+      <li>포포 틸과 마리아 핑크를 같은 면에서 나란히 강조하면 초점이 흩어집니다.</li>
+      <li>브랜드 요소는 표의 일곱 색으로 만듭니다. 표 밖의 색, 밝기를 조절한 파생색, 금속색, 형광색, 그라데이션이 꼭 필요한 자리가 있으면 CX부에 먼저 알려 주십시오. 같이 보겠습니다.</li>
+    </ul>
+  </div>
+
+  <h3>조합 예시</h3>
+  <div class="combo">
+    <figure><div class="c" style="background:#F4EEED;color:#1E3131">진료실 안내</div><figcaption>아이보리 바탕 + 그린 글자. 기본 조합</figcaption></figure>
+    <figure><div class="c" style="background:#1E3131;color:#F4EEED">진료실 안내</div><figcaption>그린 바탕 + 아이보리 글자. 공식·강조 사인</figcaption></figure>
+    <figure><div class="c" style="background:#1D9581;color:#FFFFFF;text-decoration:line-through">진료실 안내</div><figcaption>틸 바탕 위 글자. 피합니다</figcaption></figure>
+    <figure><div class="c" style="background:#1E3131;color:#1D9581;text-decoration:line-through">진료실 안내</div><figcaption>그린 위 틸 글자. 피합니다</figcaption></figure>
+  </div>
+
+  <h3>매체마다 다릅니다</h3>
+  <p class="prose">페인트, 출력 시트, 컬러 시트, 아크릴, 금속, 입체 문자, 조명 사인은 같은 색 번호로 같은 색이 나오지 않습니다. 바탕재, 광택, 두께, 빛의 투과와 현장 조명에 따라 달라집니다. 그래서 매체별 색은 실물로 확인합니다. 어떤 매체와 마감을 쓸지는 협력사가 제안해 주십시오.</p>
+
+  <h3>실물로 확인하기</h3>
+  <div class="prose">
+    <p>색 후보가 정해지면 실물 스와치나 시공 샘플을 실제 설치될 자리의 조명 아래에서 봐 주십시오. 화면이나 인쇄된 색표로는 판단이 어렵습니다. 넓은 면은 한 부분만 먼저 칠해 보는 방법이 좋고, 조명 사인은 점등과 소등 상태를 각각 봅니다.</p>
+    <p>CX부도 같이 보면 좋으니 확인 일정을 알려 주십시오. 확인한 제조사·제품명·색 번호·마감을 공유해 주시면 다음 공사에 참고합니다.</p>
+  </div>
+</section>
+
+<section id="type" class="cont">
+  <div class="sec-head">
+    <span class="no">§4</span>
+    <h2>서체</h2>
+    <p class="lead">모든 글자는 Pretendard로 적습니다. 한글과 영문, 숫자를 한 서체로 쓰며 무료로 배포되는 서체라 별도 구매가 필요 없습니다.</p>
+  </div>
+  <div class="specimen">
+    <span class="lab">제목 · 600</span><span class="w600">인공수정실 Artificial Insemination Room</span>
+    <span class="lab">본문 · 500</span><span class="w500">진료 접수는 2층 원무과에서 도와드립니다.</span>
+    <span class="lab">보조 · 400</span><span class="w400">가나다라마바사아자차카타파하 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+    <span class="lab">배포</span><span class="latin">Pretendard 1.3.9 · SIL Open Font License 1.1 · github.com/orioncactus/pretendard</span>
+  </div>
+  <h3>쓰는 법</h3>
+  <div class="two">
+    <ul>
+      <li>서체는 Pretendard 하나입니다. 명조체, 손글씨체, 장식 서체로 바꾸지 않습니다.</li>
+      <li>굵기는 400, 500, 600 세 가지를 씁니다. 제목과 실명은 600, 본문 안내는 500, 보조 설명은 400.</li>
+      <li>영문 병기와 숫자도 Pretendard로 적습니다. 영문 전용 서체를 따로 쓰지 않습니다.</li>
+    </ul>
+    <ul>
+      <li>글자 간격과 자폭은 기본값이 가장 좋습니다. 칸에 맞추려고 좁히거나 넓히지 않습니다.</li>
+      <li>사인의 글자 높이는 시거리에 맞춰 협력사가 정합니다. 시안에 글자 높이와 예상 시거리를 적어 주시면 같이 보기 쉽습니다.</li>
+      <li>로고는 서체가 아닙니다. Pretendard로 "MARIA"를 적어 로고 대신 쓰지 않습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="sign">
+  <div class="sec-head">
+    <span class="no">§5</span>
+    <h2>사이니지와 안내 문구</h2>
+    <p class="lead">사인은 아이보리 판면 위 그린 글자가 기본입니다. 아래 목록은 방향이고, 이미지는 참고 사례입니다.</p>
+  </div>
+  <figure class="ex">
+    <img src="data:image/png;base64,{{IMG_SIGNAGE}}" alt="디자이너 원안 내부 사이니지. 아이보리 판면 왼쪽에 그린 화살표, 오른쪽에 영문 Artificial Insemination Room과 국문 인공수정실이 두 줄로 적혀 있다.">
+    <figcaption><span class="tag ref" style="margin-left:0">참고 이미지</span> 브랜드 디자이너 원안 · 내부 사이니지(2023). 판면 아이보리, 글자와 화살표 마리아 그린. 원안은 영문을 위에 두었으나, 이 문서의 규칙은 국문이 위입니다.</figcaption>
+  </figure>
+  <h3>방향</h3>
+  <div class="two">
+    <ul>
+      <li>판면은 아이보리 또는 흰색, 글자와 화살표와 픽토그램은 마리아 그린이 기본입니다. 분원명이나 로고가 들어가는 공식 사인은 그린 판면에 마리아 아이보리로 적으며, 이때 글자와 화살표와 픽토그램이 모두 아이보리입니다. 로고는 흰색입니다.</li>
+      <li>한 면에서 포포 틸을 쓰는 요소는 하나 정도가 좋습니다. 예를 들어 층 안내판의 현재 층 표시.</li>
+      <li>픽토그램은 ISO 7001 계열의 공공안내 그림표지를 마리아 그린 단색으로 쓰는 것을 권합니다. 여러 색이 든 아이콘은 피합니다.</li>
+      <li>국문과 영문을 병기하고 국문을 위에 둡니다. 가로로 나란히 배열하면 국문이 앞이고, 영문 글자 높이는 국문을 넘지 않게 합니다.</li>
+    </ul>
+    <ul>
+      <li>문구는 존댓말로, 한 문장으로 적습니다. 금지형 명령 대신 그 공간이 어떤 곳인지 알려 주는 문장으로 씁니다. "출입금지"가 아니라 "직원 전용 공간입니다". 법정·안전 사인의 문안은 규정대로 씁니다.</li>
+      <li>"실패", "부족", "불가" 같은 부정형 단어는 피하고, 같은 뜻을 중립 표현으로 바꿉니다. 난임 치료를 받는 분이 읽는 공간입니다.</li>
+      <li>이모지, 유행어, 과장된 수사는 쓰지 않습니다.</li>
+      <li>진료 과목명, 시술명, 층 이름의 정식 표기는 CX부가 목록으로 전달합니다.</li>
+    </ul>
+  </div>
+  <figure class="ex" style="max-width:520px;margin-top:28px">
+    <img src="data:image/png;base64,{{IMG_BADGE}}" alt="디자이너 원안 명찰. 왼쪽에 MARIA 워드마크, 오른쪽에 직함과 이름이 Pretendard 그린으로 적혀 있다.">
+    <figcaption><span class="tag ref" style="margin-left:0">참고 이미지</span> 브랜드 디자이너 원안 · 명찰(2023). 워드마크와 글자를 나란히 둘 때의 간격 사례.</figcaption>
+  </figure>
+</section>
+
+<section id="assets" class="cont">
+  <div class="sec-head">
+    <span class="no">§6</span>
+    <h2>전달 자산</h2>
+    <p class="lead">아래 파일을 CX부가 한 묶음으로 전달합니다. 목록에 없는 파일은 정본이 아니니 다른 경로로 구한 로고는 쓰지 말아 주십시오.</p>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>구분</th><th>파일</th><th>용도</th></tr></thead>
+    <tbody>
+      <tr><td>로고 · 제작용</td><td>maria-wordmark-green.svg · maria-wordmark-white.svg · 로고 색상별.ai · 로고 색상별.pdf</td><td>사인 제작, 도면, 출력. 색이 고정된 파일을 씁니다.</td></tr>
+      <tr><td>로고 · 웹용</td><td>maria-wordmark.svg (색을 CSS로 제어하는 판)</td><td>웹 화면 전용. 제작 프로그램에서는 색이 다르게 열릴 수 있어 쓰지 않습니다.</td></tr>
+      <tr><td>로고 · 비트맵</td><td>로고 PNG (색상별) · white.png</td><td>미리보기, 투시도. 공간에는 그린과 흰색만 씁니다</td></tr>
+      <tr><td>색</td><td>이 문서 §3 표 · MARIA_BI Color.png</td><td>색 지정</td></tr>
+      <tr><td>서체</td><td>Pretendard 1.3.9 (github.com/orioncactus/pretendard 에서 내려받음)</td><td>모든 글자</td></tr>
+      <tr><td>원안 용례</td><td>명함 · 명찰 · 봉투 · 문서 · 안내책자 · 세로 포스터 · 내부 사이니지 · 옥외광고 (AI, 2023)</td><td>참고 자료. 그대로 재사용하기보다 이 문서의 방향으로 다시 봅니다</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note" style="margin-top:8px">제작용 벡터는 AI, SVG, PDF 세 형식을 모두 제공합니다. 다른 형식이 필요하면 CX부에 요청해 주십시오.</p>
+  <h3>사용에 대해</h3>
+  <div class="prose">
+    <p>제공한 로고와 그래픽 자산은 마리아의료재단의 것이며, 이 프로젝트의 설계·제작·시공에 쓰기 위해 드립니다. 다른 프로젝트에 쓰거나 대외에 공개하려면 CX부의 동의가 필요합니다. 포트폴리오 게시도 먼저 물어봐 주십시오.</p>
+    <p>하도급 업체에 전달할 때는 같은 내용을 함께 알려 주시면 됩니다. 이 문서는 관계 법령, 안전·접근성 기준, 계약상 요구사항을 대체하지 않습니다.</p>
+  </div>
 </section>
 
 </main>
 
 <footer>
-  <div>마리아의료재단 CX부 · 공간 브랜드 가이드 v1.0 · 2026-09-02<br>정본: 마리아 디자인 시스템 v2.1 (mariababy-brandstrategy/design-system)</div>
+  <div>마리아의료재단 CX부 · 공간 브랜드 가이드 v1.0 · 2026-09-03<br>정본: 마리아 디자인 시스템 v2.1 (mariababy-brandstrategy/design-system)</div>
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>
 
 </div>
+</body>
+</html>
