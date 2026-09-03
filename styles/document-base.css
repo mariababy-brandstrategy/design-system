@@ -12,7 +12,7 @@
  *      안 쓰면 효과 0.
  *   4) 색은 토큰 이름만 쓴다. 문서별 예외는 base 에 분기를 두지 말고 그 문서의 override 에 사유 주석과 함께 둔다.
  *   5) 인쇄 = A4 · 여백 20mm · 절은 페이지 시작 · 같은 페이지에서 이어지는 절만 `.cont`.
- * 현재 소비자: docs/공간-브랜드-가이드-v1.0 (소스 docs/space-brand-guide-src/).
+ * 현재 소비자: docs/공간-브랜드-가이드-v1.0 (소스 docs/space-brand-guide-src/) · docs/v2.1-실무자용 (색상 가이드, 소스 docs/color-guide-src/).
  * 변경 시: 소비자 전부 재조립 → 렌더 diff 확인 → AGENTS.md 소비자 목록 갱신. 기계 검사 없음(소비자 1~2건).
  *
  * 정본과의 관계: 이 파일은 상위 정본(AGENTS.md · web-ui-guidelines · tokens)을 문서에 구현한 것이다. 공유 축(색·대비·굵기·

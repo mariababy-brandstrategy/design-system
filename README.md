@@ -17,8 +17,9 @@ claude-design-upload/
 │   ├── design-tokens.json         ← 구조화된 토큰 (AI/개발/디자인용)
 │   └── design-tokens.css          ← 웹 구현용 CSS 변수
 ├── docs/
-│   ├── v2.1-실무자용.html         ← 정본 가이드 (브라우저에서 열기)
-│   ├── v2.1-실무자용.pdf          ← 인쇄·배포용
+│   ├── color-guide-src/           ← 색상 가이드 **편집 정본**(template + assemble.py)
+│   ├── v2.1-실무자용.html         ← 생성물 (브라우저에서 열기)
+│   ├── v2.1-실무자용.pdf          ← 생성물 (A4 10쪽, 인쇄·배포용)
 │   ├── blurb.txt                  ← Claude Design의 Company blurb 필드용
 │   └── notes.md                   ← Claude Design의 Any other notes 필드용
 └── assets/
@@ -54,7 +55,9 @@ claude-design-upload/
 3. **사내 웹 서비스는 [`docs/web-ui-guidelines-v1.md`](docs/web-ui-guidelines-v1.md)** 를 단일 기준으로 따른다 — 파비콘·헤더·본문 너비·로그인·제목·폰트·색 + 신규앱 체크리스트. 헤더 상세·카피코드는 [`docs/internal-service-header-v1.md`](docs/internal-service-header-v1.md). 레퍼런스: claim·console·popo-studio·mou-admin.
 
 ## 유지보수
-- 정본은 `docs/v2.1-실무자용.html`입니다. 토큰은 이 문서에서 추출한 값입니다.
+- **색·타이포 규격의 정본은 색상 가이드 v2.1**이고, 토큰은 이 문서에서 추출한 값입니다.
+- **편집 정본은 `docs/color-guide-src/color-guide-v2.1.template.html`** 입니다(2026-09-03 조판 이전).
+  `docs/v2.1-실무자용.{html,pdf}` 는 `python3 docs/color-guide-src/assemble.py` + 크롬 헤드리스가 만드는 **생성물**이므로 직접 고치지 마세요 — 다음 조립에서 지워집니다.
 - 색상·타이포 변경이 필요할 경우: (1) HTML 정본 업데이트 → (2) `design-tokens.json` 동기화 → (3) `design-tokens.css` 동기화 → (4) Claude Design 재학습.
 
 ## 문의
