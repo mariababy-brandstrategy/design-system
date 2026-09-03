@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마리아병원 색상 가이드</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+{{TOKENS_CSS}}
+{{BASE_CSS}}
+/* ── 색상 사용 가이드 v2.1 — 문서 override (tokens → document-base → 여기) ── */
+/* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋).
+   서브셋은 OFL 의 Modified Version 이라 예약 글꼴명 "Pretendard" 를 못 쓴다 → "Maria Doc Sans" 로 개명(글자 모양은 Pretendard 그대로).
+   구판(2026-04~08)은 jsDelivr `@import` 로 static 판을 버전 없이 불러왔다 — 정본 web-ui-guidelines-v1 §1 표의 "@latest·static 금지" 위반이자
+   네트워크 의존이었다. 임베드로 바뀌며 함께 해소됨. */
+@font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
+.doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+html{background:var(--bg-ivory)}
+
+/* 표지 — 공간 브랜드 가이드와 같은 기구(전면 그린 + 첫 장 여백 0) */
+.cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
+.cover .wm{width:200px;height:auto;color:var(--bg-default);display:block}
+.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:88px}
+.cover .sub{font-size:20px;font-weight:400;margin-top:12px;opacity:.92}
+.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}
+.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}
+.cover .status{margin-top:28px;font-size:14px;line-height:var(--line-height-base);max-width:60ch;opacity:.92}
+
+/* 값이 콘텐츠인 자리 — 스와치·예시는 본문 style 속성의 HEX 리터럴을 허용한다(이 문서가 가르치는 값 자체이므로 토큰으로 치환하면 안 된다) */
+.dot{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:6px;border:1px solid var(--maria-green-100)}
+td.hex{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. 색상 카드 */
+.color-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.color-card{border:1px solid var(--maria-green-100);break-inside:avoid}   /* 카드는 div 라 base 의 tr/figure 규칙 밖 — 쪽 경계 절단 방지(2026-09-03 구판 4/5·5/6쪽 실측) */
+.color-card .swatch{height:84px}
+.color-card .cbody{padding:12px 14px 14px}
+.color-card .name{font-size:15px;font-weight:600;color:var(--text-primary)}
+.color-card .use{font-size:13px;color:var(--text-body);margin-top:4px;line-height:var(--line-height-base)}
+.color-card .hex{font-size:12px;color:var(--text-muted);margin-top:8px;font-variant-numeric:tabular-nums}
+
+/* 2~4·6·9. 표 — base 기본값 + 이 문서의 열 리듬. 인쇄 내용폭은 A4 20mm 여백 기준 170mm(≈643px)라 화면보다 좁다 */
+.doc table{margin-top:4px}
+.doc td.lab{color:var(--text-primary);font-weight:500}
+
+/* 4·5. 버튼 예시 — 구판은 nowrap 이 없어 좁은 칸에서 라벨이 두 줄로 접혔다(2026-09-03 실측: 4쪽 4건 전부) */
+.btn-example{display:inline-block;padding:8px 18px;font-size:13px;font-weight:600;text-align:center;white-space:nowrap}
+
+/* 5. 상황별 조합 */
+.situation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.sit-card{border:1px solid var(--maria-green-100);padding:20px;break-inside:avoid}
+.sit-card h3{font-size:16px;margin:0 0 12px}
+.sit-card .example{padding:20px;margin-bottom:14px}
+.sit-card .spec{font-size:12px;color:var(--text-muted);line-height:var(--line-height-base)}
+
+/* 6. 상태 배지 */
+.badge{display:inline-block;padding:5px 14px;font-size:13px;font-weight:600;white-space:nowrap}
+
+/* 7. 밝기 단계 */
+.palette{display:flex;gap:4px}
+.palette .p{height:34px;flex:1}
+.palette-labels{display:flex;gap:4px;margin-top:6px}
+.palette-labels span{flex:1;font-size:10px;color:var(--text-muted);text-align:center;line-height:1.3}
+.scale+.scale{margin-top:24px}
+.scale{break-inside:avoid}
+.scale .nm{font-size:15px;font-weight:600;color:var(--text-primary)}
+.scale .cap{font-size:12px;color:var(--text-muted);margin:2px 0 10px}
+
+/* 8. 지켜주세요 — 좌측·테두리 강조선은 상태(해라/하지마라)를 나르는 기능이라 유지한다(장식 액센트 아님) */
+.rule-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.do-box,.dont-box{padding:22px 24px;break-inside:avoid}
+.do-box{background:#EFF3F3;border:2px solid #5B8A72}
+.dont-box{background:#FDF6F4;border:2px solid #C4706A}
+.do-box h3,.dont-box h3{margin:0 0 10px;font-size:16px}
+.do-box h3{color:#3D6B54}
+.dont-box h3{color:#8B4540}
+.do-box ul,.dont-box ul{padding-left:0;list-style:none}
+.do-box li,.dont-box li{font-size:14px;color:var(--text-body);line-height:var(--line-height-base)}
+.do-box li+li,.dont-box li+li{margin-top:8px}
+.mark{font-weight:600;margin-right:4px}
+.do-box .mark{color:#3D6B54}
+.dont-box .mark{color:#8B4540}
+
+/* 안내 상자 */
+.tip,.warn{padding:18px 22px;font-size:14px;line-height:var(--line-height-base);break-inside:avoid}
+.tip{background:#E6F5F2;color:#0E4D43}
+.tip strong{color:#167565}
+.warn{background:#FDF6F4;color:#8B4540;border-left:4px solid #C4706A}
+.gap{margin-top:20px}
+
+@media print{
+  @page :first{margin:0}
+  html{background:var(--bg-default)}
+  /* 표지는 여백 0 인 첫 장을 통째로 쓴다. px padding 을 그대로 두면 여백 0 페이지가 판면 폭을 210mm 로 밀어
+     이후 쪽(여백 20mm)에서 오른쪽이 잘린다 — mm 로 고정하고 넘침을 잘라 낸다(2026-09-03 실측) */
+  .cover{padding:44mm 24mm 32mm;height:297mm;box-sizing:border-box;overflow:hidden}
+  .cover h1{margin-top:96px}
+  .cover .meta{grid-template-columns:.8fr 1.5fr 1.2fr}   /* 인쇄 판면(162mm)에서 3등분하면 '제정·개정' 값이 두 줄로 접힌다 */
+  /* 인쇄 내용폭 170mm(≈643px) — 화면 4열/2열 격자는 이 폭에서 짜부라진다 */
+  .color-cards{grid-template-columns:repeat(2,1fr)}
+  .rule-grid{grid-template-columns:1fr}
+  .situation-grid{gap:16px}
+}
+@media (max-width:720px){
+  .cover{padding:48px 24px 40px}
+  .cover h1{font-size:36px;margin-top:56px}
+  .cover .meta{grid-template-columns:1fr}
+  .color-cards,.situation-grid,.rule-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body class="doc">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="wm">{{WM_PATHS}}</g></defs></svg>
+
+<div class="sheet">
+
+<header class="cover">
+  <svg class="wm" viewBox="0 0 601.431 228.788" role="img" aria-label="MARIA"><use href="#wm"/></svg>
+  <h1>색상 사용 가이드</h1>
+  <div class="sub">마리아병원 인쇄물·홍보물·디지털 매체 제작을 위한 색상 안내</div>
+  <div class="meta">
+    <div><b>버전</b>v2.1</div>
+    <div><b>제정·개정</b>2026. 04. 제정 · 2026. 08. 개정</div>
+    <div><b>발행</b>마리아의료재단 브랜드전략부</div>
+  </div>
+  <div class="status">2026. 08. 개정에서 글자가 잘 읽히도록 일부 색상을 조정했습니다. 인쇄물·홍보물·안내문에는 이 문서의 색상만 사용해주세요.</div>
+</header>
+
+<div class="body">
+
+<section id="core">
+  <div class="sec-head">
+    <span class="no">01</span>
+    <h2>우리 병원의 색상</h2>
+    <p class="lead">마리아병원에서 사용하는 공식 색상입니다. 모든 인쇄물, 홍보물, 안내문에 아래 색상만 사용해주세요.</p>
+  </div>
+
+  <div class="color-cards">
+    <div class="color-card">
+      <div class="swatch" style="background:#1E3131"></div>
+      <div class="cbody"><div class="name">마리아 그린</div><div class="use">병원의 대표 색상. 가장 격식 있고 공식적인 느낌.</div><div class="hex">#1E3131</div></div>
+    </div>
+    <div class="color-card">
+      <div class="swatch" style="background:#1D9581"></div>
+      <div class="cbody"><div class="name">포포 틸</div><div class="use">포포 캐릭터에서 온 색상. 눈에 잘 띄어서 강조할 때 사용.</div><div class="hex">#1D9581</div></div>
+    </div>
+    <div class="color-card">
+      <div class="swatch" style="background:#E0A793"></div>
+      <div class="cbody"><div class="name">마리아 핑크</div><div class="use">따뜻하고 부드러운 느낌. 여성적, 모성적 이미지.</div><div class="hex">#E0A793</div></div>
+    </div>
+    <div class="color-card">
+      <div class="swatch" style="background:#F4EEED;border-bottom:1px solid #E8DDDA"></div>
+      <div class="cbody"><div class="name">마리아 아이보리</div><div class="use">배경색으로 사용. 흰색과 구분이 필요할 때.</div><div class="hex">#F4EEED</div></div>
+    </div>
+  </div>
+
+  <div class="tip gap"><strong>팁:</strong> 위 4가지가 기본 색상입니다. 이 색상의 밝은/어두운 변형도 준비되어 있으니, 아래에서 상황별로 어떤 색을 쓰면 되는지 확인하세요.</div>
+</section>
+
+<section id="text">
+  <div class="sec-head">
+    <span class="no">02</span>
+    <h2>글자에 쓰는 색상</h2>
+    <p class="lead">글자의 중요도에 따라 색상을 다르게 사용합니다. 중요한 글자일수록 진한 색, 보조 정보일수록 연한 색을 사용합니다.</p>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <colgroup><col style="width:19%"><col style="width:17%"><col style="width:24%"><col></colgroup>
+    <thead><tr><th>용도</th><th>색상</th><th>예시</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="lab">제목 / 강조 텍스트</td>
+        <td class="hex"><span class="dot" style="background:#1E3131"></span>#1E3131</td>
+        <td><span style="color:#1E3131;font-weight:700;font-size:17px">마리아 난임병원</span></td>
+        <td>가장 중요한 정보. 제목, 병원명 등.</td>
+      </tr>
+      <tr>
+        <td class="lab">본문 텍스트</td>
+        <td class="hex"><span class="dot" style="background:#4A605C"></span>#4A605C</td>
+        <td><span style="color:#4A605C">시술에 대한 안내를 드립니다.</span></td>
+        <td>일반 설명 문장. 가독성 좋은 중간 톤.</td>
+      </tr>
+      <tr>
+        <td class="lab">보조 정보</td>
+        <td class="hex"><span class="dot" style="background:#5A6F6B"></span>#5A6F6B</td>
+        <td><span style="color:#5A6F6B;font-size:13px">2026년 4월 기준</span></td>
+        <td>날짜, 출처, 캡션 등 덜 중요한 정보.</td>
+      </tr>
+      <tr>
+        <td class="lab">클릭 유도 / 링크</td>
+        <td class="hex"><span class="dot" style="background:#167565"></span>#167565</td>
+        <td><span style="color:#167565;font-weight:600">자세히 보기 →</span></td>
+        <td>눌러야 하는 텍스트, 전화번호, 링크. (진한 틸 — 연한 틸 #1D9581은 글자용으로 쓰지 않아요.) 밑줄이나 화살표(→)처럼 색 말고도 링크임을 알 수 있는 표시를 함께 넣으세요.</td>
+      </tr>
+      <tr>
+        <td class="lab">어두운 배경 위 글자</td>
+        <td class="hex"><span class="dot" style="background:#F4EEED"></span>#F4EEED</td>
+        <td><span class="badge" style="background:#1E3131;color:#F4EEED">마리아 난임병원</span></td>
+        <td>마리아 그린 배경 위에 쓸 때.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="warn gap"><strong>주의:</strong> 예전 보조 정보 색상(#7E9897)은 글자색으로 더 이상 쓰지 않습니다(작은 글씨에서 읽기 어려워 2026. 08. 개정으로 교체). 보조 정보는 <strong>#5A6F6B</strong>, 일반 본문은 #4A605C를 사용하세요. #7E9897은 글자가 아닌 장식에만 쓰고, 입력창처럼 경계가 꼭 보여야 하는 테두리는 #6E827D를 씁니다.</div>
+</section>
+
+<section id="bg">
+  <div class="sec-head">
+    <span class="no">03</span>
+    <h2>배경에 쓰는 색상</h2>
+    <p class="lead">슬라이드, 안내문, 포스터 등의 배경색입니다. 상황에 맞는 배경을 선택하세요.</p>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <colgroup><col style="width:24%"><col style="width:18%"><col></colgroup>
+    <thead><tr><th>배경</th><th>색상</th><th>사용 상황</th></tr></thead>
+    <tbody>
+      <tr><td class="lab"><span class="dot" style="background:#FFFFFF"></span>흰색</td><td class="hex">#FFFFFF</td><td>기본 배경. 대부분의 문서와 슬라이드.</td></tr>
+      <tr><td class="lab"><span class="dot" style="background:#F4EEED"></span>아이보리</td><td class="hex">#F4EEED</td><td>흰색과 구분이 필요한 영역. 카드 뒤 배경.</td></tr>
+      <tr><td class="lab"><span class="dot" style="background:#EFF3F3"></span>연한 그린</td><td class="hex">#EFF3F3</td><td>정보 박스, 안내 영역, 참고 사항.</td></tr>
+      <tr><td class="lab"><span class="dot" style="background:#FDF6F4"></span>연한 핑크</td><td class="hex">#FDF6F4</td><td>따뜻한 느낌이 필요한 영역. 성공 사례, 후기.</td></tr>
+      <tr><td class="lab"><span class="dot" style="background:#E6F5F2"></span>연한 틸</td><td class="hex">#E6F5F2</td><td>강조 안내, 이벤트 배너, 예약 안내.</td></tr>
+      <tr><td class="lab"><span class="dot" style="background:#1E3131"></span>마리아 그린</td><td class="hex">#1E3131</td><td>표지, 헤더, 푸터 등 공식적인 영역.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="button">
+  <div class="sec-head">
+    <span class="no">04</span>
+    <h2>버튼과 강조 요소</h2>
+    <p class="lead">PPT의 도형, 안내문의 버튼, 배너의 강조 영역에 사용하는 색상입니다.</p>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <colgroup><col style="width:15%"><col style="width:13%"><col style="width:13%"><col style="width:19%"><col></colgroup>
+    <thead><tr><th>용도</th><th>배경색</th><th>글자색</th><th>예시</th><th>사용 상황</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="lab">공식 버튼</td><td class="hex">#1E3131</td><td class="hex">#FFFFFF</td>
+        <td><span class="btn-example" style="background:#1E3131;color:#fff">상담 예약</span></td>
+        <td>격식 있는 안내. 진료 예약, 문의.</td>
+      </tr>
+      <tr>
+        <td class="lab">강조 버튼</td><td class="hex">#167565</td><td class="hex">#FFFFFF</td>
+        <td><span class="btn-example" style="background:#167565;color:#fff">지금 예약하기</span></td>
+        <td>눈에 띄어야 하는 행동 유도. 온라인 예약, 이벤트 신청. (진한 틸 — 연한 틸 #1D9581 위에는 글자가 잘 안 읽혀요.)</td>
+      </tr>
+      <tr>
+        <td class="lab">부드러운 버튼</td><td class="hex">#E0A793</td><td class="hex">#1E3131</td>
+        <td><span class="btn-example" style="background:#E0A793;color:#1E3131">자세히 보기</span></td>
+        <td>보조 행동. 더 알아보기, 상세 안내.</td>
+      </tr>
+      <tr>
+        <td class="lab">테두리 버튼</td><td class="hex">#FFFFFF</td><td class="hex">#1E3131</td>
+        <td><span class="btn-example" style="background:#fff;color:#1E3131;border:1.5px solid #1E3131">전화 문의</span></td>
+        <td>가장 가벼운 행동. 부가 정보 링크.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="tip gap"><strong>팁:</strong> 한 페이지에 버튼이 여러 개일 때, 가장 중요한 행동 1개만 <strong>공식 버튼</strong> 또는 <strong>강조 버튼</strong>으로 만들고, 나머지는 <strong>부드러운 버튼</strong>이나 <strong>테두리 버튼</strong>으로 만드세요.</div>
+</section>
+
+<section id="combo">
+  <div class="sec-head">
+    <span class="no">05</span>
+    <h2>상황별 색상 조합</h2>
+    <p class="lead">"어떤 배경에 어떤 글자색을 쓰면 되나요?" — 자주 쓰는 조합을 정리했습니다. 아래 예시를 참고해서 그대로 따라 하시면 됩니다.</p>
+  </div>
+
+  <div class="situation-grid">
+    <div class="sit-card">
+      <h3>공식 안내문 / 원내 게시물</h3>
+      <div class="example" style="background:#fff;border:1px solid #E8DDDA">
+        <div style="color:#1E3131;font-size:19px;font-weight:700;margin-bottom:6px">진료 시간 변경 안내</div>
+        <div style="color:#4A605C;font-size:14px;margin-bottom:8px">2026년 5월 1일부터 토요일 진료 시간이 변경됩니다.</div>
+        <div style="color:#5A6F6B;font-size:12px">자세한 사항은 원무과로 문의해주세요.</div>
+      </div>
+      <div class="spec">배경: 흰색<br>제목: #1E3131 (마리아 그린)<br>본문: #4A605C<br>보조: #5A6F6B</div>
+    </div>
+
+    <div class="sit-card">
+      <h3>이벤트 / 예약 유도 배너</h3>
+      <div class="example" style="background:#E6F5F2">
+        <div style="color:#0E4D43;font-size:12px;font-weight:600;margin-bottom:4px">온라인 예약</div>
+        <div style="color:#1E3131;font-size:19px;font-weight:700;margin-bottom:10px">지금 상담 예약하세요</div>
+        <span class="btn-example" style="background:#167565;color:#fff">예약하기</span>
+      </div>
+      <div class="spec">배경: #E6F5F2 (연한 틸)<br>제목: #1E3131<br>버튼: #167565 (진한 틸)</div>
+    </div>
+
+    <div class="sit-card">
+      <h3>임신 성공 사례 / 따뜻한 콘텐츠</h3>
+      <div class="example" style="background:#FDF6F4">
+        <div style="color:#1E3131;font-size:19px;font-weight:700;margin-bottom:6px">임신 성공을 축하합니다</div>
+        <div style="color:#4A605C;font-size:14px;margin-bottom:10px">마리아병원과 함께한 부부들의 이야기</div>
+        <span class="btn-example" style="background:#1E3131;color:#F4EEED">사례 보기</span>
+      </div>
+      <div class="spec">배경: #FDF6F4 (연한 핑크)<br>제목: #1E3131<br>버튼: #1E3131 (마리아 그린)</div>
+    </div>
+
+    <div class="sit-card">
+      <h3>PPT 표지 / 공식 발표자료</h3>
+      <div class="example" style="background:#1E3131">
+        <div style="color:#F4EEED;font-size:19px;font-weight:700;margin-bottom:6px">마리아 난임병원</div>
+        <div style="color:#A8BABA;font-size:14px;margin-bottom:10px">2026년 상반기 진료 실적</div>
+        <span class="btn-example" style="background:#E0A793;color:#1E3131">상세 보기</span>
+      </div>
+      <div class="spec">배경: #1E3131 (마리아 그린)<br>제목: #F4EEED (아이보리)<br>본문: #A8BABA<br>버튼: #E0A793 (마리아 핑크)</div>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="sec-head">
+    <span class="no">06</span>
+    <h2>상태를 표시하는 색상</h2>
+    <p class="lead">알림, 안내, 주의, 오류 등을 표현할 때 사용하는 색상입니다.</p>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <colgroup><col style="width:17%"><col style="width:15%"><col style="width:15%"><col></colgroup>
+    <thead><tr><th>상태</th><th>배경색</th><th>글자색</th><th>예시</th></tr></thead>
+    <tbody>
+      <tr><td class="lab">성공 / 완료</td><td class="hex">#E8F3ED</td><td class="hex">#3D6B54</td>
+        <td><span class="badge" style="background:#E8F3ED;color:#3D6B54">✓ 예약이 완료되었습니다</span></td></tr>
+      <tr><td class="lab">주의 / 경고</td><td class="hex">#FBF4E4</td><td class="hex">#7E6429</td>
+        <td><span class="badge" style="background:#FBF4E4;color:#7E6429">⚠ 접수 마감이 임박합니다</span></td></tr>
+      <tr><td class="lab">오류 / 실패</td><td class="hex">#FCEEED</td><td class="hex">#8B4540</td>
+        <td><span class="badge" style="background:#FCEEED;color:#8B4540">× 필수 항목을 확인해주세요</span></td></tr>
+      <tr><td class="lab">안내 / 참고</td><td class="hex">#EFF3F3</td><td class="hex">#4A605C</td>
+        <td><span class="badge" style="background:#EFF3F3;color:#4A605C">※ 검사 결과는 3~5일 내 확인됩니다</span></td></tr>
+      <tr><td class="lab">선택됨 / 활성</td><td class="hex">#E6F5F2</td><td class="hex">#0E4D43</td>
+        <td><span class="badge" style="background:#E6F5F2;color:#0E4D43">● 시험관 시술 선택됨</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="scale">
+  <div class="sec-head">
+    <span class="no">07</span>
+    <h2>색상의 밝기 단계</h2>
+    <p class="lead">각 색상은 밝은 것부터 어두운 것까지 단계가 있습니다. PPT나 포스터를 만들 때, 강조 정도에 따라 같은 계열의 다른 밝기를 활용할 수 있습니다.</p>
+  </div>
+
+  <div class="scale">
+    <div class="nm">마리아 그린 계열</div>
+    <div class="cap">밝은 배경부터 어두운 강조까지</div>
+    <div class="palette">
+      <div class="p" style="background:#EFF3F3"></div><div class="p" style="background:#D2DCDC"></div><div class="p" style="background:#A8BABA"></div>
+      <div class="p" style="background:#7E9897"></div><div class="p" style="background:#6E827D"></div><div class="p" style="background:#5A6F6B"></div>
+      <div class="p" style="background:#4A605C"></div><div class="p" style="background:#2D4544"></div><div class="p" style="background:#1E3131"></div>
+    </div>
+    <div class="palette-labels"><span>배경용</span><span>구분선</span><span></span><span>장식</span><span>입력 테두리</span><span>보조글자</span><span>본문</span><span></span><span>제목</span></div>
+  </div>
+
+  <div class="scale">
+    <div class="nm">포포 틸 계열</div>
+    <div class="cap">배경부터 버튼까지</div>
+    <div class="palette">
+      <div class="p" style="background:#E6F5F2"></div><div class="p" style="background:#A3DDD4"></div><div class="p" style="background:#1D9581"></div>
+      <div class="p" style="background:#167565"></div><div class="p" style="background:#0E4D43"></div>
+    </div>
+    <div class="palette-labels"><span>배경용</span><span>장식</span><span>장식·아이콘 (글자 없이)</span><span>버튼/링크</span><span>마우스오버·진한 텍스트</span></div>
+  </div>
+
+  <div class="scale">
+    <div class="nm">마리아 핑크 계열</div>
+    <div class="cap">부드러운 배경부터 강조까지</div>
+    <div class="palette">
+      <div class="p" style="background:#FDF6F4"></div><div class="p" style="background:#F9EAE4"></div><div class="p" style="background:#F2D5CA"></div>
+      <div class="p" style="background:#E0A793"></div><div class="p" style="background:#C88973"></div><div class="p" style="background:#9A5F4B"></div>
+    </div>
+    <div class="palette-labels"><span>배경용</span><span></span><span>장식</span><span>버튼</span><span>마우스오버</span><span>진한 강조</span></div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="sec-head">
+    <span class="no">08</span>
+    <h2>이것만은 지켜주세요</h2>
+    <p class="lead">통일된 병원 이미지를 위해 꼭 지켜야 할 규칙입니다.</p>
+  </div>
+
+  <div class="rule-grid">
+    <div class="do-box">
+      <h3>이렇게 해주세요</h3>
+      <ul>
+        <li><span class="mark">✓</span>위에 안내된 색상만 사용해주세요</li>
+        <li><span class="mark">✓</span>제목은 진한 색(#1E3131), 본문은 중간 색(#4A605C)으로 구분하세요</li>
+        <li><span class="mark">✓</span>한 페이지에 채움 버튼(공식·강조)은 1개만 넣고, 나머지는 부드러운 버튼이나 테두리 버튼으로 만드세요</li>
+        <li><span class="mark">✓</span>어두운 배경(마리아 그린) 위에는 밝은 글자(아이보리)를 사용하세요</li>
+        <li><span class="mark">✓</span>인쇄 시 색상이 다르게 나올 수 있으니, 인쇄 전 반드시 테스트 출력하세요 (이 문서의 "잘 읽히는 조합"은 화면 기준이라, 종이에서는 눈으로 확인하는 것이 최종 기준입니다)</li>
+        <li><span class="mark">✓</span>포포 틸(#1D9581)은 눈에 띄어야 하는 곳에만 포인트로 사용하세요</li>
+        <li><span class="mark">✓</span>글자가 올라가는 틸(버튼·링크)은 진한 틸(#167565)을 사용하세요</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h3>이것은 하지 말아주세요</h3>
+      <ul>
+        <li><span class="mark">×</span>가이드에 없는 색상을 임의로 만들지 마세요</li>
+        <li><span class="mark">×</span>마리아 그린 배경 위에 포포 틸 글자를 쓰지 마세요 (읽기 어려움)</li>
+        <li><span class="mark">×</span>포포 틸과 마리아 핑크를 한 페이지에서 동시에 버튼으로 쓰지 마세요</li>
+        <li><span class="mark">×</span>연한 배경색(아이보리, 연한 그린)을 글자색으로 쓰지 마세요</li>
+        <li><span class="mark">×</span>옛 보조 색상(#7E9897)을 글자색으로 쓰지 마세요 (보조 정보는 #5A6F6B)</li>
+        <li><span class="mark">×</span>포포 틸(#1D9581) 위에 글자를 얹거나, 포포 틸을 글자색으로 쓰지 마세요 (글자가 걸리면 진한 틸 #167565)</li>
+        <li><span class="mark">×</span>포포 틸을 배경 전체에 깔지 마세요 (포인트로만 사용)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn gap"><strong>색상 코드를 모르겠다면?</strong><br>이 문서에 있는 #으로 시작하는 6자리 코드를 PPT나 한글 프로그램의 "사용자 지정 색상"에 입력하시면 됩니다.<br>예: PPT → 도형 서식 → 채우기 → 색 더보기 → "Hex" 칸에 <strong>1E3131</strong> 입력 (#은 빼고 입력)</div>
+</section>
+
+<section id="codes">
+  <div class="sec-head">
+    <span class="no">09</span>
+    <h2>한눈에 보는 색상 코드표</h2>
+    <p class="lead">인쇄하여 책상에 놓고 참고하실 수 있도록 정리한 표입니다.</p>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <colgroup><col style="width:8%"><col style="width:29%"><col style="width:16%"><col></colgroup>
+    <thead><tr><th>색상</th><th>이름</th><th>HEX 코드</th><th>주요 용도</th></tr></thead>
+    <tbody>
+      <tr><td><span class="dot" style="background:#1E3131"></span></td><td class="lab">마리아 그린</td><td class="hex">#1E3131</td><td>제목, 공식 버튼, 표지 배경</td></tr>
+      <tr><td><span class="dot" style="background:#4A605C"></span></td><td class="lab">마리아 그린 (본문)</td><td class="hex">#4A605C</td><td>본문 텍스트</td></tr>
+      <tr><td><span class="dot" style="background:#5A6F6B"></span></td><td class="lab">마리아 그린 (보조)</td><td class="hex">#5A6F6B</td><td>보조 정보, 캡션</td></tr>
+      <tr><td><span class="dot" style="background:#7E9897"></span></td><td class="lab">마리아 그린 (연회녹)</td><td class="hex">#7E9897</td><td>장식 (글자 금지)</td></tr>
+      <tr><td><span class="dot" style="background:#6E827D"></span></td><td class="lab">마리아 그린 (테두리)</td><td class="hex">#6E827D</td><td>입력창 등 경계가 꼭 보여야 하는 테두리</td></tr>
+      <tr><td><span class="dot" style="background:#EFF3F3"></span></td><td class="lab">연한 그린</td><td class="hex">#EFF3F3</td><td>정보 박스 배경</td></tr>
+      <tr><td><span class="dot" style="background:#1D9581"></span></td><td class="lab">포포 틸</td><td class="hex">#1D9581</td><td>장식, 아이콘, 눈에 띄는 요소 (글자 없이)</td></tr>
+      <tr><td><span class="dot" style="background:#167565"></span></td><td class="lab">진한 틸</td><td class="hex">#167565</td><td>강조 버튼, 링크 (글자가 올라가는 틸)</td></tr>
+      <tr><td><span class="dot" style="background:#E6F5F2"></span></td><td class="lab">연한 틸</td><td class="hex">#E6F5F2</td><td>이벤트 배너 배경, 강조 영역</td></tr>
+      <tr><td><span class="dot" style="background:#E0A793"></span></td><td class="lab">마리아 핑크</td><td class="hex">#E0A793</td><td>부드러운 버튼, 따뜻한 강조</td></tr>
+      <tr><td><span class="dot" style="background:#9A5F4B"></span></td><td class="lab">마리아 핑크 (진한 강조)</td><td class="hex">#9A5F4B</td><td>핑크 계열에서 진한 글자·강조가 필요할 때</td></tr>
+      <tr><td><span class="dot" style="background:#FDF6F4"></span></td><td class="lab">연한 핑크</td><td class="hex">#FDF6F4</td><td>따뜻한 섹션 배경</td></tr>
+      <tr><td><span class="dot" style="background:#F4EEED"></span></td><td class="lab">아이보리</td><td class="hex">#F4EEED</td><td>배경 구분, 카드 배경</td></tr>
+      <tr><td><span class="dot" style="background:#FFFFFF"></span></td><td class="lab">흰색</td><td class="hex">#FFFFFF</td><td>기본 배경</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div>
+
+<footer>
+  <div>마리아병원 브랜드전략부 — 색상 사용 가이드 v2.1<br>문의: 브랜드전략부 (내선 ____)</div>
+  <svg class="wm" viewBox="0 0 601.431 228.788" role="img" aria-label="MARIA"><use href="#wm"/></svg>
+</footer>
+
+</div>
+</body>
+</html>
