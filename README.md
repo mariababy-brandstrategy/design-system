@@ -18,8 +18,11 @@ claude-design-upload/
 │   └── design-tokens.css          ← 웹 구현용 CSS 변수
 ├── docs/
 │   ├── color-guide-src/           ← 색상 가이드 **편집 정본**(template + assemble.py)
-│   ├── v2.1-실무자용.html         ← 생성물 (브라우저에서 열기)
-│   ├── v2.1-실무자용.pdf          ← 생성물 (A4 10쪽, 인쇄·배포용)
+│   ├── screen-brand-guide-src/    ← 화면 브랜드 가이드 **편집 정본**
+│   ├── space-brand-guide-src/     ← 공간 브랜드 가이드 **편집 정본**
+│   ├── v2.1-실무자용.{html,pdf}   ← 생성물 (색상 가이드, A4 10쪽)
+│   ├── 화면-브랜드-가이드-v1.0.{html,pdf}  ← 생성물 (A4 17쪽) — 화면 제작 협력사·사내 개발 배포용
+│   ├── 공간-브랜드-가이드-v1.0.{html,pdf}  ← 생성물 (A4 12쪽) — 인테리어·건축설계·사인 협력사 배포용
 │   ├── blurb.txt                  ← Claude Design의 Company blurb 필드용
 │   └── notes.md                   ← Claude Design의 Any other notes 필드용
 └── assets/
@@ -52,7 +55,8 @@ claude-design-upload/
 ### 개발자
 1. `tokens/design-tokens.css`를 앱의 전역 스타일에 import.
 2. CSS 변수로 참조: `color: var(--text-primary); background: var(--bg-ivory);`.
-3. **사내 웹 서비스는 [`docs/web-ui-guidelines-v1.md`](docs/web-ui-guidelines-v1.md)** 를 단일 기준으로 따른다 — 파비콘·헤더·본문 너비·로그인·제목·폰트·색 + 신규앱 체크리스트. 헤더 상세·카피코드는 [`docs/internal-service-header-v1.md`](docs/internal-service-header-v1.md). 레퍼런스: claim·console·popo-studio·mou-admin.
+3. **외부 협력사에 전달할 화면 기준은 [`docs/화면-브랜드-가이드-v1.0.pdf`](docs/화면-브랜드-가이드-v1.0.pdf)** (A4 17쪽, HTML 동봉) — 색·로고·글자·형태·아이콘·문구·상태·다이얼로그·화면 폭·폼·탭 제목 + 조건부 셸. 항목마다 반드시/맞춰 주십시오/참고 3등급. 편집 정본은 `docs/screen-brand-guide-src/*.template.html`(생성물 직접 수정 금지).
+4. **사내 웹 서비스는 [`docs/web-ui-guidelines-v1.md`](docs/web-ui-guidelines-v1.md)** 를 단일 기준으로 따른다 — 파비콘·헤더·본문 너비·로그인·제목·폰트·색 + 신규앱 체크리스트. 헤더 상세·카피코드는 [`docs/internal-service-header-v1.md`](docs/internal-service-header-v1.md). 레퍼런스: claim·console·popo-studio·mou-admin.
 
 ## 유지보수
 - **색·타이포 규격의 정본은 색상 가이드 v2.1**이고, 토큰은 이 문서에서 추출한 값입니다.

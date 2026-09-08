@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마리아 화면 브랜드 가이드</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+{{TOKENS_CSS}}
+{{BASE_CSS}}
+/* ── 화면 브랜드 가이드 v1.0 — 문서 override (tokens → document-base → 여기) ── */
+/* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋).
+   OFL 예약 글꼴명 때문에 개명 — assets/fonts/pretendard/README.md 참조 */
+@font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
+.doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+html{background:var(--bg-ivory)}
+
+/* 표지: 전면 그린. 어두운 배경 위 글자 = 아이보리(§1 표), 워드마크만 흰색 100%(§1-1) */
+.cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
+.cover .wm{width:200px;height:auto;color:var(--bg-default);display:block}
+.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:88px}
+.cover .sub{font-size:20px;margin-top:12px;opacity:.92}   /* 합성 대비 10.3 */
+.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}   /* 어두운 배경 위 장식선 = green-400(장식 전용) */
+.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}
+.cover .toc{margin-top:48px;display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,auto);grid-template-columns:repeat(2,1fr);gap:8px 32px;font-size:14px}   /* 세로로 읽힌다 — 가로 흐름이면 00·01 이 한 줄에 온다 */
+.cover .toc div{display:grid;grid-template-columns:32px 1fr;gap:8px}
+.cover .toc span{color:var(--maria-green-300);font-variant-numeric:tabular-nums}
+
+/* 등급 배지 — base .tag(각진 12px) 위에 세 등급. must/fyi 는 채움이라 테두리를 없앤다 */
+.tag.must{background:var(--maria-green);color:var(--bg-default);border-color:transparent}
+.tag.should{background:var(--bg-default);color:var(--text-link);border-color:currentColor}
+.tag.fyi{background:var(--state-neutral-bg);color:var(--state-neutral-fg);border-color:transparent}
+.legend{display:grid;gap:14px;margin-top:20px}
+.legend .row{display:grid;grid-template-columns:132px 1fr;gap:20px;align-items:start;font-size:16px}
+.legend .tag{margin-left:0}
+
+/* 색표 — 값이 콘텐츠인 자리(스와치)는 본문 style 속성의 HEX 리터럴 허용 */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.sw .chip{height:80px;border:1px solid var(--maria-green-100)}
+.sw .nm{font-size:16px;font-weight:600;color:var(--text-primary);margin-top:10px}
+.sw .hx{font-size:14px;color:var(--text-muted);font-variant-numeric:tabular-nums;letter-spacing:.05em}
+.sw .us{font-size:14px;margin-top:4px}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.scale .st{height:52px;border:1px solid var(--maria-green-100)}
+.scale figcaption{font-size:12px;color:var(--text-muted);font-variant-numeric:tabular-nums;letter-spacing:.05em;margin-top:6px}
+
+/* 상태 배지 실물 예시 — 여기 radius 8px 은 조판이 아니라 §1-10 이 정한 배지 형태 자체다 */
+.badges{display:flex;flex-wrap:wrap;gap:10px}
+.badge{font-size:14px;font-weight:600;padding:4px 10px;border-radius:8px}
+
+/* 되고 안 되고 대조 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.compare .box{padding:16px 20px;font-size:16px}
+.compare .box.y{background:var(--state-success-bg)}
+.compare .box.n{background:var(--state-error-bg)}
+.compare .box .h{font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:8px}
+.compare .box.y .h{color:var(--state-success-fg)}
+.compare .box.n .h{color:var(--state-error-fg)}
+.compare .box p+p{margin-top:6px}
+
+/* 적용 조건 안내 블록 */
+.cond{background:var(--bg-info);padding:20px;font-size:16px;margin-bottom:24px}
+.cond b{color:var(--text-primary);font-weight:600}
+.cond p+p{margin-top:8px}
+
+/* 자산 목록 */
+.files{display:grid}
+.files .f{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:12px 0;border-bottom:1px solid var(--maria-green-100);font-size:16px}
+.files .f .k{font-weight:600;color:var(--text-primary)}
+
+.ok{color:var(--text-link);font-weight:600}
+.no{color:var(--state-error-fg);font-weight:600}
+
+@media (max-width:720px){
+  .cover{padding:48px 24px 40px}
+  .cover h1{font-size:36px;margin-top:56px}
+  .cover .meta{grid-template-columns:1fr}
+  .swatches{grid-template-columns:repeat(2,1fr)}
+  .scale{grid-template-columns:repeat(3,1fr)}
+  .compare{grid-template-columns:1fr}
+  .legend .row{grid-template-columns:1fr;gap:6px}
+  .files .f{grid-template-columns:1fr;gap:4px}
+}
+
+@media print{
+  @page :first{margin:0}
+  html{background:var(--bg-default)}
+  .cover{padding:44mm 24mm 32mm;height:297mm;box-sizing:border-box;overflow:hidden}
+  .cover h1{margin-top:96px}
+  .swatches,.scale,.compare,.legend,.badges,.cond{break-inside:avoid}
+}
+</style>
+</head>
+<body class="doc">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wm" viewBox="52.586 27.125 496.027 149.266" fill="currentColor">{{WM_PATHS}}</symbol>
+</svg>
+
+<div class="sheet">
+
+<header class="cover">
+  <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
+  <h1>화면 브랜드 가이드</h1>
+  <p class="sub">예약 · 문진 · 진료 화면을 만드는 협력사와 사내 개발을 위한 기준</p>
+  <div class="meta">
+    <div><b>버전</b>v1.0 · 2026-09-08</div>
+    <div><b>발행</b>마리아의료재단 CX부</div>
+    <div><b>대상</b>화면 제작 협력사 · 사내 개발</div>
+  </div>
+  <nav class="toc" aria-label="차례">
+    <div><span>00</span>이 문서에 대해</div>
+    <div><span>01</span>색</div>
+    <div><span>02</span>로고</div>
+    <div><span>03</span>글자</div>
+    <div><span>04</span>형태</div>
+    <div><span>05</span>아이콘</div>
+    <div><span>06</span>버튼과 문구</div>
+    <div><span>07</span>상태 표시</div>
+    <div><span>08</span>알림과 확인창</div>
+    <div><span>09</span>화면 폭</div>
+    <div><span>10</span>폼</div>
+    <div><span>11</span>브라우저 탭 제목</div>
+    <div><span>12</span>전역 메뉴가 있는 화면이라면</div>
+    <div><span>13</span>받아 가실 파일</div>
+  </nav>
+</header>
+
+<div class="body">
+
+<section>
+  <div class="sec-head">
+    <span class="no">00</span>
+    <h2>이 문서에 대해</h2>
+    <p class="lead">환자는 예약, 문진, 진료, 결과 조회를 오가면서 한 병원을 상대한다고 느껴야 합니다. 화면을 만드는 주체가 달라도 그 인상은 끊기지 않아야 하고, 이 문서는 그 인상을 만드는 최소 규격을 담았습니다.</p>
+  </div>
+
+  <div class="prose">
+    <p><b>읽는 분</b>은 마리아의료재단의 화면을 만드는 협력사, 그리고 사내 시스템을 개발하는 부서입니다. 여러분의 플랫폼과 개발 스택은 그대로 두셔도 됩니다. 이 문서는 특정 프레임워크나 라이브러리를 요구하지 않습니다.</p>
+  </div>
+
+  <div class="cond" style="margin-top:24px">
+    <b>협력사가 납품하시는 화면은 이 문서 하나로 끝납니다.</b>
+    <p style="margin-top:8px">구현과 검수에 필요한 것은 이 문서와 뒤쪽에 적힌 자산 파일이 전부입니다. 마리아는 사내 화면용으로 더 긴 규칙 문서를 공개해 두고 있지만, <b>그 문서를 읽었다는 이유로 요구사항이 늘어나지는 않습니다.</b> 값의 출처가 궁금하실 때만 참고하시면 됩니다.</p>
+    <p style="margin-top:8px">사내 화면이 쓰는 개발 도구를 설치하실 필요도 없습니다. Next.js, Tailwind, 마리아 사내 컴포넌트 저장소, 사내 품질검사 도구는 <b>납품 요건이 아닙니다.</b> 여러분의 기술로 아래 기준을 구현해 주시면 됩니다.</p>
+    <p style="margin-top:8px">문서와 자산이 개정되더라도 <b>착수 시점에 합의한 판이 검수 기준</b>입니다. 중간 개정이 이미 시작한 작업의 요구사항을 바꾸지 않습니다. 착수하실 때 그 시점의 고정 주소를 함께 드립니다.</p>
+    <p style="margin-top:8px">사내 시스템을 개발하는 부서는 이 문서를 <b>참고 기준</b>으로 보시면 됩니다. 마리아 사내 웹 서비스에 이미 적용되는 규칙은 따로 있고, 이 문서가 그것을 대체하거나 완화하지 않습니다.</p>
+  </div>
+
+  <h3>세 가지 등급</h3>
+  <div class="prose">
+    <p>모든 항목을 같은 무게로 요구하지 않습니다. 여러분이 얹는 플랫폼에서 바꿀 수 있는 범위가 저마다 다르다는 것을 알고 있습니다. 지킬 수 없는 항목이 섞여 문서 전체가 무시되는 쪽보다, 무엇이 진짜 중요한지 분명한 쪽이 낫다고 판단했습니다.</p>
+  </div>
+  <div class="legend">
+    <div class="row"><span><span class="tag must">반드시</span></span><span>브랜드 정체성과 환자 안전에 직결됩니다. 지키지 못할 사정이 있으면 먼저 알려 주십시오.</span></div>
+    <div class="row"><span><span class="tag should">맞춰 주십시오</span></span><span>화면이 마리아처럼 보이게 하는 항목입니다. 플랫폼 제약으로 어려우면 가장 가까운 값을 택해 주십시오.</span></div>
+    <div class="row"><span><span class="tag fyi">참고</span></span><span>사내 화면이 쓰는 방식입니다. 맞추면 좋지만 판단은 맡깁니다.</span></div>
+  </div>
+
+  <h3>이 문서가 정하지 않는 것</h3>
+  <div class="prose">
+    <p>화면의 기능, 정보 구조, 입력 항목, 업무 흐름은 여러분의 영역입니다. 개발 언어와 프레임워크도 마찬가지입니다. 이 문서는 눈에 보이는 약속만 다룹니다.</p>
+    <p>접근성도 이 문서가 다 담지 못합니다. 여기 있는 대비와 화면 폭은 접근성의 일부이지 전부가 아닙니다. 키보드 조작, 포커스 표시, 입력칸 라벨, 오류 안내, 화면 확대, 터치 영역 크기는 별도로 확인해 주십시오.</p>
+  </div>
+
+  <h3>항목을 지목하실 때</h3>
+  <div class="prose">
+    <p>절 앞에 붙은 두 자리 번호를 써 주십시오. "09번은 저희 쪽에서 어렵습니다"처럼 말씀하시면 어느 항목인지 바로 확인됩니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">01</span>
+    <h2>색<span class="tag must">반드시</span></h2>
+    <p class="lead">네 가지 코어 색과 대비 하한이 이 문서에서 가장 중요한 부분입니다. 다른 항목을 하나도 못 맞추더라도 이 절은 지켜 주십시오.</p>
+  </div>
+
+  <h3>코어 4색</h3>
+  <div class="swatches">
+    <div class="sw">
+      <div class="chip" style="background:#1E3131"></div>
+      <div class="nm">마리아 그린</div>
+      <div class="hx">#1E3131</div>
+      <div class="us">제목, 공식 버튼, 헤더 배경</div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#1D9581"></div>
+      <div class="nm">포포 틸</div>
+      <div class="hx">#1D9581</div>
+      <div class="us">아이콘, 게이지, 장식. 글자에는 쓰지 않습니다</div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#E0A793"></div>
+      <div class="nm">마리아 핑크</div>
+      <div class="hx">#E0A793</div>
+      <div class="us">따뜻한 강조, 부드러운 버튼</div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#F4EEED"></div>
+      <div class="nm">마리아 아이보리</div>
+      <div class="hx">#F4EEED</div>
+      <div class="us">배경 구분, 카드 배경</div>
+    </div>
+  </div>
+  <p class="note">포포 틸은 마스코트 캐릭터 포포에서 뽑아낸 색입니다. 순백 대신 아이보리를 쓰는 것이 마리아 화면의 특징입니다.</p>
+
+  <h3>대비 하한</h3>
+  <div class="prose">
+    <p>글자는 배경과 <b>4.5 대 1</b> 이상, 식별에 필요한 테두리와 아이콘은 <b>3 대 1</b> 이상이어야 합니다. WCAG AA를 바탕으로 하되 큰 글자 예외는 쓰지 않습니다. 난임 치료를 받는 환자는 오랜 시간 화면을 들여다보고, 진료 대기 중 밝은 조명 아래에서 폰을 보는 경우가 많습니다.</p>
+    <p>비활성 상태의 컨트롤만 이 하한에서 제외합니다. 비활성 버튼에 4.5를 요구하면 활성 버튼과 구별이 되지 않기 때문입니다. 대신 비활성임을 색으로만 알리지 말고 <code>disabled</code> 또는 <code>aria-disabled</code>를 함께 주십시오.</p>
+  </div>
+
+  <h3>포포 틸을 글자에 쓰지 않는 이유</h3>
+  <div class="compare">
+    <div class="box y">
+      <p class="h">이렇게</p>
+      <p style="color:#167565;font-weight:600">확인 버튼 · 본문 링크 &nbsp;#167565</p>
+      <p style="font-size:13px;color:var(--text-body);margin-top:8px">흰 배경 대비 5.58. 글자가 걸리는 자리의 틸은 항상 #167565입니다.</p>
+    </div>
+    <div class="box n">
+      <p class="h">이건 안 됩니다</p>
+      <p style="color:#1D9581;font-weight:600">확인 버튼 · 본문 링크 &nbsp;#1D9581</p>
+      <p style="font-size:13px;color:var(--text-body);margin-top:8px">흰 배경 대비 3.70. 하한에 미달합니다. 아이콘과 장식으로는 그대로 쓰셔도 됩니다.</p>
+    </div>
+  </div>
+
+  <h3>글자와 배경에 쓰는 값</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>자리</th><th>값</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>제목</td><td class="num">#1E3131</td><td></td></tr>
+        <tr><td>본문</td><td class="num">#4A605C</td><td></td></tr>
+        <tr><td>보조 설명</td><td class="num">#5A6F6B</td><td>더 흐린 회색을 쓰지 마십시오</td></tr>
+        <tr><td>링크</td><td class="num">#167565</td><td>본문 속 링크는 밑줄을 함께 씁니다</td></tr>
+        <tr><td>어두운 배경 위 글자</td><td class="num">#F4EEED</td><td>순백이 아닙니다</td></tr>
+        <tr><td>입력칸 테두리</td><td class="num">#6E827D</td><td>장식용 연한 테두리(#E8DDDA)로 입력칸을 그리지 마십시오</td></tr>
+        <tr><td>기본 배경</td><td class="num">#FFFFFF</td><td></td></tr>
+        <tr><td>구분 배경</td><td class="num">#F4EEED</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>밝기 단계</h3>
+  <div class="scale">
+    <figure><div class="st" style="background:#EFF3F3"></div><figcaption>50</figcaption></figure>
+    <figure><div class="st" style="background:#D2DCDC"></div><figcaption>100</figcaption></figure>
+    <figure><div class="st" style="background:#6E827D"></div><figcaption>500</figcaption></figure>
+    <figure><div class="st" style="background:#4A605C"></div><figcaption>600</figcaption></figure>
+    <figure><div class="st" style="background:#1E3131"></div><figcaption>900</figcaption></figure>
+  </div>
+  <div class="scale" style="margin-top:8px">
+    <figure><div class="st" style="background:#E6F5F2"></div><figcaption>틸 50</figcaption></figure>
+    <figure><div class="st" style="background:#A3DDD4"></div><figcaption>틸 200</figcaption></figure>
+    <figure><div class="st" style="background:#1D9581"></div><figcaption>틸 500</figcaption></figure>
+    <figure><div class="st" style="background:#167565"></div><figcaption>틸 700</figcaption></figure>
+    <figure><div class="st" style="background:#0E4D43"></div><figcaption>틸 900</figcaption></figure>
+  </div>
+  <p class="note">전체 값은 뒤쪽 <a href="#files">받아 가실 파일</a>의 CSS 변수 파일에 있습니다. 손으로 옮겨 적기보다 그 파일을 그대로 쓰시는 편이 안전합니다.</p>
+
+  <h3>쓰지 않는 색<span class="tag should">맞춰 주십시오</span></h3>
+  <div class="prose">
+    <p>Tailwind나 Bootstrap의 기본 팔레트(파랑 500, 빨강 400 같은 것)를 그대로 쓰지 마십시오. 색은 위 토큰과 아래 상태색으로만 말합니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">02</span>
+    <h2>로고<span class="tag must">반드시</span></h2>
+    <p class="lead">마리아 로고는 R자에 사람 모양이 들어간 전용 워드마크입니다. 글꼴이 아닙니다.</p>
+  </div>
+
+  <div class="prose">
+    <p><b>어떤 폰트로도 글자를 타이핑해 흉내 내지 마십시오.</b> 제공해 드리는 SVG 파일을 쓰셔야 합니다.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>규격</th></tr></thead>
+      <tbody>
+        <tr><td>어두운 배경</td><td>흰색 100%</td></tr>
+        <tr><td>밝은 배경</td><td>마리아 그린 #1E3131</td></tr>
+        <tr><td>아이보리 워드마크</td><td class="no">쓰지 않습니다</td></tr>
+        <tr><td>가로세로비</td><td class="num">601 대 229 고정. 늘이거나 줄이지 마십시오</td></tr>
+        <tr><td>여백</td><td>워드마크 높이의 1/2 이상을 사방에 비웁니다</td></tr>
+        <tr><td>변형</td><td class="no">회전, 그림자, 테두리, 색 채우기 변경 모두 하지 않습니다</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>마스코트</h3>
+  <div class="prose">
+    <p>포포 캐릭터의 사용은 건별로 상의해 주십시오. 캐릭터는 브랜드 자산 중 오용이 가장 눈에 띄는 요소입니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">03</span>
+    <h2>글자<span class="tag should">맞춰 주십시오</span></h2>
+    <p class="lead">서체 하나와 크기 사다리 하나를 씁니다.</p>
+  </div>
+
+  <h3>서체</h3>
+  <div class="prose">
+    <p>Pretendard를 씁니다. 버전은 <code>v1.3.9</code>의 variable 판으로 고정합니다.</p>
+    <p style="margin-top:8px"><code>https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css</code></p>
+    <p><code>@latest</code>를 쓰면 버전이 알아서 올라가 글자 폭이 어느 날 달라집니다. 고정 버전을 쓰십시오. 자체 호스팅이 필요하면 폰트 파일을 보내 드립니다.</p>
+  </div>
+
+  <h3>크기</h3>
+  <div class="prose">
+    <p>12, 14, 16, 18, 20, 24, 30, 36, 48px만 씁니다. 13px이나 15px 같은 중간값을 만들지 마십시오. 두 값 사이에서 고민되면 큰 쪽을 택합니다.</p>
+    <p>표나 대시보드처럼 정보가 빽빽한 화면에 한해 11px을 허용합니다. 10px 이하는 쓰지 않습니다.</p>
+  </div>
+
+  <h3>굵기</h3>
+  <div class="prose">
+    <p>400, 500, 600, 700 네 단계만 씁니다.</p>
+  </div>
+
+  <h3>숫자</h3>
+  <div class="prose">
+    <p>세로로 쌓여 서로 비교되는 숫자에는 <code>font-variant-numeric: tabular-nums</code>를 주십시오. 표의 숫자 열, 지표 카드의 값, 목록에 반복되는 수량과 시각이 대상입니다. 비례폭에서는 1이 8보다 좁아 자릿수가 어긋납니다.</p>
+    <p>문장 속에 섞인 숫자는 대상이 아닙니다.</p>
+  </div>
+
+  <div class="compare">
+    <div class="box y">
+      <p class="h">고정폭</p>
+      <p style="font-variant-numeric:tabular-nums;font-size:16px;line-height:1.6">1,180,000<br>982,400<br>1,111,900</p>
+    </div>
+    <div class="box n">
+      <p class="h">비례폭</p>
+      <p style="font-variant-numeric:proportional-nums;font-size:16px;line-height:1.6">1,180,000<br>982,400<br>1,111,900</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">04</span>
+    <h2>형태<span class="tag should">맞춰 주십시오</span></h2>
+    <p class="lead">모서리와 그림자는 정해진 사다리에서 고릅니다. 마리아 화면은 라운딩이 절제된 편입니다.</p>
+  </div>
+
+  <h3>모서리</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th class="num">값</th><th>자리</th></tr></thead>
+      <tbody>
+        <tr><td class="num">4px</td><td>인라인 코드, 작은 마커</td></tr>
+        <tr><td class="num">6px</td><td>소형 컨트롤</td></tr>
+        <tr><td class="num">8px</td><td>기본. 버튼, 입력칸, 배지, 셀</td></tr>
+        <tr><td class="num">12px</td><td>카드, 패널, 다이얼로그</td></tr>
+        <tr><td class="num">16px</td><td>대형 카드</td></tr>
+        <tr><td>완전한 pill</td><td>누를 수 있는 칩, 카운트 도트, 아바타, 진행 단계 표시</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">7px이나 10px 같은 중간값을 만들지 마십시오. 정적인 정보 배지는 pill이 아니라 8px 라운드 사각입니다. pill은 누를 수 있는 것의 형태입니다.</p>
+
+  <h3>그림자</h3>
+  <div class="prose">
+    <p>세 단계만 씁니다. 카드와 컨트롤은 옅게, 드롭다운과 팝오버는 중간, 모달은 진하게. 장식용 그림자는 쓰지 않습니다.</p>
+  </div>
+
+  <h3>간격과 테두리</h3>
+  <div class="prose">
+    <p>여백은 4px 배수로 씁니다. 테두리 굵기는 1px이 기본이고 강조가 필요할 때만 2px입니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">05</span>
+    <h2>아이콘<span class="tag should">맞춰 주십시오</span></h2>
+    <p class="lead">한 세트만 씁니다. 세트마다 획 굵기와 모서리 처리가 달라서 한 화면에 섞이면 바로 보입니다.</p>
+  </div>
+
+  <div class="prose">
+    <p>Lucide 계열을 씁니다. 24 격자, 획 굵기 2, 색은 <code>currentColor</code>로 두고 글자 색을 따라가게 하십시오. 아이콘에 색을 직접 박지 마십시오.</p>
+  </div>
+
+  <h3>크기는 역할로 고릅니다</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>역할</th><th class="num">크기</th><th>쓰는 곳</th></tr></thead>
+      <tbody>
+        <tr><td>인라인</td><td class="num">14px</td><td>본문 글자 옆, 배지 안</td></tr>
+        <tr><td>기본</td><td class="num">16px</td><td>버튼, 입력, 메뉴 항목. 애매하면 이것</td></tr>
+        <tr><td>강조</td><td class="num">20px</td><td>카드 머리말, 목록 항목의 선행 아이콘</td></tr>
+        <tr><td>전체 화면</td><td class="num">32 · 48px</td><td>로딩 스피너, 빈 화면</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>접근성<span class="tag must">반드시</span></h3>
+  <div class="prose">
+    <p>옆에 같은 뜻의 글자가 이미 있으면 <code>aria-hidden</code>으로 처리하십시오. 아이콘이 혼자 뜻을 전달하면 접근 가능한 이름을 주십시오. <b>아이콘만 있는 버튼에는 접근 가능한 이름이 반드시 있어야 합니다.</b> <code>aria-label</code>이 흔한 방법이고, 숨긴 텍스트를 두어도 됩니다. 없으면 화면 낭독기에서 그냥 "버튼"으로만 읽힙니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">06</span>
+    <h2>버튼과 문구</h2>
+    <p class="lead">버튼 라벨이 실제 효과를 정확히 말해야 합니다. 이 절의 첫 항목은 환자 안전에 걸리는 문제라 반드시 지켜 주십시오.</p>
+  </div>
+
+  <h3>라벨은 실제 효과를 말합니다<span class="tag must">반드시</span></h3>
+  <div class="prose">
+    <p>사내에서 실제로 있었던 일입니다. 되돌리기처럼 보이는 버튼이 실제로는 입력 항목 세 개를 지웠습니다. 라벨을 먼저 정하고 기능을 붙이지 말고, 그 버튼이 실제로 무엇을 하는지 먼저 판정한 다음 라벨이 그것을 말하게 하십시오.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>실제 효과</th><th>표준 라벨</th><th>쓰지 않는 말</th></tr></thead>
+      <tbody>
+        <tr><td>복구할 수 없이 지움</td><td><b>삭제</b></td><td>삭제는 복구 불가에만 쓰는 예약어입니다</td></tr>
+        <tr><td>목록에서만 빼고 되살릴 수 있음</td><td><b>제외</b> 또는 <b>보관</b></td><td class="no">삭제</td></tr>
+        <tr><td>입력값을 기본값으로 되돌림</td><td><b>초기화</b></td><td class="no">삭제 · 취소</td></tr>
+        <tr><td>쓰던 것을 버리고 나감</td><td><b>취소</b></td><td>상태가 안 바뀌는 이탈에 쓰면 되돌림으로 오해됩니다</td></tr>
+        <tr><td>예약·접수 자체를 취소</td><td><b>예약 취소</b> 처럼 목적어를 붙임</td><td class="no">맨몸 취소</td></tr>
+        <tr><td>아무것도 바꾸지 않고 창을 닫음</td><td><b>닫기</b></td><td class="no">× 닫기 · 닫기 (ESC)</td></tr>
+        <tr><td>파일을 내려받음</td><td><b>다운로드</b></td><td class="no">내려받기 · 다운받기 · 받기</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>버튼 색은 행동의 성질이 정합니다<span class="tag should">맞춰 주십시오</span></h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>성질</th><th>대상</th><th class="num">채움색</th></tr></thead>
+      <tbody>
+        <tr><td>중립</td><td>이동, 닫기</td><td class="num">#1E3131</td></tr>
+        <tr><td>확정</td><td>저장, 제출, 발송. 일반적인 전진</td><td class="num">#167565</td></tr>
+        <tr><td>경고</td><td>회수할 수 없이 밖으로 나가거나 되돌릴 수 없이 잃는 것</td><td class="num">#7E6429</td></tr>
+        <tr><td>파괴</td><td>지우는 것이 주된 효과인 실행</td><td class="num">#8B4540</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">한 화면에서 채움 버튼은 하나입니다. 나머지는 외곽선이나 글자 버튼으로 두십시오. 강조가 여럿이면 강조가 없는 것과 같습니다.</p>
+
+  <h3>진행 중 표시<span class="tag fyi">참고</span></h3>
+  <div class="prose">
+    <p>요청이 진행되는 동안 버튼 글자를 <b>저장 중…</b>처럼 바꿉니다. 말줄임은 한 글자짜리 <code>…</code>를 쓰고 마침표 세 개는 쓰지 않습니다. 스피너만 돌리고 원래 라벨을 두는 방식은 사내에서 쓰지 않기로 했습니다. 스피너는 장식이라 낭독되지 않아 진행 중이라는 사실이 시각 외 경로로는 전달되지 않습니다. 글자를 바꾸는 편이 그 일을 더 간단히 합니다. 자동 안내가 필요하면 <code>role="status"</code> 같은 의미 부여를 함께 쓰시고 실제로 읽히는지 확인해 주십시오.</p>
+  </div>
+
+  <h3>기호를 아이콘 대신 쓰지 마십시오<span class="tag should">맞춰 주십시오</span></h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>모양</th><th>예</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td>글자 없이 기호만</td><td class="num">× · ↻</td><td class="no">쓰지 않습니다</td></tr>
+        <tr><td>기호가 아이콘 자리에 앞장섬</td><td>↓ 다운로드</td><td class="no">쓰지 않습니다</td></tr>
+        <tr><td>글자 뒤에 방향 기호</td><td>접수하기 →</td><td class="ok">괜찮습니다</td></tr>
+        <tr><td>장식으로 숨긴 기호</td><td>← 목록</td><td class="ok">괜찮습니다</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">07</span>
+    <h2>상태 표시<span class="tag should">맞춰 주십시오</span></h2>
+    <p class="lead">상태를 알리는 배지와 라벨은 여섯 쌍의 색만 씁니다.</p>
+  </div>
+
+  <div class="badges">
+    <span class="badge" style="background:#E8F3ED;color:#3D6B54">완료</span>
+    <span class="badge" style="background:#FBF4E4;color:#7E6429">확인 필요</span>
+    <span class="badge" style="background:#FCEEED;color:#8B4540">실패</span>
+    <span class="badge" style="background:#EFF3F3;color:#4A605C">처리 중</span>
+    <span class="badge" style="background:#E6F5F2;color:#0E4D43">연결됨</span>
+    <span class="badge" style="background:#F0F0EE;color:#5C5C58">초안</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>톤</th><th class="num">배경 · 글자</th><th>언제</th></tr></thead>
+      <tbody>
+        <tr><td>완료</td><td class="num">#E8F3ED · #3D6B54</td><td>긍정적으로 끝났을 때</td></tr>
+        <tr><td>주의</td><td class="num">#FBF4E4 · #7E6429</td><td>아직 실패는 아니지만 사람이 손을 안 대면 기한을 놓치거나 중단될 때</td></tr>
+        <tr><td>오류</td><td class="num">#FCEEED · #8B4540</td><td>실패나 거부가 이미 일어났을 때</td></tr>
+        <tr><td>정보</td><td class="num">#EFF3F3 · #4A605C</td><td>정상 흐름 속 대기와 진행</td></tr>
+        <tr><td>가동</td><td class="num">#E6F5F2 · #0E4D43</td><td>연결이나 기능이 지금 켜져 있고 정상일 때</td></tr>
+        <tr><td>중립</td><td class="num">#F0F0EE · #5C5C58</td><td>분류와 건수. 초안, 취소됨, 만료처럼 의미 없는 종결</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>대기는 누가 기다리는지로 가릅니다</h3>
+  <div class="prose">
+    <p>시스템이 처리 중이면 정보 톤, 사람의 행동을 기다리면 주의 톤입니다. 같은 "대기"라도 환자가 뭔가 해야 하는 상황과 우리가 처리 중인 상황은 다른 색이어야 합니다.</p>
+  </div>
+
+  <h3>색만으로 상태를 말하지 마십시오<span class="tag must">반드시</span></h3>
+  <div class="prose">
+    <p>모든 상태 표시에 글자 라벨을 함께 두십시오. 점이나 아이콘만으로 상태를 전달하면 색각 이상이 있는 분과 화면 낭독기 사용자에게 아무것도 전달되지 않습니다. 점은 장식으로 두고 글자가 상태를 말하게 하십시오.</p>
+  </div>
+
+  <h3>임상 경고색은 이 절의 대상이 아닙니다<span class="tag must">반드시</span></h3>
+  <div class="prose">
+    <p>알레르기, 금기 약제, 위험값처럼 <b>임상 판단을 전달하는 색은 브랜드 색으로 바꾸지 마십시오.</b> 의료진이 이미 그 색으로 위험을 읽도록 훈련되어 있고, 브랜드 정합을 위해 그 신호를 건드리면 환자 안전에 직접 영향을 줍니다.</p>
+    <p>이런 색이 화면에 있으면 일괄 치환하지 마시고 임상 책임자와 함께 건별로 판정합니다. 브랜드보다 우선합니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">08</span>
+    <h2>알림과 확인창<span class="tag must">반드시</span></h2>
+    <p class="lead">브라우저 기본 알림창을 쓰지 않습니다.</p>
+  </div>
+
+  <div class="prose">
+    <p><code>window.alert</code>, <code>window.confirm</code>, <code>window.prompt</code>를 쓰지 마십시오. 브랜드가 통째로 사라지고, 문구를 다듬을 수도, 버튼 라벨을 정할 수도 없습니다. 화면 안의 다이얼로그로 구현해 주십시오.</p>
+  </div>
+
+  <h3>대체 다이얼로그가 지켜야 할 것<span class="tag must">반드시</span></h3>
+  <div class="prose">
+    <p>기본 알림창을 대신하는 것이므로, 대체물이 원래 알림창이 해 주던 일을 못 하면 바꾼 의미가 없습니다.</p>
+  </div>
+  <ul class="prose" style="margin-top:8px">
+    <li>키보드만으로 조작할 수 있어야 합니다. 열리면 포커스가 다이얼로그 안으로 들어가고, 밖으로 새지 않고, 닫으면 원래 있던 자리로 돌아옵니다.</li>
+    <li><b>입력칸이나 선택 상태가 든 다이얼로그는 바깥을 클릭해도 닫히지 않게 하십시오.</b> 실수로 한 번 누른 것이 쓰던 내용을 통째로 지웁니다.</li>
+    <li>사람이 값을 바꾼 칸이 두 개 이상인 상태에서 닫기 요청이 오면, 곧바로 닫지 말고 확인을 한 번 받으십시오. 확인 줄의 두 버튼은 <b>계속 쓰기</b>와 <b>닫고 버리기</b>입니다.</li>
+  </ul>
+
+  <h3>모양<span class="tag should">맞춰 주십시오</span></h3>
+  <ul class="prose" style="margin-top:8px">
+    <li>가능하면 <code>&lt;dialog&gt;</code>와 <code>showModal()</code>을 쓰십시오. 포커스 가두기와 Escape 처리를 브라우저가 맡아 줍니다.</li>
+    <li>뒤 배경은 불투명도로만 가립니다. 배경 흐리기(blur)는 쓰지 않습니다.</li>
+    <li>이미지와 영상 미리보기는 반대입니다. 입력이 없으므로 가장자리를 클릭하면 닫히는 것이 기본입니다.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">09</span>
+    <h2>화면 폭<span class="tag must">반드시</span></h2>
+    <p class="lead">환자가 여는 화면은 대부분 폰입니다. 문자와 카카오톡 링크로 들어오기 때문입니다.</p>
+  </div>
+
+  <div class="prose">
+    <p>뷰포트 <b>360px</b>에서 페이지가 가로로 밀리지 않아야 합니다. 핵심 동작에 도달하고 실행할 수 있으면 됩니다. 줄바꿈이 완벽할 필요는 없습니다.</p>
+    <p>표, 달력, 긴 그리드처럼 넓은 내용은 페이지를 밀지 말고 <b>자기 컨테이너 안에서</b> 가로로 스크롤하게 하십시오.</p>
+    <p>확인은 360, 768, 1280 세 폭에서 하십시오. 직원용 화면은 1280을 설계 기준으로 잡되 360에서 깨지지는 않아야 합니다.</p>
+  </div>
+
+  <h3>열린 상태도 확인해 주십시오</h3>
+  <div class="prose">
+    <p>첫 화면만 재는 것으로는 부족합니다. 사내 점검에서 공개 화면 13개를 세 폭씩 훑었을 때 문제가 하나도 없었는데, 날짜 선택 달력을 하나 열어 보자 360px에서 바로 9px이 밀렸습니다. 팝오버, 달력, 드롭다운, 메뉴처럼 열려야 나타나는 층도 같은 기준입니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">10</span>
+    <h2>폼<span class="tag should">맞춰 주십시오</span></h2>
+    <p class="lead">문진과 예약은 대부분 폼입니다. 제출 버튼이 왜 안 눌리는지 말하지 않는 화면을 만들지 마십시오.</p>
+  </div>
+
+  <div class="prose">
+    <p>필수 항목이 빠졌을 때 제출을 막는 방법은 두 가지이고 둘 중 하나면 됩니다.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>방법</th><th>모양</th><th>어울리는 폼</th></tr></thead>
+      <tbody>
+        <tr><td>버튼을 잠금</td><td>필수가 빠진 동안 제출 버튼을 활성화하지 않고, <b>빠진 항목의 이름을 버튼 아래에 나열</b></td><td>칸이 많은 폼</td></tr>
+        <tr><td>누르게 두고 막음</td><td>버튼은 눌리되 제출을 코드가 막고, 사유를 <code>role="alert"</code> 영역이 말함</td><td>칸이 두셋인 폼</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">어느 쪽이든 <b>어느 칸이 문제인지</b> 말해야 합니다. 회색 버튼 하나로 안 된다고만 말하는 화면은 두 방법 모두에 해당하지 않습니다. 같은 화면 안의 형제 버튼끼리는 방식이 갈리지 않게 하십시오.</p>
+  <p class="note">두 번째 방법을 쓰면 <code>novalidate</code>를 함께 주십시오. 브라우저 기본 검증이 켜져 있으면 브라우저가 먼저 제출을 막아, 여러분이 준비한 오류 문구가 뜰 기회를 잃습니다.</p>
+</section>
+
+<section class="cont">
+  <div class="sec-head">
+    <span class="no">11</span>
+    <h2>브라우저 탭 제목</h2>
+    <p class="lead">탭 제목은 화면 밖으로 샙니다. 방문 기록과 브라우저 동기화를 타고 다른 기기까지 갑니다.</p>
+  </div>
+
+  <h3>환자 식별정보를 넣지 마십시오<span class="tag must">반드시</span></h3>
+  <div class="prose">
+    <p>환자 이름, 등록번호, 생년월일, 연락처는 탭 제목에 넣지 않습니다. 대기실 모니터와 어깨너머로도 보이고, 방문 기록에 남아 다음 사용자에게 노출됩니다. 환자를 식별하거나 조회에 쓸 수 있는 값은 넣지 마십시오. 번호 하나로 예약을 찾을 수 있다면 그 번호도 식별정보입니다.</p>
+  </div>
+
+  <h3>형식<span class="tag fyi">참고</span></h3>
+  <div class="prose">
+    <p>환자가 보는 화면은 <code>{페이지} · {서비스명} · 마리아의료재단</code>, 직원용 화면은 <code>{페이지} · {앱 이름}</code>입니다. 구분자는 가운뎃점 하나만 씁니다. 404와 오류 화면에도 고유한 제목을 주십시오.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="no">12</span>
+    <h2>전역 메뉴가 있는 화면이라면<span class="tag should">맞춰 주십시오</span></h2>
+  </div>
+
+  <div class="cond">
+    <b>이 절은 조건부입니다.</b> 여러 화면을 오가는 전역 메뉴가 있는 경우에만 적용됩니다. 한 장짜리 신청 흐름이나 문진 화면처럼 오갈 화면이 없으면 이 절은 대상이 아닙니다. 그때는 화면 폭과 여백을 여러분이 정하시면 됩니다.
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>규격</th></tr></thead>
+      <tbody>
+        <tr><td>헤더 배경</td><td class="num">#1E3131</td></tr>
+        <tr><td>헤더 안쪽 폭</td><td class="num">최대 1280px, 좌우 여백 24px</td></tr>
+        <tr><td>스크롤</td><td>상단에 고정합니다</td></tr>
+        <tr><td>로고</td><td>워드마크 흰색. 옆에 짧은 서비스명을 붙입니다</td></tr>
+        <tr><td>선택된 메뉴</td><td>아이보리 알약 배경에 마리아 그린 글자</td></tr>
+        <tr><td>선택 안 된 메뉴</td><td class="num">#A8BABA. 마우스를 올리면 #F4EEED</td></tr>
+        <tr><td>본문 폭</td><td class="num">최대 1280px</td></tr>
+        <tr><td>페이지 제목</td><td class="num">24px, 굵기 600. 넓은 화면에서 30px</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">현재 페이지를 가리키는 메뉴에는 <code>aria-current="page"</code>를 주십시오. 선택되지 않은 메뉴에는 이 속성을 아예 빼는 편이 간결합니다.</p>
+  <p class="note">메뉴가 화면 폭을 넘칠 때는 메뉴 줄만 가로로 스크롤하게 하고, 현재 선택된 메뉴가 보이도록 위치를 맞춰 주십시오. 360px에서 메뉴 여섯 개 중 다섯 개가 전혀 보이지 않던 사례가 있었습니다.</p>
+</section>
+
+<section id="files">
+  <div class="sec-head">
+    <span class="no">13</span>
+    <h2>받아 가실 파일</h2>
+    <p class="lead">색 값을 손으로 옮겨 적기보다 아래 파일을 그대로 쓰시는 편이 안전합니다. 값이 개정되면 파일만 다시 받으시면 됩니다.</p>
+  </div>
+
+  <div class="prose">
+    <p>모두 아래 공개 저장소에 있습니다. 로그인이나 권한 신청 없이 바로 내려받으실 수 있습니다.</p>
+    <p style="margin-top:8px">아래 주소는 항상 최신판을 가리킵니다. 착수 시점 판으로 고정된 주소가 필요하시면 요청해 주십시오.</p>
+    <p style="margin-top:8px"><a href="https://github.com/mariababy-brandstrategy/design-system">github.com/mariababy-brandstrategy/design-system</a></p>
+  </div>
+
+  <div class="files">
+    <div class="f"><span class="k">CSS 변수</span><span class="v"><code>tokens/design-tokens.css</code><br><span style="color:var(--text-muted);font-size:14px">색 값 전체가 CSS 변수로 들어 있습니다. 그대로 불러다 쓰시면 됩니다</span></span></div>
+    <div class="f"><span class="k">JSON 토큰</span><span class="v"><code>tokens/design-tokens.json</code><br><span style="color:var(--text-muted);font-size:14px">디자인 도구의 토큰 플러그인에서 불러올 수 있습니다</span></span></div>
+    <div class="f"><span class="k">로고 SVG</span><span class="v"><code>assets/logos/svg/</code><br><span style="color:var(--text-muted);font-size:14px">색 상속용, 그린 고정, 흰색 고정 세 가지</span></span></div>
+    <div class="f"><span class="k">파비콘 원본</span><span class="v"><code>assets/web-icons/</code></span></div>
+  </div>
+
+  <p class="note">코드에서 바로 가져다 쓰시려면 <code>raw.githubusercontent.com/mariababy-brandstrategy/design-system/main/</code> 뒤에 위 경로를 붙이시면 됩니다. 폰트 파일이나 다른 형식이 필요하시면 말씀해 주십시오.</p>
+
+  <h3>맞추기 어려운 항목이 있으면</h3>
+  <div class="prose">
+    <p>플랫폼 제약으로 지킬 수 없는 항목이 있으면 알려 주십시오. 대안을 같이 찾겠습니다.</p>
+  </div>
+
+</section>
+
+</div>
+
+<footer>
+  <div>
+    <p><b>마리아의료재단 CX부</b></p>
+    <p>화면 브랜드 가이드 v1.0 · 2026-09-08</p>
+  </div>
+  <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
+</footer>
+</div>
+
+</body>
+</html>
