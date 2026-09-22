@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>브랜드 디자인 규격 약식판 v1.1</title>
+<title>브랜드 디자인 규격 약식판 v1.2</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 {{TOKENS_CSS}}
 {{BASE_CSS}}
-/* ── 브랜드 디자인 규격 약식 v1.1 — 문서 override (tokens → document-base → 여기)
+/* ── 브랜드 디자인 규격 약식 v1.2 — 문서 override (tokens → document-base → 여기)
    경영진 보고 v2.0(2026-09-10) 의 도판만 승계, 서사·결정 요청·보고 메타 제거. 참고용 요약 규격서 = 규칙은 단문, 나머지는 도판. */
 @font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
 .doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
@@ -17,20 +17,23 @@ html{background:var(--bg-ivory)}
 /* 첫 장 밴드: 어두운 배경 위 글자 = 아이보리, 워드마크만 흰색 */
 .band{background:var(--bg-dark);color:var(--text-on-dark);padding:40px 64px 36px}
 .band .wm{width:132px;height:auto;color:var(--bg-default);display:block}
-.band h1{color:var(--text-on-dark);font-size:32px;font-weight:600;letter-spacing:-.025em;margin-top:22px}
+.band h1{color:var(--text-on-dark);font-size:30px;font-weight:600;letter-spacing:-.025em;margin-top:22px}
 .band .sub{font-size:18px;margin-top:8px;opacity:.92}
 .doc section.first{padding-top:36px}
 /* 절 머리 번호 override 는 2026-09-22 base v1.1(번호=제목 크기·"1." 표기)로 흡수돼 제거 */
-/* 스케일 밖 크기(12.5·13·13.5px, 정본 §1-9 는 12·14)는 2026-09-10 상신본 보존 예외로 남긴다 — 다음 m 판에서 동률은 위쪽(14) 규칙으로 수렴(AGENTS 문서 레이어·인계 2026-09-22 판정표) */
+/* 글자 크기 = 정본 §1-9 스케일(12·14·16·18·20·24·30, base 머리 주석)만 — v1.1 까지 2026-09-10 상신본 보존 예외로 남겼던 스케일 밖 크기(9·10·11.5·12.5·13·13.5·14.5·15·26·28·32px 35곳 + 밀집 아닌 자리의 11px 1곳)를
+   v1.2(2026-09-22)에서 수렴: 동률(13·15)은 위쪽, 나머지는 가까운 값, 역할이 정해진 자리(h4·figcaption = base 기본값 · 배지·캡션 = 12)는 역할 우선. 10 이하였던 도판 라벨 3곳(치수 "16"·"32" · 견본 캡션 · "잘못된 예" 표식)은
+   11 이 아니라 12 — 12 로 실측해 상자 안에 들어가고 이웃과 안 겹쳤다(Codex 4b: 밀집 표면 허용 임의값 11 은 근거가 있을 때만). 예외 0.
+   판정표 = maria-ops-archive/handoffs/docbase-rules/2026-09-22-brief-spec-v12.md */
 .note-sm{font-size:14px;color:var(--text-muted);line-height:1.6}
 /* 리드 줄 폭 캡 해제 override 는 2026-09-22 base v1.1(.lead 캡 없음)로 흡수돼 제거 */
 /* 대표색 띠 + 값 */
 .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 0}
-.strip .c{height:64px;border:1px solid var(--maria-green-100);display:flex;align-items:flex-end;padding:8px 10px;font-size:13px;font-weight:600}
+.strip .c{height:64px;border:1px solid var(--maria-green-100);display:flex;align-items:flex-end;padding:8px 10px;font-size:14px;font-weight:600}
 .strip .hx{font-size:12px;color:var(--text-muted);margin-top:5px;font-variant-numeric:tabular-nums}
 /* 밝기 단계 */
 .scale{display:grid;grid-template-columns:78px 1fr;gap:10px 12px;align-items:center;margin-top:16px}
-.scale .lbl{font-size:13px;font-weight:600;color:var(--text-primary)}
+.scale .lbl{font-size:14px;font-weight:600;color:var(--text-primary)}
 .scale .row{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3px}
 .scale .row span{height:30px;border:1px solid var(--maria-green-100);position:relative}
 .scale .row span.rep::after{content:"";position:absolute;left:50%;bottom:-8px;width:6px;height:6px;margin-left:-3px;background:var(--text-primary);border-radius:50%}
@@ -38,7 +41,7 @@ html{background:var(--bg-ivory)}
 /* 규격 도판 격자 */
 .spec{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
 .spec .wide{grid-column:1/-1}
-.spec h4,.block h4{font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--text-muted);text-transform:uppercase;margin:0 0 10px}
+/* h4 소라벨 = base 기본값(12px·600·자간 .05em·muted) — v1.1 의 13px override 는 v1.2 에서 제거 */
 .block{margin-top:28px}
 .logos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .logos .l{height:96px;display:grid;place-items:center;border:1px solid var(--maria-green-100)}
@@ -47,43 +50,43 @@ html{background:var(--bg-ivory)}
 .logos .l.light{background:var(--bg-default);color:var(--maria-green)}
 .kv.lg{grid-template-columns:44px 1fr;gap:6px 14px;font-size:14px;margin-top:12px;line-height:1.5}
 .type div{line-height:1.3}
-.type .t1{font-size:26px;font-weight:600;color:var(--text-primary);letter-spacing:-.02em}
+.type .t1{font-size:24px;font-weight:600;color:var(--text-primary);letter-spacing:-.02em}
 .type .t2{font-size:16px;color:var(--text-body);margin-top:8px}
-.type .t3{font-size:13px;color:var(--text-muted);margin-top:6px;padding-bottom:10px;border-bottom:1px solid var(--maria-green-100)}
+.type .t3{font-size:12px;color:var(--text-muted);margin-top:6px;padding-bottom:10px;border-bottom:1px solid var(--maria-green-100)}
 .roles{display:grid;gap:6px}
 .roles div{display:grid;grid-template-columns:96px 1fr 76px;gap:10px;align-items:center;font-size:14px}
-.roles .lbl{color:var(--text-muted);font-size:13px}
+.roles .lbl{color:var(--text-muted);font-size:14px}
 .roles .hx{font-size:12px;color:var(--text-muted);font-variant-numeric:tabular-nums;text-align:right}
 .roles .dark{background:var(--bg-dark);color:var(--text-on-dark);padding:6px 10px}
 .badges{display:flex;flex-wrap:wrap;gap:8px}
 .badges span{padding:6px 12px;font-size:14px;font-weight:500}
 .limits{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .limits div{border:1px solid var(--maria-green-100);padding:14px 16px;background:var(--bg-default)}
-.limits .big{font-size:26px;font-weight:600;color:var(--text-primary);letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
-.limits .big small{font-size:13px;font-weight:500;color:var(--text-muted);margin-left:6px;letter-spacing:0}
-.limits .d{font-size:13.5px;color:var(--text-body);margin-top:6px;line-height:1.5}
+.limits .big{font-size:24px;font-weight:600;color:var(--text-primary);letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.limits .big small{font-size:14px;font-weight:500;color:var(--text-muted);margin-left:6px;letter-spacing:0}
+.limits .d{font-size:14px;color:var(--text-body);margin-top:6px;line-height:1.5}
 .dont{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.dont div{border:1px solid var(--maria-green-100);padding:12px 14px;font-size:13.5px;line-height:1.5;color:var(--text-body)}
+.dont div{border:1px solid var(--maria-green-100);padding:12px 14px;font-size:14px;line-height:1.5;color:var(--text-body)}
 .dont b{display:block;color:var(--text-primary);font-weight:600;margin-bottom:3px}
 /* 색 값 칩(조립기가 본문의 #RRGGBB 앞에 붙임) · 툴팁 · 잘못된 예 · 스타일 시각 · do/don't · 규칙 번호 override */
 .hex{white-space:nowrap}
 .hex i{display:inline-block;width:11px;height:11px;border:1px solid var(--maria-green-100);vertical-align:-1px;margin-right:4px;border-radius:2px}
-.hexnote{font-size:12.5px;color:var(--text-muted);margin-top:8px;line-height:1.5}
+.hexnote{font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.5}
 .tip{position:relative;display:inline-block;margin-left:6px;vertical-align:1px}
 .tip>button{width:18px;height:18px;border:1px solid var(--maria-green-500);border-radius:50%;background:var(--bg-default);color:var(--text-muted);font-family:inherit;font-size:12px;font-weight:600;line-height:1;padding:0;cursor:help;text-transform:none;letter-spacing:0}
-.tip .box{display:none;position:absolute;left:0;top:24px;z-index:5;width:320px;background:var(--bg-default);border:1px solid var(--maria-green-100);box-shadow:0 4px 12px rgba(30,49,49,.12);padding:12px 14px;font-size:13px;line-height:1.5;color:var(--text-body);font-weight:400;letter-spacing:0;text-transform:none}
+.tip .box{display:none;position:absolute;left:0;top:24px;z-index:5;width:320px;background:var(--bg-default);border:1px solid var(--maria-green-100);box-shadow:0 4px 12px rgba(30,49,49,.12);padding:12px 14px;font-size:14px;line-height:1.5;color:var(--text-body);font-weight:400;letter-spacing:0;text-transform:none}
 .tip:hover .box,.tip:focus-within .box,.tip.open .box{display:block}
 .dont .demo{height:64px;display:flex;align-items:center;justify-content:center;gap:4px;border:1px solid var(--maria-green-100);background:var(--bg-default);margin-bottom:8px;overflow:hidden;position:relative;color:var(--maria-green)}
 .dont .demo svg{width:84px;height:auto;flex:none}
-.dont .demo .serif{font-family:Georgia,"Times New Roman",serif;font-size:26px;letter-spacing:.04em}
+.dont .demo .serif{font-family:Georgia,"Times New Roman",serif;font-size:24px;letter-spacing:.04em}
 .dont .demo.skew svg{transform:skewX(-14deg) rotate(-6deg);filter:drop-shadow(2px 3px 0 rgba(30,49,49,.35))}
 .dont .demo.photo{background-size:cover;background-position:center}
 .dont .demo .crowd{font-size:12px;font-weight:600;white-space:nowrap;margin-left:-3px}
-.dont .demo::after{content:"잘못된 예";position:absolute;right:6px;top:5px;font-size:10px;font-weight:600;letter-spacing:.05em;color:var(--state-error-fg)}
+.dont .demo::after{content:"잘못된 예";position:absolute;right:6px;top:5px;font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--state-error-fg)}
 .dont .demo.photo::after,.dont .demo[style*="#2D4544"]::after{color:#FCEEED}
 .style3.vis>div{padding:12px 14px 14px}
 .style3.vis figure{margin:0;text-align:center}
-.style3.vis figcaption{font-size:10px;color:var(--text-muted);margin-top:5px;line-height:1.25}
+.style3.vis figcaption{font-size:12px;color:var(--text-muted);margin-top:5px;line-height:1.25}
 .corners{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .corners figure div{width:34px;height:34px;background:var(--bg-info);border:1px solid var(--maria-green-500);margin:0 auto}
 .corners figure div.pill{border-radius:17px;width:48px}
@@ -96,7 +99,7 @@ html{background:var(--bg-ivory)}
 .gapvis{display:flex;gap:18px;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap}
 .gaps{display:flex;align-items:flex-end;padding-top:14px}
 .gaps i{width:26px;height:26px;background:var(--bg-info);border:1px solid var(--maria-green-500);display:block}
-.gaps b{display:block;height:26px;border-top:1px solid var(--text-muted);font-size:9px;font-weight:500;color:var(--text-muted);text-align:center;line-height:1;padding-top:2px;position:relative;top:-14px;font-variant-numeric:tabular-nums}
+.gaps b{display:block;height:26px;border-top:1px solid var(--text-muted);font-size:12px;font-weight:500;color:var(--text-muted);text-align:center;line-height:1;padding-top:2px;position:relative;top:-14px;font-variant-numeric:tabular-nums}
 .borders{display:flex;gap:10px}
 .borders figure div{width:40px;height:26px;background:var(--bg-default);border:1px solid var(--border-input);margin:0 auto}
 .borders figure .b2{border-width:2px}
@@ -104,29 +107,29 @@ html{background:var(--bg-ivory)}
 .dodont .r{display:grid;grid-template-columns:22px 1.3fr 1fr 1fr;gap:12px;align-items:start;font-size:14px;line-height:1.5;color:var(--text-body)}
 .dodont .n{font-weight:600;color:var(--text-primary)}
 .dodont b{color:var(--text-primary);font-weight:600}
-.dodont .ex{border:1px solid var(--maria-green-100);padding:8px 10px 9px;background:var(--bg-default);font-size:13.5px;line-height:1.4;color:var(--text-primary)}
-.dodont .ex small{display:block;font-size:11px;font-weight:600;letter-spacing:.05em;margin-bottom:4px}
+.dodont .ex{border:1px solid var(--maria-green-100);padding:8px 10px 9px;background:var(--bg-default);font-size:14px;line-height:1.4;color:var(--text-primary)}
+.dodont .ex small{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:4px}
 .dodont .ok small{color:var(--state-success-fg)}
 .dodont .no small{color:var(--state-error-fg)}
-.dodont .ex .en{display:block;font-size:11.5px;color:var(--text-muted);margin-top:2px}
+.dodont .ex .en{display:block;font-size:12px;color:var(--text-muted);margin-top:2px}
 .dodont .no .en.big{font-size:14px;color:var(--text-primary);margin:0 0 2px}
 .rules .n{font-size:inherit;color:var(--text-primary);font-weight:600;padding-top:0}   /* 규칙 목록 번호 = 본문 크기(사용자 지적 2026-09-10 · 정본에 목록 번호 규칙 없음 · base 재점검 예약) */
 /* 색 사용 규칙·버튼 견본·표 */
 .dd h4{margin-bottom:8px}
-.dd ul{font-size:14.5px;line-height:1.5;color:var(--text-body)}
+.dd ul{font-size:14px;line-height:1.5;color:var(--text-body)}
 .dd li+li{margin-top:7px}
 .btnrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .btnrow .btn{display:inline-block;padding:10px 16px;font-size:14px;font-weight:600;border:1px solid transparent;line-height:1.3}
-.btnrow small{display:block;font-size:12.5px;color:var(--text-muted);margin-top:6px;line-height:1.4}
+.btnrow small{display:block;font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.4}
 .kv.two-col{grid-template-columns:44px 1fr;margin-top:14px}
 .rules.tone{margin-top:4px}
 .doc table td,.doc table th{font-size:14px}
 .style3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.style3 div{border:1px solid var(--maria-green-100);padding:14px 16px;font-size:14.5px;line-height:1.5;color:var(--text-body)}
+.style3 div{border:1px solid var(--maria-green-100);padding:14px 16px;font-size:14px;line-height:1.5;color:var(--text-body)}
 .style3 b{display:block;color:var(--text-primary);font-weight:600;margin-bottom:4px}
 /* 공간·스크린 도판 */
 .doc figure img{display:block;width:100%;height:auto}
-.doc figcaption{font-size:13px;color:var(--text-muted);margin-top:6px}
+.doc figcaption{margin-top:6px}   /* 크기·색 = base 기본값(14px muted) — v1.1 의 13px override 는 v1.2 에서 제거 */
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .signs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .signs figure img{border:1px solid var(--maria-green-100)}
@@ -136,32 +139,31 @@ html{background:var(--bg-ivory)}
 .roles4 b{display:block;color:var(--text-primary);font-weight:600}
 .mock{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:start}
 .screen{border:1px solid var(--maria-green-100);background:var(--bg-default)}
-.screen .top{background:var(--bg-dark);color:var(--bg-default);padding:12px 18px;display:flex;align-items:baseline;gap:10px;font-size:13px}   /* 정본 §로고: 텍스트와 나란히 둘 때 trim viewBox + baseline — 상자 밑변이 글자 밑선 */
+.screen .top{background:var(--bg-dark);color:var(--bg-default);padding:12px 18px;display:flex;align-items:baseline;gap:10px;font-size:14px}   /* 정본 §로고: 텍스트와 나란히 둘 때 trim viewBox + baseline — 상자 밑변이 글자 밑선 */
 .screen .top svg{width:64px;height:auto}
 .screen .top span{color:var(--text-on-dark);opacity:.85}
 .screen .in{padding:20px 18px 18px}
 .screen h5{font-size:18px;font-weight:600;color:var(--text-primary);margin:0 0 6px}
 .screen p{font-size:14px;color:var(--text-body);line-height:1.55;margin:0}
-.screen .muted{font-size:12.5px;color:var(--text-muted);margin-top:6px}
+.screen .muted{font-size:12px;color:var(--text-muted);margin-top:6px}
 .screen a{color:var(--text-link);text-decoration:underline;text-underline-offset:3px;font-size:14px}
-.screen .st{display:inline-block;margin-top:12px;padding:5px 10px;font-size:13px;background:var(--state-success-bg);color:var(--state-success-fg)}
+.screen .st{display:inline-block;margin-top:12px;padding:5px 10px;font-size:12px;background:var(--state-success-bg);color:var(--state-success-fg)}
 .screen .btns{display:flex;gap:8px;margin-top:16px}
 .screen .btn{padding:10px 16px;font-size:14px;font-weight:600;border:1px solid transparent}
 .screen .btn.fill{background:var(--popo-teal-700);color:var(--bg-default)}
 .screen .btn.line{border-color:var(--maria-green-500);color:var(--text-primary);background:var(--bg-default)}
 .screen .card{border:1px solid var(--maria-green-100);padding:12px 14px;margin-top:14px;background:var(--bg-ivory)}
 .rules{display:grid;gap:12px}
-.rules div{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:15px;line-height:1.55;color:var(--text-body)}
+.rules div{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:16px;line-height:1.55;color:var(--text-body)}
 .rules .n{font-weight:600;padding-top:0;font-variant-numeric:tabular-nums}   /* 크기·색은 위(111행 근처) "규칙 목록 번호 = 본문 크기" 규칙이 정한다 — 종전엔 이 줄이 13px muted 로 그 규칙을 덮고 있었다(Codex 4b 2026-09-22 발견, 상신본은 13px 로 나갔음) */
 .rules b{color:var(--text-primary);font-weight:600}
 /* 실무 가이드 3종 */
 .guides{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .guides figure img{border:1px solid var(--maria-green-100);max-width:168px}
 .guides figcaption{color:var(--text-body);font-size:14px}
-.guides figcaption b{display:block;color:var(--text-primary);font-weight:600;font-size:15px}
+.guides figcaption b{display:block;color:var(--text-primary);font-weight:600;font-size:16px}
 @media (max-width:720px){
   .band{padding:32px 24px 28px}
-  .band h1{font-size:28px}
   .strip,.roles4{grid-template-columns:repeat(2,1fr)}
   .spec,.mock,.style3,.dont,.three,.signs,.guides,.limits,.btnrow{grid-template-columns:1fr}
   .dodont .r{grid-template-columns:22px 1fr;gap:8px}
@@ -172,7 +174,7 @@ html{background:var(--bg-ivory)}
   html{background:var(--bg-default)}
   .band{padding:18px 32px 16px}
   .band .wm{width:110px}
-  .band h1{margin-top:12px;font-size:30px}
+  .band h1{margin-top:12px}
   .band .sub{font-size:16px}
   .doc section.first{break-before:auto;padding-top:12px}
   .doc section.first .sec-head{margin-bottom:16px}
@@ -183,8 +185,9 @@ html{background:var(--bg-ivory)}
   .scale{margin-top:10px}
   .scale .row span{height:24px}
   .spec{gap:16px 32px}
-  .style3 div,.dont div{padding:9px 12px;font-size:13px;line-height:1.45}
-  .kv.lg{font-size:13.5px;gap:4px 12px}
+  .style3 div,.dont div{padding:9px 12px;line-height:1.45}
+  .style3.vis>div{padding:9px 12px 11px}   /* 화면 규칙(.style3.vis>div)이 위 인쇄 축소보다 특이도가 높아 스타일 카드만 인쇄 축소가 안 걸리고 있었다 — v1.2 에서 발견, 4쪽 판면 맞춤 */
+  .kv.lg{gap:4px 12px}
   .block{margin-top:20px}
   .limits div{padding:12px 14px}
   .logos .l{height:120px}
@@ -195,7 +198,6 @@ html{background:var(--bg-ivory)}
   .signs figure img,.doc figure img{max-height:112mm;object-fit:cover}
   .signs figure img{max-height:96mm}
   .guides figure img{max-width:64px}
-  .guides figcaption{font-size:13.5px}
   .mock{gap:36px}
   .rules{gap:6px}
   .strip,.scale,.spec>div,.block,.style3,.dont,.three,.roles4,.signs,.mock,.guides,.btnrow,.dd>div{break-inside:avoid}
@@ -205,10 +207,9 @@ html{background:var(--bg-ivory)}
   .doc th{padding:0 10px 6px 0}
   .tip>button{display:none}
   .tip{display:block;margin:6px 0 0}
-  .tip .box{display:block;position:static;width:auto;box-shadow:none;border:0;padding:0;font-size:12.5px;color:var(--text-muted)}
+  .tip .box{display:block;position:static;width:auto;box-shadow:none;border:0;padding:0;font-size:12px;color:var(--text-muted)}
   .dodont .r,.style3>div,.dont>div{break-inside:avoid}
   .dodont{gap:10px}
-  .dd ul{font-size:14px}
   .rules.tone div{font-size:14px}
 }
 </style>
@@ -266,7 +267,7 @@ html{background:var(--bg-ivory)}
       <div class="roles">
         <div><span class="lbl">제목</span><span style="color:#1E3131;font-weight:600;font-size:16px">가장 중요한 정보</span><span class="hx">#1E3131</span></div>
         <div><span class="lbl">본문</span><span style="color:#4A605C">일반 설명 문장</span><span class="hx">#4A605C</span></div>
-        <div><span class="lbl">보조 정보</span><span style="color:#5A6F6B;font-size:13px">날짜, 출처, 캡션</span><span class="hx">#5A6F6B</span></div>
+        <div><span class="lbl">보조 정보</span><span style="color:#5A6F6B;font-size:12px">날짜, 출처, 캡션</span><span class="hx">#5A6F6B</span></div>
         <div><span class="lbl">링크 글자 · 강조 버튼</span><span style="color:#167565;font-weight:600">자세히 보기</span><span class="hx">#167565</span></div>
         <div><span class="lbl">어두운 배경</span><span class="dark">아이보리 글자</span><span class="hx">#F4EEED</span></div>
       </div>
@@ -502,7 +503,7 @@ html{background:var(--bg-ivory)}
         <div class="muted">접수 번호는 문자로 보내 드립니다.</div>
         <span class="st">예약 완료</span>
         <div class="card">
-          <p style="font-size:13.5px">준비물: 신분증, 최근 검사 결과지가 있으면 함께 가져오세요. <a href="#">준비물 자세히 보기</a></p>
+          <p>준비물: 신분증, 최근 검사 결과지가 있으면 함께 가져오세요. <a href="#">준비물 자세히 보기</a></p>
         </div>
         <div class="btns"><span class="btn fill">사전 문진 작성</span><span class="btn line">예약 변경</span></div>
       </div>
@@ -573,7 +574,7 @@ html{background:var(--bg-ivory)}
 </div><!-- /.body -->
 
 <footer>
-  <div>마리아의료재단 CX부 · 브랜드 디자인 규격 약식판 v1.1 · 2026-09-22 · 요약본이라 본편과 다르면 본편이 우선합니다</div>
+  <div>마리아의료재단 CX부 · 브랜드 디자인 규격 약식판 v1.2 · 2026-09-22 · 요약본이라 본편과 다르면 본편이 우선합니다</div>
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>
 

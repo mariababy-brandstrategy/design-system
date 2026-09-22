@@ -23,10 +23,11 @@ claude-design-upload/
 │   ├── screen-brand-guide-src/    ← 브랜드 가이드 · 화면 **편집 정본**
 │   ├── space-brand-guide-src/     ← 브랜드 가이드 · 공간 **편집 정본**
 │   ├── brief-spec-src/            ← 브랜드 디자인 규격 약식판 **편집 정본**
-│   ├── 브랜드-가이드-색상-v2.2.{html,pdf}  ← 생성물 (A4 10쪽) — 인쇄물·슬라이드 색 기준
-│   ├── 브랜드-가이드-화면-v1.1.{html,pdf}  ← 생성물 (A4 17쪽) — 화면 제작 협력사·사내 개발 배포용
-│   ├── 브랜드-가이드-공간-v1.1.{html,pdf}  ← 생성물 (A4 12쪽) — 인테리어·건축설계·사인 협력사 배포용
-│   ├── 브랜드-디자인-규격-약식판-v1.0.{html,pdf} ← 생성물 (A4 8쪽) — 세 가이드 요약
+│   ├── 브랜드-가이드-색상-v*.{html,pdf}   ← 생성물 (A4 10쪽) — 인쇄물·슬라이드 색 기준
+│   ├── 브랜드-가이드-화면-v*.{html,pdf}   ← 생성물 (A4 17쪽) — 화면 제작 협력사·사내 개발 배포용
+│   ├── 브랜드-가이드-공간-v*.{html,pdf}   ← 생성물 (A4 12쪽) — 인테리어·건축설계·사인 협력사 배포용
+│   ├── 브랜드-디자인-규격-약식판-v*.{html,pdf} ← 생성물 (A4 8쪽) — 세 가이드 요약
+│   │                              (현행 판 번호는 docs/README.md 가 정본 — 여기엔 적지 않는다, 2026-09-22)
 │   ├── archive/                   ← 구판 생성물(배포 당시 그대로)
 │   ├── blurb.txt                  ← Claude Design의 Company blurb 필드용
 │   └── notes.md                   ← Claude Design의 Any other notes 필드용
@@ -50,7 +51,7 @@ claude-design-upload/
 ## 사용법
 
 ### 실무자 (원무과)
-1. [`docs/브랜드-가이드-색상-v2.2.pdf`](docs/브랜드-가이드-색상-v2.2.pdf)를 열거나 인쇄해서 참고(최신판 안내 = [`docs/README.md`](docs/README.md)).
+1. 브랜드 가이드 · 색상 PDF 를 열거나 인쇄해서 참고 — 현행판 링크는 [`docs/README.md`](docs/README.md)(판이 오르면 파일명이 바뀌므로 여기서 직접 링크하지 않는다).
 2. PPT·한글 프로그램의 "사용자 지정 색상" → "Hex" 칸에 `#` 없이 6자리 입력 (예: `1E3131`).
 
 ### 디자이너
@@ -60,13 +61,13 @@ claude-design-upload/
 ### 개발자
 1. `tokens/design-tokens.css`를 앱의 전역 스타일에 import.
 2. CSS 변수로 참조: `color: var(--text-primary); background: var(--bg-ivory);`.
-3. **외부 협력사에 전달할 화면 기준은 [`docs/브랜드-가이드-화면-v1.1.pdf`](docs/브랜드-가이드-화면-v1.1.pdf)** (A4 17쪽, HTML 동봉) — 색·로고·글자·형태·아이콘·문구·상태·다이얼로그·화면 폭·폼·탭 제목 + 조건부 셸. 항목마다 반드시/맞춰 주십시오/참고 3등급. 편집 정본은 `docs/screen-brand-guide-src/*.template.html`(생성물 직접 수정 금지).
+3. **외부 협력사에 전달할 화면 기준은 브랜드 가이드 · 화면 PDF**(현행판 링크 = [`docs/README.md`](docs/README.md), A4 17쪽, HTML 동봉) — 색·로고·글자·형태·아이콘·문구·상태·다이얼로그·화면 폭·폼·탭 제목 + 조건부 셸. 항목마다 반드시/맞춰 주십시오/참고 3등급. 편집 정본은 `docs/screen-brand-guide-src/*.template.html`(생성물 직접 수정 금지).
 4. **사내 웹 서비스는 [`docs/web-ui-guidelines-v1.md`](docs/web-ui-guidelines-v1.md)** 를 단일 기준으로 따른다 — 파비콘·헤더·본문 너비·로그인·제목·폰트·색 + 신규앱 체크리스트. 헤더 상세·카피코드는 [`docs/internal-service-header-v1.md`](docs/internal-service-header-v1.md). 레퍼런스: claim·console·popo-studio·mou-admin.
 
 ## 유지보수
 - **색·타이포 값의 원본은 `tokens/`(design-tokens.css·json)** 이고, 브랜드 가이드 · 색상(PDF)은 그 값을 인쇄물 독자에게 설명하는 문서입니다. 둘이 어긋나면 PDF 쪽을 다시 찍습니다(2026-09-22 사용자 결정 — 2026-04 제정 때는 PDF 가 먼저였으나 지금은 앱 6개와 문서 4종이 토큰을 직접 씁니다. `AGENTS.md` 「문서 레이어」와 같은 문장).
 - **편집 정본은 `docs/color-guide-src/color-guide.template.html`** 입니다(2026-09-03 조판 이전 · 2026-09-22 판 없는 이름으로).
-  `docs/브랜드-가이드-색상-v2.2.{html,pdf}` 는 `python3 docs/color-guide-src/assemble.py --pdf` 가 만드는 **생성물**이므로 직접 고치지 마세요 — 다음 조립에서 지워집니다.
+  `docs/브랜드-가이드-색상-v*.{html,pdf}` 는 `python3 docs/color-guide-src/assemble.py --pdf` 가 만드는 **생성물**이므로 직접 고치지 마세요 — 다음 조립에서 지워집니다.
 - 색상·타이포 변경이 필요할 경우: (1) `design-tokens.css`·`design-tokens.json` 갱신 → (2) 가이드 템플릿 반영 후 4 문서 재조립(판 올림, 규칙 = `AGENTS.md` 「문서 레이어」) → (3) Claude Design 재학습.
 
 ## 문의

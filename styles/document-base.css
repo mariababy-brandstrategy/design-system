@@ -93,7 +93,7 @@
 .doc *+h3{margin-top:36px}
 /* 예외 1: 절 머리(.sec-head)는 이미 아래 간격 28 을 가지므로 바로 뒤 소제목에 36 을 또 얹지 않는다 */
 .doc .sec-head+h3{margin-top:0}
-/* 소라벨(h4) = 표 머리(th)와 같은 라벨 계층: 12px·600·자간 .05em·muted. 문서가 다른 값을 쓰면 override 에 사유 주석(약식판 13px 은 2026-09-10 상신본 보존 예외) */
+/* 소라벨(h4) = 표 머리(th)와 같은 라벨 계층: 12px·600·자간 .05em·muted. 문서가 다른 값을 쓰면 override 에 사유 주석(약식판 13px 은 2026-09-10 상신본 보존 예외였고 v1.2(2026-09-22)에서 기본값으로 수렴 — 지금 예외 0) */
 .doc h4{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin:0 0 10px}
 
 /* ── 본문 기구 ─────────────────────────────────────────── */
