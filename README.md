@@ -63,7 +63,7 @@ claude-design-upload/
 2. CSS 변수로 참조: `color: var(--text-primary); background: var(--bg-ivory);`.
 3. **외부 협력사에 전달할 화면 기준은 브랜드 가이드 · 화면 PDF**(현행판 링크 = [`docs/README.md`](docs/README.md), A4 17쪽, HTML 동봉) — 색·로고·글자·형태·아이콘·문구·상태·다이얼로그·화면 폭·폼·탭 제목 + 조건부 셸. 항목마다 반드시/맞춰 주십시오/참고 3등급. 편집 정본은 `docs/screen-brand-guide-src/*.template.html`(생성물 직접 수정 금지).
 4. **사내 웹 서비스는 [`docs/web-ui-guidelines-v1.md`](docs/web-ui-guidelines-v1.md)** 를 단일 기준으로 따른다 — 파비콘·헤더·본문 너비·로그인·제목·폰트·색 + 신규앱 체크리스트. 헤더 상세·카피코드는 [`docs/internal-service-header-v1.md`](docs/internal-service-header-v1.md). 레퍼런스: claim·console·popo-studio·mou-admin.
-5. **환자·보호자가 읽는 게시 문안의 표기는 [`docs/copy-style-notice-v1.md`](docs/copy-style-notice-v1.md)** 를 따른다 — 날짜·시간·장소 표기, 문장 종결, 불변 원칙(사실·의무 강도 무변경). 공지문·뉴스레터·안내문 공통. 소비처는 문서 끝 JSON 블록을 자기 상수로 복제하고 하니스가 일치를 검사한다(첫 소비처 = hub 자유 공지문 "AI 다듬기").
+5. **환자·보호자가 읽는 게시 문안의 표기는 [`docs/copy-style-notice-v1.md`](docs/copy-style-notice-v1.md)** 를 따른다 — 날짜·시간·장소 표기, 문장 종결, 불변 원칙(사실·의무 강도 무변경). 공지문·뉴스레터·안내문 공통. 코드 소비처가 생기면 문서 끝 JSON 블록을 자기 상수로 복제하고 하니스가 일치를 검사한다(현재 코드 소비처 없음 — 첫 소비처 hub "AI 다듬기"는 2026-09-23 철거).
 
 ## 유지보수
 - **색·타이포 값의 원본은 `tokens/`(design-tokens.css·json)** 이고, 브랜드 가이드 · 색상(PDF)은 그 값을 인쇄물 독자에게 설명하는 문서입니다. 둘이 어긋나면 PDF 쪽을 다시 찍습니다(2026-09-22 사용자 결정 — 2026-04 제정 때는 PDF 가 먼저였으나 지금은 앱 6개와 문서 4종이 토큰을 직접 씁니다. `AGENTS.md` 「문서 레이어」와 같은 문장).
