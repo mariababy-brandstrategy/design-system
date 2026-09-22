@@ -59,7 +59,6 @@
 ## 파일 구조 참조
 - `tokens/design-tokens.json` — 구조화된 토큰 (개발자·디자이너·AI용)
 - `tokens/design-tokens.css` — 웹 구현용 CSS 변수
-- `docs/v2.1-실무자용.html` — 실무자용(인쇄·홍보) 가이드 (브라우저에서 열어 원내 배포용). ⚠ **웹 UI 정본은 이 파일이 아니라 `docs/web-ui-guidelines-v1.md`** — 실무자용을 정본으로 오지정했던 사고가 있었다(2026-08-23 정정)
-- `docs/v2.1-실무자용.pdf` — 인쇄·배포용 PDF
+- `docs/브랜드-가이드-색상-v2.2.{html,pdf}` — 인쇄물·슬라이드용 색 기준(구 "v2.1-실무자용", 2026-09-22 이름 규칙 적용 → `docs/README.md`). ⚠ **웹 UI 정본은 이 파일이 아니라 `docs/web-ui-guidelines-v1.md`** — 실무자용을 정본으로 오지정했던 사고가 있었다(2026-08-23 정정). 값의 원본은 `tokens/`(2026-09-22 사용자 결정)
 - `assets/logos/` — 공식 로고 (PNG, 흑백·컬러 버전)
 - `assets/characters/POPO_01.png` — 포포 캐릭터 (포포 틸 색상의 유래)

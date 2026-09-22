@@ -1,5 +1,5 @@
 /*
- * 마리아 디자인 시스템 — 공용 문서 스타일시트 (document-base) v1.0 · 2026-09-03
+ * 마리아 디자인 시스템 — 공용 문서 스타일시트 (document-base) v1.1 · 2026-09-22
  *
  * 무엇인가: 토큰을 소비하는 정적 문서(브라우저로 읽고 A4 로 인쇄하는 HTML→PDF)의 공용 규칙.
  *   사내 웹 UI 5단계 계약(AGENTS.md 「문서를 고칠 때」)의 대상이 아니다 — 범위는 AGENTS.md 「문서 레이어」 절.
@@ -12,8 +12,9 @@
  *      안 쓰면 효과 0.
  *   4) 색은 토큰 이름만 쓴다. 문서별 예외는 base 에 분기를 두지 말고 그 문서의 override 에 사유 주석과 함께 둔다.
  *   5) 인쇄 = A4 · 여백 20mm · 절은 페이지 시작 · 같은 페이지에서 이어지는 절만 `.cont`.
- * 현재 소비자: docs/공간-브랜드-가이드-v1.0 (소스 docs/space-brand-guide-src/) · docs/v2.1-실무자용 (색상 가이드, 소스 docs/color-guide-src/).
- * 변경 시: 소비자 전부 재조립 → 렌더 diff 확인 → AGENTS.md 소비자 목록 갱신. 기계 검사 없음(소비자 1~2건).
+ * 현재 소비자: **AGENTS.md 「문서 레이어」 소비자 목록이 정본**(2026-09-22 기준 4종 — 브랜드 가이드 색상·공간·화면 + 브랜드 디자인 규격 약식판,
+ *   조립 = docs/assemble_lib.py + 각 docs/<slug>-src/assemble.py). 여기엔 복제하지 않는다(주석이 낡아 2건에서 멈춰 있던 전례, 2026-09-08).
+ * 변경 시: 소비자 전부 재조립(`assemble.py --pdf`) → 렌더 diff 확인 → AGENTS.md 소비자 목록 갱신. 기계 검사 없음(소비자 4건 — 정직 표기).
  *
  * 정본과의 관계: 이 파일은 상위 정본(AGENTS.md · web-ui-guidelines · tokens)을 문서에 구현한 것이다. 공유 축(색·대비·굵기·
  *   스케일·간격·폰트)은 상위 정본이 우선하고, 문서 고유 축(절 리듬·인쇄 판면)만 여기가 정한다.
@@ -21,6 +22,9 @@
  * 스케일: 글자 크기 = §1-9 Tailwind 스케일(12·14·16·18·20·24·30·36·48, 동률은 위쪽) · 행간 = 토큰 3종 · 자간 = Tailwind 사다리 ·
  *   간격 = §1-10 스텝(4px 배수, 반 스텝 2·6·10·14) · 굵기 = §1-9 4단.
  * v1.0 = 2026-09-03 정본 수렴 판(회귀 ②).
+ * v1.1 = 2026-09-22 절 머리 개정 — 절 번호 = 인용용 식별자("3절"), 표기 "자연수." 하나로 통일(서문·부록성 절은 빈 번호), 번호 크기·굵기 =
+ *   제목, 구분 = 색(muted)+마침표, 열 auto·gap 12, 빈 번호는 열을 접음(`:has()` — 크롬 헤드리스 전용 문서라 지원 확정) · .lead 줄 폭 캡 해제 ·
+ *   h4 소라벨 기본값 · 좁은 화면에서 번호·제목은 한 줄 유지. 사용자 판정 2026-09-10·09-22 + Codex 4h×2. 정의 정본 = AGENTS.md 「문서 레이어」.
  */
 
 /* ── 루트 ─────────────────────────────────────────────── */
@@ -52,10 +56,18 @@
 /* 절 사이 간격은 구분선 위 56 + 아래 56. 첫 절은 앞에 형제가 없으므로 구분선이 없다 */
 .doc section{padding-top:56px}
 .doc section+section{border-top:1px solid var(--maria-green-100);margin-top:56px}
-.doc .sec-head{display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:baseline;margin-bottom:28px}
-.doc .sec-head .no{font-size:14px;font-weight:600;letter-spacing:.05em;color:var(--text-muted);font-variant-numeric:tabular-nums}
+/* 절 머리 = [번호] [제목] / [리드]. 절 번호는 독자가 인용할 때 부르는 식별자("3절")이지 장식이 아니다 — 표기는 "자연수." 하나(마크업 `<span class="no">3.</span>`,
+   조립기가 검사한다). 서문·부록성 절은 빈 span. 제목과의 구분 = 색(muted) + 마침표, 크기·굵기는 제목과 같다(14px 회색 번호가 72px 열에서 떨어진 점처럼
+   읽히던 v1.0 을 사용자 판정 2026-09-10·09-22 로 고침). 열은 내용 폭(auto) — "1."과 "10."의 8px 차이는 절이 쪽 단위라 나란히 보이지 않는다.
+   gap 12 = 마침표 뒤 단어 간격으로 읽히는 값(16·12·8 렌더 비교). 리드는 제목 시작선(2열). */
+.doc .sec-head{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;margin-bottom:28px}
+.doc .sec-head .no{font-size:30px;font-weight:600;letter-spacing:-.025em;color:var(--text-muted);font-variant-numeric:tabular-nums}
 .doc .sec-head h2{font-size:30px;font-weight:600;letter-spacing:-.025em}
-.doc .sec-head .lead{grid-column:2;font-size:18px;color:var(--text-body);max-width:62ch;margin-top:6px}
+.doc .sec-head .lead{grid-column:2;font-size:18px;color:var(--text-body);margin-top:6px}   /* 줄 폭 캡 없음 — 인쇄 판면(170mm=642px)이 옛 62ch 캡(665px)보다 좁아 캡이 무효였고, 화면에선 "우측 여백을 남기고 자른다"는 사용자 지적(2026-09-10) */
+/* 번호 없는 절: 번호 열을 접어 제목이 왼끝에 온다(빈 열 + gap 만큼 밀리던 것 방지) */
+.doc .sec-head .no:empty{display:none}
+.doc .sec-head:has(.no:empty){grid-template-columns:1fr}
+.doc .sec-head:has(.no:empty) .lead{grid-column:1}
 
 /* ── 소제목 리듬: 간격은 형제 사이에만 ───────────────────── */
 /* 제목의 위 간격은 앞에 형제가 있을 때만 생긴다. `:first-of-type` 으로 첫 제목을 고르면 컨테이너가 바뀔 때 오발동한다 */
@@ -63,9 +75,11 @@
 .doc *+h3{margin-top:36px}
 /* 예외 1: 절 머리(.sec-head)는 이미 아래 간격 28 을 가지므로 바로 뒤 소제목에 36 을 또 얹지 않는다 */
 .doc .sec-head+h3{margin-top:0}
+/* 소라벨(h4) = 표 머리(th)와 같은 라벨 계층: 12px·600·자간 .05em·muted. 문서가 다른 값을 쓰면 override 에 사유 주석(약식판 13px 은 2026-09-10 상신본 보존 예외) */
+.doc h4{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin:0 0 10px}
 
 /* ── 본문 기구 ─────────────────────────────────────────── */
-.doc .prose{max-width:66ch}
+.doc .prose{max-width:66ch}   /* ch = 라틴 "0" 폭(Pretendard 0.596em) → 66ch@16px = 629px ≈ 한글(0.864em) 45자. 관례 35~45자 안이라 값 유지 — 2026-09-22 실측(fontTools) */
 .doc .prose p+p{margin-top:12px}
 .doc .two{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px}
 .doc .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -75,7 +89,7 @@
 .doc .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.05em;padding:1px 8px;border:1px solid currentColor;vertical-align:2px;margin-left:6px;line-height:var(--line-height-tight);white-space:nowrap}
 .doc .tag.prop{color:var(--text-link);background:var(--bg-emphasis);border-color:transparent}
 .doc .tag.ref{color:var(--text-muted);background:var(--bg-info);border-color:transparent}
-.doc .note{font-size:14px;color:var(--text-muted);max-width:66ch}
+.doc .note{font-size:14px;color:var(--text-muted);max-width:66ch}   /* 66ch@14px = 550px ≈ 한글 45자 */
 .doc .quote{font-size:24px;font-weight:500;color:var(--text-primary);line-height:var(--line-height-tight);max-width:26ch;letter-spacing:-.025em}
 
 /* ── 표 ───────────────────────────────────────────────── */
@@ -98,8 +112,7 @@
 /* ── 화면 좁을 때 (§1-6 하한 360: 페이지 수평 스크롤 없음) ─── */
 @media (max-width:720px){
   .doc .body{padding:8px 24px 56px}
-  .doc .sec-head{grid-template-columns:1fr;gap:6px}
-  .doc .sec-head .lead{grid-column:1}
+  .doc .sec-head .lead{grid-column:1/-1}   /* 번호·제목은 좁은 화면에서도 한 줄("1." 30px + 제목), 리드만 전폭 */
   .doc .two,.doc .three,.doc .kv{grid-template-columns:1fr}
   .doc footer{grid-template-columns:1fr;padding:32px 24px 48px}
 }

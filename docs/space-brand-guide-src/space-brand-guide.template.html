@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>마리아 공간 브랜드 가이드</title>
+<title>브랜드 가이드 · 공간 v1.1</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 {{TOKENS_CSS}}
 {{BASE_CSS}}
-/* ── 공간 브랜드 가이드 v1.0 — 문서 override (tokens → document-base → 여기) ── */
+/* ── 브랜드 가이드 · 공간 v1.1 — 문서 override (tokens → document-base → 여기) ── */
 /* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋, 문서 실사용 문자 전부 포함).
    서브셋은 OFL 의 Modified Version 이라 예약 글꼴명 "Pretendard" 를 못 쓴다 → "Maria Doc Sans" 로 개명해 토큰 사슬 앞에 둔다(글자 모양은 Pretendard 그대로) */
 @font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
@@ -19,7 +19,8 @@ html{background:var(--bg-ivory)}
 /* 어두운 배경 위 글자 = 아이보리(--text-on-dark, §1 표·정본③). 워드마크만 흰색(§1-1) */
 .cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
 .cover .wm{width:220px;height:auto;color:var(--bg-default);display:block}
-.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:88px}
+.cover .series{font-size:20px;font-weight:500;letter-spacing:.05em;opacity:.85;margin-top:88px}   /* 시리즈명(브랜드 가이드) — 권 이름이 h1, 문서 이름 규칙 ②(AGENTS.md 문서 레이어) */
+.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:8px}
 .cover .sub{font-size:20px;font-weight:400;margin-top:12px;opacity:.92}   /* 합성 대비 10.3 (§1-4 재측정) */
 .cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}   /* 어두운 배경 위 장식선 = green-400(장식 전용) */
 .cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}   /* 합성 대비 6.6 */
@@ -51,7 +52,7 @@ html{background:var(--bg-ivory)}
 .specimen .w500{font-size:24px;font-weight:500;color:var(--text-primary)}
 .specimen .w400{font-size:18px;font-weight:400;color:var(--text-body)}
 .specimen .latin{font-size:16px;color:var(--text-muted)}
-/* §1 브랜드 가치(Pride·Simple·Truth) 블록 — 이 문서 고유 */
+/* 1절 브랜드 가치(Pride·Simple·Truth) 블록 — 이 문서 고유 */
 .values{margin-top:28px}
 .values h4{font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--text-link);margin-bottom:6px}
 .values p{font-size:16px}
@@ -59,7 +60,7 @@ html{background:var(--bg-ivory)}
 .space-ex figcaption{margin-top:6px}
 .ex img{width:100%;height:auto;display:block;border:1px solid var(--maria-green-100)}
 @media (max-width:720px){
-  .cover{padding:48px 24px 40px}.cover h1{font-size:36px;margin-top:56px}.cover .meta{grid-template-columns:1fr}
+  .cover{padding:48px 24px 40px}.cover .series{margin-top:56px}.cover h1{font-size:36px}.cover .meta{grid-template-columns:1fr}
   .role-list,.logo-demo{grid-template-columns:1fr}
   .dont,.combo{grid-template-columns:1fr 1fr}
 }
@@ -70,7 +71,7 @@ html{background:var(--bg-ivory)}
   .cover h1{margin-top:96px}
   #about .two{grid-template-columns:3fr 2fr}   /* 인쇄: kv(왼쪽)가 반폭이면 넘치고, 1열이면 마지막 주석이 다음 쪽으로 떨어진다 — 3:2 가 한 쪽에 들어가는 비율 */
   .dont,.combo,.clear-space,.values,.specimen,.space-ex{break-inside:avoid}
-  #assets .sec-head{break-after:auto}   /* §6 만 머리(번호·제목·리드)와 표 사이 쪽 나눔 허용 — 2026-09-03 실측: §5 렌더 3열이 10쪽을 채워 11쪽 잔여(84mm)가 머리+표 첫 행과 같아 크롬이 머리째 12쪽으로 밀고, 그러면 .cont 위 여백 때문에 푸터만 13쪽에 남는다. 머리는 base 규칙(break-inside:avoid)대로 갈라지지 않는다 */
+  #assets .sec-head{break-after:auto}   /* 6절만 머리(번호·제목·리드)와 표 사이 쪽 나눔 허용 — 2026-09-03 실측: 5절 렌더 3열이 10쪽을 채워 11쪽 잔여(84mm)가 머리+표 첫 행과 같아 크롬이 머리째 12쪽으로 밀고, 그러면 .cont 위 여백 때문에 푸터만 13쪽에 남는다. 머리는 base 규칙(break-inside:avoid)대로 갈라지지 않는다 */
 }
 </style>
 </head>
@@ -84,10 +85,11 @@ html{background:var(--bg-ivory)}
 
 <header class="cover">
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
-  <h1>공간 브랜드 가이드</h1>
+  <p class="series">브랜드 가이드</p>
+  <h1>공간</h1>
   <p class="sub">인테리어 · 건축설계 · 사인 제작 협력사를 위한 참고</p>
   <div class="meta">
-    <div><b>버전</b>v1.0 · 2026-09-03</div>
+    <div><b>버전</b>v1.1 · 2026-09-22</div>
     <div><b>발행</b>마리아의료재단 CX부</div>
     <div><b>정본 관계</b>마리아 디자인 시스템 v2.1의 파생본</div>
   </div>
@@ -113,8 +115,8 @@ html{background:var(--bg-ivory)}
     <div class="prose">
       <h3>그대로 지켜 주십시오</h3>
       <ul>
-        <li>로고는 §2대로 씁니다. 제공한 원본 파일을 그대로 쓰고, 색은 마리아 그린과 흰색 두 가지이며, 사방 여백을 비웁니다.</li>
-        <li>사인, 그래픽, 강조 벽면처럼 브랜드가 드러나는 요소의 색은 §3의 표에서 고릅니다.</li>
+        <li>로고는 2절대로 씁니다. 제공한 원본 파일을 그대로 쓰고, 색은 마리아 그린과 흰색 두 가지이며, 사방 여백을 비웁니다.</li>
+        <li>사인, 그래픽, 강조 벽면처럼 브랜드가 드러나는 요소의 색은 3절의 표에서 고릅니다.</li>
         <li>글자는 Pretendard로 적습니다.</li>
         <li>포포 패밀리 캐릭터는 공간에 쓰지 않습니다.</li>
       </ul>
@@ -130,7 +132,7 @@ html{background:var(--bg-ivory)}
 
 <section id="brand">
   <div class="sec-head">
-    <span class="no">§1</span>
+    <span class="no">1.</span>
     <h2>브랜드</h2>
     <p class="lead">뒤에 나오는 모든 안내의 배경입니다. 공간이 전해야 하는 인상은 전문성과 따뜻함, 그리고 길잡이의 태도입니다.</p>
   </div>
@@ -153,12 +155,12 @@ html{background:var(--bg-ivory)}
     <figure class="ex"><img src="data:image/jpeg;base64,{{IMG_SPACE_CORRIDOR}}" alt="AI 생성 참고 이미지, 복도와 사인. 아이보리 벽과 오크 문, 천장에 그린 화살표만 있는 아이보리 방향 사인, 문 옆 사인에 틸 점 하나."><figcaption>복도와 사인</figcaption></figure>
     <figure class="ex"><img src="data:image/jpeg;base64,{{IMG_SPACE_RECEPTION}}" alt="AI 생성 참고 이미지, 접수 카운터. 흰 상판과 오크 전면의 카운터, 뒤로 그린 판면과 간접조명, 핑크 꽃과 틸 소품이 하나씩 있다."><figcaption>접수 카운터</figcaption></figure>
   </div>
-  <p class="note" style="margin-top:12px">AI 생성 이미지입니다. 색 기준은 §3 표의 HEX이며 분위기를 참고하는 용도입니다. 공간 구성과 배치는 설계 기준이 아닙니다.</p>
+  <p class="note" style="margin-top:12px">AI 생성 이미지입니다. 색 기준은 3절 표의 HEX이며 분위기를 참고하는 용도입니다. 공간 구성과 배치는 설계 기준이 아닙니다.</p>
 </section>
 
 <section id="logo">
   <div class="sec-head">
-    <span class="no">§2</span>
+    <span class="no">2.</span>
     <h2>로고</h2>
     <p class="lead">마리아 로고는 글자가 아니라 전용 워드마크입니다. R 자 위의 점은 사람을 뜻하며, 어떤 서체로도 다시 타이핑해 만들 수 없습니다.</p>
   </div>
@@ -170,7 +172,7 @@ html{background:var(--bg-ivory)}
 
   <h3>쓰는 법</h3>
   <div class="tbl-wrap"><table class="rules">
-    <tr><td>정본 파일</td><td>§6의 벡터 파일을 그대로 씁니다. 화면 캡처, 웹에서 내려받은 이미지, 다시 그린 로고, 자동 벡터화한 로고는 쓰지 않습니다.</td></tr>
+    <tr><td>정본 파일</td><td>6절의 벡터 파일을 그대로 씁니다. 화면 캡처, 웹에서 내려받은 이미지, 다시 그린 로고, 자동 벡터화한 로고는 쓰지 않습니다.</td></tr>
     <tr><td>색</td><td>밝은 바탕 위에는 마리아 그린 #1E3131, 어두운 바탕 위에는 흰색 #FFFFFF. 아이보리 색 워드마크는 쓰지 않습니다.</td></tr>
     <tr><td>비율</td><td>글자 부분은 가로 : 세로가 약 3.3 : 1 입니다. 제공 파일의 캔버스는 601 × 229로 글자 주위 여백이 포함돼 있습니다. 어느 쪽 기준이든 가로와 세로를 함께 키우고 줄이며, 늘리거나 눌러서 비율을 바꾸지 않습니다.</td></tr>
     <tr><td>여백</td><td>워드마크 사방에 워드마크 높이의 1/2 이상을 비웁니다. 이 안에는 글자, 선, 다른 그래픽, 벽면과 판면의 모서리가 들어오지 않습니다.</td></tr>
@@ -211,7 +213,7 @@ html{background:var(--bg-ivory)}
 
 <section id="color">
   <div class="sec-head">
-    <span class="no">§3</span>
+    <span class="no">3.</span>
     <h2>색</h2>
     <p class="lead">기준은 HEX 값입니다. CMYK와 PANTONE은 브랜드 디자이너가 지정한 인쇄용 값이며, 도료·시트·아크릴의 발주 코드로 바꿔 쓰지 않습니다. 브랜드 색은 사인, 그래픽, 강조 벽면처럼 브랜드가 드러나는 요소에 적용합니다. 바닥재, 목재, 유리, 금속 같은 건축 마감재는 이 팔레트와 어울리게 협력사가 고르시면 됩니다.</p>
   </div>
@@ -274,7 +276,7 @@ html{background:var(--bg-ivory)}
 
 <section id="type" class="cont">
   <div class="sec-head">
-    <span class="no">§4</span>
+    <span class="no">4.</span>
     <h2>서체</h2>
     <p class="lead">모든 글자는 Pretendard로 적습니다. 한글과 영문, 숫자를 한 서체로 쓰며 무료로 배포되는 서체라 별도 구매가 필요 없습니다.</p>
   </div>
@@ -301,7 +303,7 @@ html{background:var(--bg-ivory)}
 
 <section id="sign">
   <div class="sec-head">
-    <span class="no">§5</span>
+    <span class="no">5.</span>
     <h2>사이니지와 안내 문구</h2>
     <p class="lead">사인은 아이보리 판면 위 그린 글자가 기본입니다. 아래 목록은 방향이고, 이미지는 참고 사례입니다.</p>
   </div>
@@ -337,7 +339,7 @@ html{background:var(--bg-ivory)}
 
 <section id="assets" class="cont">
   <div class="sec-head">
-    <span class="no">§6</span>
+    <span class="no">6.</span>
     <h2>전달 자산</h2>
     <p class="lead">아래 파일을 CX부가 한 묶음으로 전달합니다. 목록에 없는 파일은 정본이 아니니 다른 경로로 구한 로고는 쓰지 말아 주십시오.</p>
   </div>
@@ -347,7 +349,7 @@ html{background:var(--bg-ivory)}
       <tr><td>로고 · 제작용</td><td>maria-wordmark-green.svg · maria-wordmark-white.svg · 로고 색상별.ai · 로고 색상별.pdf</td><td>사인 제작, 도면, 출력. 색이 고정된 파일을 씁니다.</td></tr>
       <tr><td>로고 · 웹용</td><td>maria-wordmark.svg (색을 CSS로 제어하는 판)</td><td>웹 화면 전용. 제작 프로그램에서는 색이 다르게 열릴 수 있어 쓰지 않습니다.</td></tr>
       <tr><td>로고 · 비트맵</td><td>로고 PNG (색상별) · white.png</td><td>미리보기, 투시도. 공간에는 그린과 흰색만 씁니다</td></tr>
-      <tr><td>색</td><td>이 문서 §3 표 · MARIA_BI Color.png</td><td>색 지정</td></tr>
+      <tr><td>색</td><td>이 문서 3절 표 · MARIA_BI Color.png</td><td>색 지정</td></tr>
       <tr><td>서체</td><td>Pretendard 1.3.9 (github.com/orioncactus/pretendard 에서 내려받음)</td><td>모든 글자</td></tr>
       <tr><td>원안 용례</td><td>명함 · 명찰 · 봉투 · 문서 · 안내책자 · 세로 포스터 · 내부 사이니지 · 옥외광고 (AI, 2023)</td><td>참고 자료. 그대로 재사용하기보다 이 문서의 방향으로 다시 봅니다</td></tr>
     </tbody>
@@ -363,7 +365,7 @@ html{background:var(--bg-ivory)}
 </main>
 
 <footer>
-  <div>마리아의료재단 CX부 · 공간 브랜드 가이드 v1.0 · 2026-09-03<br>정본: 마리아 디자인 시스템 v2.1 (mariababy-brandstrategy/design-system)</div>
+  <div>마리아의료재단 CX부 · 브랜드 가이드 · 공간 v1.1 · 2026-09-22<br>정본: 마리아 디자인 시스템 v2.1 (mariababy-brandstrategy/design-system)</div>
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>
 

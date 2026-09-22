@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>브랜드 디자인 규격 약식판 v1.0</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+{{TOKENS_CSS}}
+{{BASE_CSS}}
+/* ── 브랜드 디자인 규격 약식 v1.0 — 문서 override (tokens → document-base → 여기)
+   경영진 보고 v2.0(2026-09-10) 의 도판만 승계, 서사·결정 요청·보고 메타 제거. 참고용 요약 규격서 = 규칙은 단문, 나머지는 도판. */
+@font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
+.doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+html{background:var(--bg-ivory)}
+/* 첫 장 밴드: 어두운 배경 위 글자 = 아이보리, 워드마크만 흰색 */
+.band{background:var(--bg-dark);color:var(--text-on-dark);padding:40px 64px 36px}
+.band .wm{width:132px;height:auto;color:var(--bg-default);display:block}
+.band h1{color:var(--text-on-dark);font-size:32px;font-weight:600;letter-spacing:-.025em;margin-top:22px}
+.band .sub{font-size:18px;margin-top:8px;opacity:.92}
+.doc section.first{padding-top:36px}
+/* 절 머리 번호 override 는 2026-09-22 base v1.1(번호=제목 크기·"1." 표기)로 흡수돼 제거 */
+/* 스케일 밖 크기(12.5·13·13.5px, 정본 §1-9 는 12·14)는 2026-09-10 상신본 보존 예외로 남긴다 — 다음 m 판에서 동률은 위쪽(14) 규칙으로 수렴(AGENTS 문서 레이어·인계 2026-09-22 판정표) */
+.note-sm{font-size:14px;color:var(--text-muted);line-height:1.6}
+/* 리드 줄 폭 캡 해제 override 는 2026-09-22 base v1.1(.lead 캡 없음)로 흡수돼 제거 */
+/* 대표색 띠 + 값 */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 0}
+.strip .c{height:64px;border:1px solid var(--maria-green-100);display:flex;align-items:flex-end;padding:8px 10px;font-size:13px;font-weight:600}
+.strip .hx{font-size:12px;color:var(--text-muted);margin-top:5px;font-variant-numeric:tabular-nums}
+/* 밝기 단계 */
+.scale{display:grid;grid-template-columns:78px 1fr;gap:10px 12px;align-items:center;margin-top:16px}
+.scale .lbl{font-size:13px;font-weight:600;color:var(--text-primary)}
+.scale .row{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3px}
+.scale .row span{height:30px;border:1px solid var(--maria-green-100);position:relative}
+.scale .row span.rep::after{content:"";position:absolute;left:50%;bottom:-8px;width:6px;height:6px;margin-left:-3px;background:var(--text-primary);border-radius:50%}
+.scale .cap{grid-column:2;font-size:12px;color:var(--text-muted)}
+/* 규격 도판 격자 */
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
+.spec .wide{grid-column:1/-1}
+.spec h4,.block h4{font-size:13px;font-weight:600;letter-spacing:.05em;color:var(--text-muted);text-transform:uppercase;margin:0 0 10px}
+.block{margin-top:28px}
+.logos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.logos .l{height:96px;display:grid;place-items:center;border:1px solid var(--maria-green-100)}
+.logos .l svg{width:120px;height:auto}
+.logos .l.dark{background:var(--bg-dark);color:var(--bg-default)}
+.logos .l.light{background:var(--bg-default);color:var(--maria-green)}
+.kv.lg{grid-template-columns:44px 1fr;gap:6px 14px;font-size:14px;margin-top:12px;line-height:1.5}
+.type div{line-height:1.3}
+.type .t1{font-size:26px;font-weight:600;color:var(--text-primary);letter-spacing:-.02em}
+.type .t2{font-size:16px;color:var(--text-body);margin-top:8px}
+.type .t3{font-size:13px;color:var(--text-muted);margin-top:6px;padding-bottom:10px;border-bottom:1px solid var(--maria-green-100)}
+.roles{display:grid;gap:6px}
+.roles div{display:grid;grid-template-columns:96px 1fr 76px;gap:10px;align-items:center;font-size:14px}
+.roles .lbl{color:var(--text-muted);font-size:13px}
+.roles .hx{font-size:12px;color:var(--text-muted);font-variant-numeric:tabular-nums;text-align:right}
+.roles .dark{background:var(--bg-dark);color:var(--text-on-dark);padding:6px 10px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badges span{padding:6px 12px;font-size:14px;font-weight:500}
+.limits{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.limits div{border:1px solid var(--maria-green-100);padding:14px 16px;background:var(--bg-default)}
+.limits .big{font-size:26px;font-weight:600;color:var(--text-primary);letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.limits .big small{font-size:13px;font-weight:500;color:var(--text-muted);margin-left:6px;letter-spacing:0}
+.limits .d{font-size:13.5px;color:var(--text-body);margin-top:6px;line-height:1.5}
+.dont{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dont div{border:1px solid var(--maria-green-100);padding:12px 14px;font-size:13.5px;line-height:1.5;color:var(--text-body)}
+.dont b{display:block;color:var(--text-primary);font-weight:600;margin-bottom:3px}
+/* 색 값 칩(조립기가 본문의 #RRGGBB 앞에 붙임) · 툴팁 · 잘못된 예 · 스타일 시각 · do/don't · 규칙 번호 override */
+.hex{white-space:nowrap}
+.hex i{display:inline-block;width:11px;height:11px;border:1px solid var(--maria-green-100);vertical-align:-1px;margin-right:4px;border-radius:2px}
+.hexnote{font-size:12.5px;color:var(--text-muted);margin-top:8px;line-height:1.5}
+.tip{position:relative;display:inline-block;margin-left:6px;vertical-align:1px}
+.tip>button{width:18px;height:18px;border:1px solid var(--maria-green-500);border-radius:50%;background:var(--bg-default);color:var(--text-muted);font-family:inherit;font-size:12px;font-weight:600;line-height:1;padding:0;cursor:help;text-transform:none;letter-spacing:0}
+.tip .box{display:none;position:absolute;left:0;top:24px;z-index:5;width:320px;background:var(--bg-default);border:1px solid var(--maria-green-100);box-shadow:0 4px 12px rgba(30,49,49,.12);padding:12px 14px;font-size:13px;line-height:1.5;color:var(--text-body);font-weight:400;letter-spacing:0;text-transform:none}
+.tip:hover .box,.tip:focus-within .box,.tip.open .box{display:block}
+.dont .demo{height:64px;display:flex;align-items:center;justify-content:center;gap:4px;border:1px solid var(--maria-green-100);background:var(--bg-default);margin-bottom:8px;overflow:hidden;position:relative;color:var(--maria-green)}
+.dont .demo svg{width:84px;height:auto;flex:none}
+.dont .demo .serif{font-family:Georgia,"Times New Roman",serif;font-size:26px;letter-spacing:.04em}
+.dont .demo.skew svg{transform:skewX(-14deg) rotate(-6deg);filter:drop-shadow(2px 3px 0 rgba(30,49,49,.35))}
+.dont .demo.photo{background-size:cover;background-position:center}
+.dont .demo .crowd{font-size:12px;font-weight:600;white-space:nowrap;margin-left:-3px}
+.dont .demo::after{content:"잘못된 예";position:absolute;right:6px;top:5px;font-size:10px;font-weight:600;letter-spacing:.05em;color:var(--state-error-fg)}
+.dont .demo.photo::after,.dont .demo[style*="#2D4544"]::after{color:#FCEEED}
+.style3.vis>div{padding:12px 14px 14px}
+.style3.vis figure{margin:0;text-align:center}
+.style3.vis figcaption{font-size:10px;color:var(--text-muted);margin-top:5px;line-height:1.25}
+.corners{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.corners figure div{width:34px;height:34px;background:var(--bg-info);border:1px solid var(--maria-green-500);margin:0 auto}
+.corners figure div.pill{border-radius:17px;width:48px}
+.shadows{display:flex;gap:14px;padding:6px 2px 26px;margin-bottom:6px}
+.shadows figure div{width:50px;height:36px;background:var(--bg-default);border:1px solid var(--border-default);margin:0 auto}
+/* 정본 사다리 sm/lg/2xl 을 견본 상자 크기에 맞춰 0.5 배로 축소(비율 유지). 실제 값은 화면 가이드 참조 */
+.shadows .s1{box-shadow:0 1px 2px 0 rgba(0,0,0,.08)}
+.shadows .s2{box-shadow:0 5px 8px -2px rgba(0,0,0,.14),0 2px 3px -2px rgba(0,0,0,.1)}
+.shadows .s3{box-shadow:0 12px 24px -6px rgba(0,0,0,.35)}
+.gapvis{display:flex;gap:18px;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap}
+.gaps{display:flex;align-items:flex-end;padding-top:14px}
+.gaps i{width:26px;height:26px;background:var(--bg-info);border:1px solid var(--maria-green-500);display:block}
+.gaps b{display:block;height:26px;border-top:1px solid var(--text-muted);font-size:9px;font-weight:500;color:var(--text-muted);text-align:center;line-height:1;padding-top:2px;position:relative;top:-14px;font-variant-numeric:tabular-nums}
+.borders{display:flex;gap:10px}
+.borders figure div{width:40px;height:26px;background:var(--bg-default);border:1px solid var(--border-input);margin:0 auto}
+.borders figure .b2{border-width:2px}
+.dodont{display:grid;gap:12px}
+.dodont .r{display:grid;grid-template-columns:22px 1.3fr 1fr 1fr;gap:12px;align-items:start;font-size:14px;line-height:1.5;color:var(--text-body)}
+.dodont .n{font-weight:600;color:var(--text-primary)}
+.dodont b{color:var(--text-primary);font-weight:600}
+.dodont .ex{border:1px solid var(--maria-green-100);padding:8px 10px 9px;background:var(--bg-default);font-size:13.5px;line-height:1.4;color:var(--text-primary)}
+.dodont .ex small{display:block;font-size:11px;font-weight:600;letter-spacing:.05em;margin-bottom:4px}
+.dodont .ok small{color:var(--state-success-fg)}
+.dodont .no small{color:var(--state-error-fg)}
+.dodont .ex .en{display:block;font-size:11.5px;color:var(--text-muted);margin-top:2px}
+.dodont .no .en.big{font-size:14px;color:var(--text-primary);margin:0 0 2px}
+.rules .n{font-size:inherit;color:var(--text-primary);font-weight:600;padding-top:0}   /* 규칙 목록 번호 = 본문 크기(사용자 지적 2026-09-10 · 정본에 목록 번호 규칙 없음 · base 재점검 예약) */
+/* 색 사용 규칙·버튼 견본·표 */
+.dd h4{margin-bottom:8px}
+.dd ul{font-size:14.5px;line-height:1.5;color:var(--text-body)}
+.dd li+li{margin-top:7px}
+.btnrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.btnrow .btn{display:inline-block;padding:10px 16px;font-size:14px;font-weight:600;border:1px solid transparent;line-height:1.3}
+.btnrow small{display:block;font-size:12.5px;color:var(--text-muted);margin-top:6px;line-height:1.4}
+.kv.two-col{grid-template-columns:44px 1fr;margin-top:14px}
+.rules.tone{margin-top:4px}
+.doc table td,.doc table th{font-size:14px}
+.style3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.style3 div{border:1px solid var(--maria-green-100);padding:14px 16px;font-size:14.5px;line-height:1.5;color:var(--text-body)}
+.style3 b{display:block;color:var(--text-primary);font-weight:600;margin-bottom:4px}
+/* 공간·스크린 도판 */
+.doc figure img{display:block;width:100%;height:auto}
+.doc figcaption{font-size:13px;color:var(--text-muted);margin-top:6px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.signs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.signs figure img{border:1px solid var(--maria-green-100)}
+.roles4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.roles4 div{font-size:14px;line-height:1.5;color:var(--text-body)}
+.roles4 .c{height:26px;border:1px solid var(--maria-green-100);margin-bottom:8px}
+.roles4 b{display:block;color:var(--text-primary);font-weight:600}
+.mock{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:start}
+.screen{border:1px solid var(--maria-green-100);background:var(--bg-default)}
+.screen .top{background:var(--bg-dark);color:var(--bg-default);padding:12px 18px;display:flex;align-items:baseline;gap:10px;font-size:13px}   /* 정본 §로고: 텍스트와 나란히 둘 때 trim viewBox + baseline — 상자 밑변이 글자 밑선 */
+.screen .top svg{width:64px;height:auto}
+.screen .top span{color:var(--text-on-dark);opacity:.85}
+.screen .in{padding:20px 18px 18px}
+.screen h5{font-size:18px;font-weight:600;color:var(--text-primary);margin:0 0 6px}
+.screen p{font-size:14px;color:var(--text-body);line-height:1.55;margin:0}
+.screen .muted{font-size:12.5px;color:var(--text-muted);margin-top:6px}
+.screen a{color:var(--text-link);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.screen .st{display:inline-block;margin-top:12px;padding:5px 10px;font-size:13px;background:var(--state-success-bg);color:var(--state-success-fg)}
+.screen .btns{display:flex;gap:8px;margin-top:16px}
+.screen .btn{padding:10px 16px;font-size:14px;font-weight:600;border:1px solid transparent}
+.screen .btn.fill{background:var(--popo-teal-700);color:var(--bg-default)}
+.screen .btn.line{border-color:var(--maria-green-500);color:var(--text-primary);background:var(--bg-default)}
+.screen .card{border:1px solid var(--maria-green-100);padding:12px 14px;margin-top:14px;background:var(--bg-ivory)}
+.rules{display:grid;gap:12px}
+.rules div{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:15px;line-height:1.55;color:var(--text-body)}
+.rules .n{font-weight:600;padding-top:0;font-variant-numeric:tabular-nums}   /* 크기·색은 위(111행 근처) "규칙 목록 번호 = 본문 크기" 규칙이 정한다 — 종전엔 이 줄이 13px muted 로 그 규칙을 덮고 있었다(Codex 4b 2026-09-22 발견, 상신본은 13px 로 나갔음) */
+.rules b{color:var(--text-primary);font-weight:600}
+/* 실무 가이드 3종 */
+.guides{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.guides figure img{border:1px solid var(--maria-green-100);max-width:168px}
+.guides figcaption{color:var(--text-body);font-size:14px}
+.guides figcaption b{display:block;color:var(--text-primary);font-weight:600;font-size:15px}
+@media (max-width:720px){
+  .band{padding:32px 24px 28px}
+  .band h1{font-size:28px}
+  .strip,.roles4{grid-template-columns:repeat(2,1fr)}
+  .spec,.mock,.style3,.dont,.three,.signs,.guides,.limits,.btnrow{grid-template-columns:1fr}
+  .dodont .r{grid-template-columns:22px 1fr;gap:8px}
+  .tip .box{width:min(320px,80vw)}
+  .btnrow{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  html{background:var(--bg-default)}
+  .band{padding:18px 32px 16px}
+  .band .wm{width:110px}
+  .band h1{margin-top:12px;font-size:30px}
+  .band .sub{font-size:16px}
+  .doc section.first{break-before:auto;padding-top:12px}
+  .doc section.first .sec-head{margin-bottom:16px}
+  .doc .sec-head{margin-bottom:16px}
+  .doc *+h3{margin-top:22px}
+  .doc h3{margin-bottom:10px}
+  .strip .c{height:52px}
+  .scale{margin-top:10px}
+  .scale .row span{height:24px}
+  .spec{gap:16px 32px}
+  .style3 div,.dont div{padding:9px 12px;font-size:13px;line-height:1.45}
+  .kv.lg{font-size:13.5px;gap:4px 12px}
+  .block{margin-top:20px}
+  .limits div{padding:12px 14px}
+  .logos .l{height:120px}
+  .doc section+section.cont{margin-top:6mm;padding-top:6mm}
+  .screen .in{padding:14px 18px}
+  .doc .body{padding-bottom:6mm}
+  .doc footer{padding-top:6mm}
+  .signs figure img,.doc figure img{max-height:112mm;object-fit:cover}
+  .signs figure img{max-height:96mm}
+  .guides figure img{max-width:64px}
+  .guides figcaption{font-size:13.5px}
+  .mock{gap:36px}
+  .rules{gap:6px}
+  .strip,.scale,.spec>div,.block,.style3,.dont,.three,.roles4,.signs,.mock,.guides,.btnrow,.dd>div{break-inside:avoid}
+  .signs figure img{max-height:56mm;object-fit:contain;background:var(--bg-default)}
+  .roles4{margin-top:12px}
+  .doc td{padding:7px 10px 7px 0}
+  .doc th{padding:0 10px 6px 0}
+  .tip>button{display:none}
+  .tip{display:block;margin:6px 0 0}
+  .tip .box{display:block;position:static;width:auto;box-shadow:none;border:0;padding:0;font-size:12.5px;color:var(--text-muted)}
+  .dodont .r,.style3>div,.dont>div{break-inside:avoid}
+  .dodont{gap:10px}
+  .dd ul{font-size:14px}
+  .rules.tone div{font-size:14px}
+}
+</style>
+</head>
+<body class="doc">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wm" viewBox="52.586 27.125 496.027 149.266" fill="currentColor">{{WM_PATHS}}</symbol>
+</svg>
+
+<div class="sheet">
+
+<header class="band">
+  <div>
+    <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
+    <h1>브랜드 디자인 규격 약식판</h1>
+    <p class="sub">공간과 화면에 쓰는 색, 로고, 서체, 스타일의 요약. 본편(브랜드 가이드 · 색상 / 공간 / 화면)과 다르면 본편이 우선합니다.</p>
+  </div>
+</header>
+
+<div class="body">
+
+<!-- 1 -->
+<section class="first">
+  <div class="sec-head">
+    <span class="no">1.</span>
+    <h2>색</h2>
+  </div>
+
+  <div class="strip" aria-label="대표색 4">
+    <div><div class="c" style="background:#1E3131;color:#F4EEED">마리아 그린</div><div class="hx nochip">#1E3131</div></div>
+    <div><div class="c" style="background:#1D9581;color:#FFFFFF">포포 틸</div><div class="hx nochip">#1D9581</div></div>
+    <div><div class="c" style="background:#E0A793;color:#1E3131">마리아 핑크</div><div class="hx nochip">#E0A793</div></div>
+    <div><div class="c" style="background:#F4EEED;color:#1E3131">마리아 아이보리</div><div class="hx nochip">#F4EEED</div></div>
+  </div>
+  <p class="hexnote"># 뒤 여섯 자리는 색의 값(HEX 코드)입니다. 디자인 도구나 PPT 의 사용자 지정 색상에 이 여섯 자리를 입력하면 같은 색이 나옵니다. 본문의 #1E3131 처럼 값 앞의 작은 네모가 그 색입니다.</p>
+  <div style="display:none">
+  </div>
+
+  <div class="scale" aria-label="색 계열과 밝기 단계">
+    <div class="lbl">그린</div>
+    <div class="row"><span style="background:#EFF3F3"></span><span style="background:#D2DCDC"></span><span style="background:#A8BABA"></span><span style="background:#7E9897"></span><span style="background:#6E827D"></span><span style="background:#5A6F6B"></span><span style="background:#4A605C"></span><span style="background:#2D4544"></span><span class="rep" style="background:#1E3131"></span></div>
+    <div class="lbl">틸</div>
+    <div class="row"><span style="background:#E6F5F2"></span><span style="background:#A3DDD4"></span><span class="rep" style="background:#1D9581"></span><span style="background:#167565"></span><span style="background:#0E4D43"></span></div>
+    <div class="lbl">핑크</div>
+    <div class="row"><span style="background:#FDF6F4"></span><span style="background:#F9EAE4"></span><span style="background:#F2D5CA"></span><span class="rep" style="background:#E0A793"></span><span style="background:#C88973"></span><span style="background:#9A5F4B"></span></div>
+    <div class="lbl">아이보리</div>
+    <div class="row"><span style="background:#FFFFFF"></span><span class="rep" style="background:#F4EEED"></span></div>
+    <div class="cap">점 표시 = 대표색. 글자, 배경, 버튼, 상태마다 쓰는 단계가 정해져 있습니다.</div>
+  </div>
+
+  <div class="spec" style="margin-top:32px">
+    <div>
+      <h4>글자의 역할별 색</h4>
+      <div class="roles">
+        <div><span class="lbl">제목</span><span style="color:#1E3131;font-weight:600;font-size:16px">가장 중요한 정보</span><span class="hx">#1E3131</span></div>
+        <div><span class="lbl">본문</span><span style="color:#4A605C">일반 설명 문장</span><span class="hx">#4A605C</span></div>
+        <div><span class="lbl">보조 정보</span><span style="color:#5A6F6B;font-size:13px">날짜, 출처, 캡션</span><span class="hx">#5A6F6B</span></div>
+        <div><span class="lbl">링크 글자 · 강조 버튼</span><span style="color:#167565;font-weight:600">자세히 보기</span><span class="hx">#167565</span></div>
+        <div><span class="lbl">어두운 배경</span><span class="dark">아이보리 글자</span><span class="hx">#F4EEED</span></div>
+      </div>
+    </div>
+    <div>
+      <h4>상태를 알리는 색</h4>
+      <div class="badges">
+        <span style="background:#E8F3ED;color:#3D6B54">완료</span>
+        <span style="background:#FBF4E4;color:#7E6429">주의</span>
+        <span style="background:#FCEEED;color:#8B4540">오류</span>
+        <span style="background:#EFF3F3;color:#4A605C">안내</span>
+        <span style="background:#E6F5F2;color:#0E4D43">선택됨</span>
+      </div>
+      <p class="note-sm" style="margin-top:12px">상태는 색과 글을 함께 씁니다. 색만 보고 뜻을 알아야 하는 자리는 만들지 않습니다.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- 2 -->
+<section>
+  <div class="sec-head">
+    <span class="no">2.</span>
+    <h2>색 사용 규칙</h2>
+  </div>
+
+  <div class="block" style="margin-top:0">
+      <h4>읽힘 기준<span class="tip"><button type="button" aria-label="설명">?</button><span class="box">"명암 차이"는 글자 색과 배경 색의 밝기 비율입니다. 같은 색이면 1, 검정과 흰색이면 21 입니다. 숫자가 클수록 잘 읽힙니다. 4.5 는 일반 글자를 읽기에 충분하다고 보는 국제 웹 접근성 기준(WCAG AA)의 값이고, 아이콘과 테두리는 3.0 이면 됩니다.</span></span></h4>
+      <div class="limits">
+        <div><div class="big">4.5<small>이상</small></div><div class="d">글자와 배경의 명암 차이 하한. 흰 배경 기준으로 본문 #4A605C 는 6.7, 보조 글자 #5A6F6B 는 5.4, 링크 글자 #167565 는 5.6.</div></div>
+        <div><div class="big">3.0<small>이상</small></div><div class="d">아이콘과 테두리의 하한. 포포 틸 #1D9581 은 흰 배경에서 3.7이라 아이콘과 강조면에만 쓰고, 링크 글자와 강조 버튼 배경에는 진한 틸 #167565 를 씁니다.</div></div>
+      </div>
+  </div>
+
+  <div class="two dd" style="margin-top:28px">
+    <div>
+      <h4>이렇게</h4>
+      <ul>
+        <li>여기 안내된 색만 씁니다.</li>
+        <li>제목은 진한 색 #1E3131, 본문은 중간 색 #4A605C 로 구분합니다.</li>
+        <li>채움 버튼(공식·강조)은 한 화면에 하나. 나머지는 부드러운 버튼이나 테두리 버튼으로 둡니다.</li>
+        <li>어두운 배경(마리아 그린) 위에는 아이보리 글자를 씁니다.</li>
+        <li>포포 틸 #1D9581 은 눈에 띄어야 하는 곳에만 포인트로 씁니다.</li>
+        <li>링크 글자와 강조 버튼 배경에는 진한 틸 #167565 를 씁니다.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>이렇게는 안 됩니다</h4>
+      <ul>
+        <li>가이드에 없는 색을 임의로 만들기.</li>
+        <li>마리아 그린 배경 위에 포포 틸 글자.</li>
+        <li>포포 틸과 마리아 핑크를 한 화면에서 동시에 버튼으로.</li>
+        <li>연한 배경색(아이보리, 연한 그린)을 글자색으로.</li>
+        <li>옛 보조 색 #7E9897 을 글자색으로. 보조 정보는 #5A6F6B.</li>
+        <li>포포 틸 위에 글자를 얹거나, 포포 틸을 글자색으로.</li>
+        <li>포포 틸을 배경 전체에 깔기.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <div class="sec-head">
+    <span class="no">3.</span>
+    <h2>로고</h2>
+  </div>
+
+  <div class="spec">
+    <div>
+      <div class="logos">
+        <div class="l light"><svg viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg></div>
+        <div class="l dark"><svg viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg></div>
+      </div>
+    </div>
+    <div>
+      <dl class="kv lg" style="margin-top:0">
+        <dt>색</dt><dd>밝은 바탕에는 그린 #1E3131, 어두운 바탕에는 흰색 #FFFFFF. 아이보리 워드마크는 쓰지 않습니다.</dd>
+        <dt>여백</dt><dd>사방에 워드마크 높이의 1/2 이상을 비웁니다.</dd>
+        <dt>파일</dt><dd>정본 벡터 파일을 그대로 씁니다. 캡처한 이미지나 다시 그린 로고는 쓰지 않습니다.</dd>
+        <dt>병기</dt><dd>기관명을 함께 적을 때는 워드마크 옆이나 아래에 Pretendard 로 "마리아 난임병원 / Maria Fertility Center". 국문을 앞이나 위에 두고 여백 규칙을 지킵니다.</dd>
+      </dl>
+    </div>
+    <div class="wide">
+      <h4>하지 않는 것</h4>
+      <div class="dont">
+        <div><div class="demo"><span class="serif">MARIA</span></div><b>서체로 타이핑</b>어떤 서체로 "MARIA"를 적어도 로고가 아닙니다. 비슷한 세리프체도 안 됩니다.</div>
+        <div><div class="demo skew"><svg viewBox="0 0 496.027 149.266" aria-hidden="true"><use href="#wm"/></svg></div><b>변형</b>기울이기, 회전, 외곽선, 그림자, 글자 간격 조정, 가로·세로 비율 변경, 입체 효과.</div>
+        <div><div class="demo" style="color:#0047AB"><svg viewBox="0 0 496.027 149.266" aria-hidden="true"><use href="#wm"/></svg></div><b>색 바꾸기</b>그린과 흰색 외의 색, 아이보리, 그라데이션, 금속색.</div>
+        <div><div class="demo photo" style="background-image:url(data:image/jpeg;base64,{{IMG_SPACE_RECEPTION}});color:#FFFFFF"><svg viewBox="0 0 496.027 149.266" aria-hidden="true"><use href="#wm"/></svg></div><b>바탕 위 겹침</b>사진, 패턴, 그라데이션, 두 색이 만나는 경계 위에 놓기.</div>
+        <div><div class="demo" style="background:#2D4544;color:#1E3131"><svg viewBox="0 0 496.027 149.266" aria-hidden="true"><use href="#wm"/></svg></div><b>낮은 대비</b>그린 워드마크를 어두운 바탕에, 흰 워드마크를 밝은 바탕에 놓기.</div>
+        <div><div class="demo"><svg viewBox="0 0 496.027 149.266" aria-hidden="true"><use href="#wm"/></svg><span class="crowd">3F 진료실 →</span></div><b>여백 침범</b>여백 안에 기관명, 화살표, 층 번호를 붙여 넣기.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <div class="sec-head">
+    <span class="no">4.</span>
+    <h2>서체, 아이콘, 스타일</h2>
+  </div>
+
+  <div class="spec">
+    <div>
+      <h4>서체</h4>
+      <div class="type">
+        <div class="t1">마리아 난임병원</div>
+        <div class="t2">진료와 검사 안내를 드립니다.</div>
+        <div class="t3">2026년 9월 기준</div>
+      </div>
+      <dl class="kv lg">
+        <dt>서체</dt><dd>Pretendard 하나. 버전은 v1.3.9 variable 판으로 고정합니다.</dd>
+        <dt>크기</dt><dd>화면 기준. 12, 14, 16, 18, 20, 24, 30, 36, 48px 만 씁니다. 중간값을 만들지 않고, 두 값 사이면 큰 쪽을 씁니다. 표처럼 정보가 밀집된 화면에 한해 11px 를 허용합니다. 10px 이하는 쓰지 않습니다.</dd>
+        <dt>굵기</dt><dd>400, 500, 600, 700 네 단계.</dd>
+        <dt>숫자</dt><dd>세로로 쌓여 비교되는 숫자(표의 숫자 열, 지표 값)는 자릿수 폭을 고정합니다. 문장 속 숫자는 대상이 아닙니다.</dd>
+      </dl>
+    </div>
+    <div>
+      <h4>아이콘 (화면)</h4>
+      <p class="note-sm" style="color:var(--text-body)">한 세트만 씁니다. Lucide 계열, 24 격자, 획 굵기 2. 색은 글자 색을 따라가게 두고 아이콘 색을 따로 지정하지 않습니다.</p>
+      <dl class="kv lg">
+        <dt>인라인</dt><dd>14px · 본문 글자 옆, 배지 안</dd>
+        <dt>기본</dt><dd>16px · 버튼, 입력, 메뉴 항목. 기본값</dd>
+        <dt>강조</dt><dd>20px · 카드 머리말, 목록 항목의 선행 아이콘</dd>
+        <dt>전체 화면</dt><dd>32 · 48px · 로딩 스피너, 빈 화면</dd>
+      </dl>
+      <p class="note-sm" style="margin-top:10px">옆에 같은 뜻의 글자가 있으면 아이콘은 장식으로 처리하고, 아이콘만 있는 버튼에는 읽히는 이름을 반드시 둡니다.</p>
+    </div>
+    <div class="wide">
+      <h4>스타일 (화면)</h4>
+      <div class="style3 vis">
+        <div>
+          <div class="corners">
+            <figure><div style="border-radius:4px"></div><figcaption>4<br>작은 마커</figcaption></figure>
+            <figure><div style="border-radius:6px"></div><figcaption>6<br>소형 컨트롤</figcaption></figure>
+            <figure><div style="border-radius:8px"></div><figcaption>8<br>기본</figcaption></figure>
+            <figure><div style="border-radius:12px"></div><figcaption>12<br>카드, 패널</figcaption></figure>
+            <figure><div style="border-radius:16px"></div><figcaption>16<br>대형 카드</figcaption></figure>
+            <figure><div class="pill"></div><figcaption>캡슐<br>누르는 칩</figcaption></figure>
+          </div>
+          <b>모서리</b>버튼, 입력칸, 배지는 8px 이 기본입니다. 카드와 패널, 다이얼로그는 12px, 대형 카드는 16px. 7px 이나 10px 같은 중간값은 만들지 않습니다. 캡슐형은 누를 수 있는 요소(칩, 아바타, 진행 단계)에만 씁니다.
+        </div>
+        <div>
+          <div class="shadows">
+            <figure><div class="s1"></div><figcaption>옅게<br>카드, 컨트롤</figcaption></figure>
+            <figure><div class="s2"></div><figcaption>중간<br>드롭다운, 팝오버</figcaption></figure>
+            <figure><div class="s3"></div><figcaption>진하게<br>모달</figcaption></figure>
+          </div>
+          <b>그림자</b>세 단계만 씁니다. 떠 있는 층일수록 진합니다(견본은 축소 예시). 장식으로 그림자나 그라데이션을 얹지 않습니다. 카드의 경계는 그림자가 아니라 1px 테두리로 둡니다.
+        </div>
+        <div>
+          <div class="gapvis">
+            <div class="gaps"><i></i><b style="width:16px">16</b><i></i><b style="width:32px">32</b><i></i></div>
+            <div class="borders"><figure><div class="b1"></div><figcaption>1px 기본</figcaption></figure><figure><div class="b2"></div><figcaption>2px 강조</figcaption></figure></div>
+          </div>
+          <b>간격과 테두리</b>요소 사이 여백은 4px 배수(4, 8, 12, 16, 24…)로만 둡니다. 테두리는 1px 이 기본이고 강조가 필요할 때만 2px. 선과 상자를 늘리지 않고 간격으로 나눕니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <div class="sec-head">
+    <span class="no">5.</span>
+    <h2>공간</h2>
+  </div>
+
+  <div class="three">
+    <figure><img src="data:image/jpeg;base64,{{IMG_SPACE_RECEPTION}}" alt="접수 공간 예시"><figcaption>접수 · 규격 적용 예시(생성 이미지)</figcaption></figure>
+    <figure><img src="data:image/jpeg;base64,{{IMG_SPACE_CORRIDOR}}" alt="복도 공간 예시"><figcaption>복도 · 규격 적용 예시(생성 이미지)</figcaption></figure>
+    <figure><img src="data:image/jpeg;base64,{{IMG_SPACE_LOUNGE}}" alt="대기 공간 예시"><figcaption>대기실 · 규격 적용 예시(생성 이미지)</figcaption></figure>
+  </div>
+
+  <div class="roles4">
+    <div><div class="c" style="background:#F4EEED"></div><b>바탕</b>벽과 넓은 면</div>
+    <div><div class="c" style="background:#1E3131"></div><b>주조</b>사인, 로고, 강조 벽</div>
+    <div><div class="c" style="background:#E0A793"></div><b>온기</b>패브릭, 소품</div>
+    <div><div class="c" style="background:#1D9581"></div><b>포인트</b>현재 위치 표시 같은 작은 강조</div>
+  </div>
+
+  <h3>사인</h3>
+  <div class="signs">
+    <figure><img src="data:image/png;base64,{{IMG_SIGN_DOORSIGN}}" alt="진료실 도어사인 예시"><figcaption>진료실 도어사인</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_SIGN_DIRECTORY}}" alt="층별 안내판 예시"><figcaption>층별 안내판</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_SIGN_PICTOGRAMS}}" alt="픽토그램 판 예시"><figcaption>픽토그램</figcaption></figure>
+  </div>
+  <p class="note-sm" style="margin-top:8px">사인은 디자인 예시이며 실제 설치 사진이 아닙니다. 건축 마감재의 색은 설계사 재량이며, 비상·법정 표지는 규격 밖입니다. 픽토그램은 ISO 7001 계열의 공공안내 그림표지를 마리아 그린 단색으로 씁니다. 여러 색이 든 아이콘은 피합니다.</p>
+
+</section>
+
+<!-- 6 -->
+<section>
+  <div class="sec-head">
+    <span class="no">6.</span>
+    <h2>사인 문구</h2>
+  </div>
+
+  <div class="dodont">
+    <div class="r"><span class="n">1</span><div class="t"><b>존댓말로, 한 문장.</b> 국문과 영문을 병기하고 국문을 위에 둡니다. 가로로 나란히 두면 국문이 앞이고, 영문 글자 높이는 국문을 넘지 않습니다.</div>
+      <div class="ex ok"><small>이렇게</small>호명 후 들어와 주세요<span class="en">Please come in when called</span></div>
+      <div class="ex no"><small>안 됩니다</small><span class="en big">ENTER WHEN CALLED</span>호명후 입장</div></div>
+    <div class="r"><span class="n">2</span><div class="t"><b>금지형 대신 그 공간의 용도를 알려 줍니다.</b> 법정·안전 사인의 문안은 규정대로 씁니다.</div>
+      <div class="ex ok"><small>이렇게</small>직원 전용 공간입니다<span class="en">Staff Only</span></div>
+      <div class="ex no"><small>안 됩니다</small>출입금지<span class="en">NO ENTRY</span></div></div>
+    <div class="r"><span class="n">3</span><div class="t"><b>"실패", "부족", "불가" 같은 부정형 단어를 피합니다.</b> 같은 뜻을 중립 표현으로 바꿉니다. 난임 치료를 받는 분이 읽는 공간입니다.</div>
+      <div class="ex ok"><small>이렇게</small>예약은 하루 전까지 받습니다</div>
+      <div class="ex no"><small>안 됩니다</small>당일 예약 불가</div></div>
+    <div class="r"><span class="n">4</span><div class="t"><b>이모지, 유행어, 과장된 수사는 쓰지 않습니다.</b></div>
+      <div class="ex ok"><small>이렇게</small>대기실입니다. 편히 쉬어 주세요.</div>
+      <div class="ex no"><small>안 됩니다</small>완전 힐링되는 대기실!!</div></div>
+  </div>
+  <p class="note-sm" style="margin-top:14px">예시 문구는 규칙을 보여 주기 위해 만든 것이며 실제 사인 문안이 아닙니다.</p>
+</section>
+
+<!-- 7 -->
+<section>
+  <div class="sec-head">
+    <span class="no">7.</span>
+    <h2>스크린</h2>
+    <p class="lead">환자 화면의 적용 예시와 규칙 다섯 가지.</p>
+  </div>
+
+  <div class="mock">
+    <div class="screen" role="img" aria-label="환자 안내 화면 예시">
+      <div class="top"><svg viewBox="0 0 496.027 149.266" aria-hidden="true"><use href="#wm"/></svg><span>예약 안내</span></div>
+      <div class="in">
+        <h5>9월 14일 월요일 오전 10시</h5>
+        <p>초진 상담 예약이 접수되었습니다. 방문 전 사전 문진을 작성해 주세요.</p>
+        <div class="muted">접수 번호는 문자로 보내 드립니다.</div>
+        <span class="st">예약 완료</span>
+        <div class="card">
+          <p style="font-size:13.5px">준비물: 신분증, 최근 검사 결과지가 있으면 함께 가져오세요. <a href="#">준비물 자세히 보기</a></p>
+        </div>
+        <div class="btns"><span class="btn fill">사전 문진 작성</span><span class="btn line">예약 변경</span></div>
+      </div>
+    </div>
+    <div class="rules">
+      <div><span class="n">1</span><span><b>채움 버튼은 한 화면에 하나.</b> 성질과 관계없이 셉니다. 나머지는 테두리 버튼이나 글자 버튼으로 둡니다.</span></div>
+      <div><span class="n">2</span><span><b>링크는 색과 밑줄을 함께.</b> 링크 여부를 색만으로 표시하지 않습니다.</span></div>
+      <div><span class="n">3</span><span><b>상태는 색과 글을 함께.</b> 완료, 주의, 오류를 배지의 글로 읽게 합니다.</span></div>
+      <div><span class="n">4</span><span><b>글자와 배경의 명암 차이는 하한을 지킵니다.</b> 눈에 띄는 틸은 아이콘과 강조면에만, 링크 글자와 강조 버튼에는 진한 틸을 씁니다.</span></div>
+      <div><span class="n">5</span><span><b>임상 경고색은 브랜드색으로 바꾸지 않습니다.</b> 알레르기, 금기 약제처럼 의료진이 색으로 위험을 읽는 자리에는 브랜드 색 제한을 적용하지 않습니다.</span></div>
+    </div>
+  </div>
+
+  <h3>버튼</h3>
+  <div class="btnrow" aria-label="버튼 4종">
+    <div><span class="btn" style="background:#1E3131;color:#FFFFFF">공식</span><small>마리아 그린 · 이동, 닫기 같은 중립 행동</small></div>
+    <div><span class="btn" style="background:#167565;color:#FFFFFF">강조</span><small>진한 틸 · 저장, 제출, 발송 같은 확정</small></div>
+    <div><span class="btn" style="background:#E0A793;color:#1E3131">부드러운</span><small>마리아 핑크 · 따뜻한 유도</small></div>
+    <div><span class="btn" style="background:#FFFFFF;color:#1E3131;border-color:#1E3131">테두리</span><small>채움 버튼 옆의 나머지 행동</small></div>
+  </div>
+  <dl class="kv lg two-col">
+    <dt>경고</dt><dd>#7E6429 · 회수할 수 없이 밖으로 나가거나 되돌릴 수 없이 잃는 행동</dd>
+    <dt>파괴</dt><dd>#8B4540 · 지우는 것이 주된 효과인 실행</dd>
+  </dl>
+  <p class="note-sm" style="margin-top:10px">채움색은 행동의 성질이 정합니다. 화면은 규격을 보여 주기 위해 만든 예시이며 실제 환자 정보가 아닙니다.</p>
+</section>
+
+<!-- 8 -->
+<section>
+  <div class="sec-head">
+    <span class="no">8.</span>
+    <h2>버튼 이름</h2>
+    <p class="lead">버튼 이름은 실제 동작을 말합니다. 동작을 먼저 정하고 이름을 붙입니다.</p>
+  </div>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>실제 효과</th><th>이름</th><th>쓰지 않는 말</th></tr></thead>
+    <tbody>
+      <tr><td>복구할 수 없이 지움</td><td class="nw">삭제</td><td>복구할 수 있는데 "삭제"</td></tr>
+      <tr><td>목록에서만 빼고 되살릴 수 있음</td><td class="nw">제외 또는 보관</td><td>삭제</td></tr>
+      <tr><td>입력값을 기본값으로 되돌림</td><td class="nw">초기화</td><td>삭제 · 취소</td></tr>
+      <tr><td>쓰던 것을 버리고 나감</td><td class="nw">취소</td><td>상태가 안 바뀌는 이탈에 "취소"</td></tr>
+      <tr><td>예약이나 접수 자체를 취소</td><td class="nw">예약 취소처럼 목적어를 붙인 이름</td><td>목적어 없는 "취소"</td></tr>
+      <tr><td>아무것도 바꾸지 않고 창을 닫음</td><td class="nw">닫기</td><td>× 닫기 · 닫기 (ESC)</td></tr>
+      <tr><td>파일을 내려받음</td><td class="nw">다운로드</td><td>내려받기 · 다운받기 · 받기</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note-sm" style="margin-top:10px">진행 중에는 버튼 글자를 "저장 중…"처럼 바꿉니다. 글자 기호(×, ↻)를 아이콘 대신 쓰지 않습니다.</p>
+</section>
+
+<!-- 9 -->
+<section class="cont">
+  <div class="sec-head">
+    <span class="no">9.</span>
+    <h2>관련 가이드</h2>
+  </div>
+
+  <div class="guides">
+    <figure><img src="data:image/png;base64,{{IMG_COVER_COLOR}}" alt="색상 가이드 표지"><figcaption><b>브랜드 가이드 · 색상 v2.2</b>실무자용 · A4 10쪽<br>인쇄물과 슬라이드를 만드는 직원용</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_COVER_SPACE}}" alt="공간 브랜드 가이드 표지"><figcaption><b>브랜드 가이드 · 공간 v1.1</b>A4 12쪽<br>인테리어, 설계, 사인 제작 협력사용</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_COVER_SCREEN}}" alt="화면 브랜드 가이드 표지"><figcaption><b>브랜드 가이드 · 화면 v1.1</b>A4 17쪽<br>환자 화면을 만드는 협력사와 사내 개발용</figcaption></figure>
+  </div>
+  <p class="note-sm" style="margin-top:12px">이 약식판은 공간과 화면에 쓰는 규칙만 담습니다. 인쇄물과 슬라이드는 브랜드 가이드 · 색상 v2.2를 따릅니다. 색 값, 로고, 서체 원본은 저장소 한 곳에서 관리하고 세 가이드가 같은 값을 씁니다.</p>
+</section>
+
+</div><!-- /.body -->
+
+<footer>
+  <div>마리아의료재단 CX부 · 브랜드 디자인 규격 약식판 v1.0 · 2026-09-22 · 요약본이라 본편과 다르면 본편이 우선합니다</div>
+  <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
+</footer>
+
+</div><!-- /.sheet -->
+<script>
+/* 툴팁: 마우스는 hover, 터치는 탭으로 연다(iOS 는 버튼 탭에 focus 를 주지 않음). 인쇄에서는 CSS 가 본문으로 펼친다 */
+document.querySelectorAll('.tip>button').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();b.parentElement.classList.toggle('open')})});
+document.addEventListener('click',function(){document.querySelectorAll('.tip.open').forEach(function(t){t.classList.remove('open')})});
+</script>
+</body>
+</html>
