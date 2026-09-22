@@ -1,5 +1,5 @@
 /*
- * 마리아 디자인 시스템 — 공용 문서 스타일시트 (document-base) v1.1 · 2026-09-22
+ * 마리아 디자인 시스템 — 공용 문서 스타일시트 (document-base) v1.2 · 2026-09-22
  *
  * 무엇인가: 토큰을 소비하는 정적 문서(브라우저로 읽고 A4 로 인쇄하는 HTML→PDF)의 공용 규칙.
  *   사내 웹 UI 5단계 계약(AGENTS.md 「문서를 고칠 때」)의 대상이 아니다 — 범위는 AGENTS.md 「문서 레이어」 절.
@@ -8,10 +8,10 @@
  *   2) 스코프 루트 `.doc` 아래에서만 작동한다(<body class="doc"> — quirks 모드 표의 색 상속 때문에 body 여야 한다).
  *      `.doc` 하위 요소 기본값(h1~h4·p·a·목록·표·figure·footer) + opt-in 기구. 전역 리셋 없음.
  *      단 `@page` 는 전역 인쇄 규칙이라 스코프할 수 없다 — 이 파일은 문서 전용이며 앱 번들에 넣지 않는다.
- *   3) opt-in 기구(.sheet .body .sec-head .cont .prose .two .three .kv .tag .note .quote .tbl-wrap .num .nw .wm)는
+ *   3) opt-in 기구(.sheet .body .sec-head .cont .prose .two .three .kv .tag .note .quote .tbl-wrap .num .nw .wm .cover)는
  *      안 쓰면 효과 0.
  *   4) 색은 토큰 이름만 쓴다. 문서별 예외는 base 에 분기를 두지 말고 그 문서의 override 에 사유 주석과 함께 둔다.
- *   5) 인쇄 = A4 · 여백 20mm · 절은 페이지 시작 · 같은 페이지에서 이어지는 절만 `.cont`.
+ *   5) 인쇄 = A4 · 여백 20mm · 절은 페이지 시작 · 같은 페이지에서 이어지는 절만 `.cont` · 쪽 번호 = 하단 오른쪽(표지 제외).
  * 현재 소비자: **AGENTS.md 「문서 레이어」 소비자 목록이 정본**(2026-09-22 기준 4종 — 브랜드 가이드 색상·공간·화면 + 브랜드 디자인 규격 약식판,
  *   조립 = docs/assemble_lib.py + 각 docs/<slug>-src/assemble.py). 여기엔 복제하지 않는다(주석이 낡아 2건에서 멈춰 있던 전례, 2026-09-08).
  * 변경 시: 소비자 전부 재조립(`assemble.py --pdf`) → 렌더 diff 확인 → AGENTS.md 소비자 목록 갱신. 기계 검사 없음(소비자 4건 — 정직 표기).
@@ -25,6 +25,10 @@
  * v1.1 = 2026-09-22 절 머리 개정 — 절 번호 = 인용용 식별자("3절"), 표기 "자연수." 하나로 통일(서문·부록성 절은 빈 번호), 번호 크기·굵기 =
  *   제목, 구분 = 색(muted)+마침표, 열 auto·gap 12, 빈 번호는 열을 접음(`:has()` — 크롬 헤드리스 전용 문서라 지원 확정) · .lead 줄 폭 캡 해제 ·
  *   h4 소라벨 기본값 · 좁은 화면에서 번호·제목은 한 줄 유지. 사용자 판정 2026-09-10·09-22 + Codex 4h×2. 정의 정본 = AGENTS.md 「문서 레이어」.
+ * v1.2 = 2026-09-22 쪽 번호 + 표지 승격(사용자 결정 2026-09-22, 판정표 = maria-ops-archive/handoffs/docbase-rules/2026-09-22-secnum-audit.md §3) —
+ *   쪽 번호는 `@page` 여백 상자(`@bottom-right`, 크롬 131+·문서 생성은 153 실측)에 12px muted 숫자, 표지는 이름 붙인 페이지(`page:cover`)로 여백 0 + 번호 없음
+ *   (종전 템플릿마다 두던 `@page :first{margin:0}` 을 대체 — 표지 없는 문서(약식판)에는 첫 쪽에도 번호가 붙는다) ·
+ *   세 가이드가 각자 복제하던 표지 밴드 `.cover`(워드마크·시리즈 소라벨·권 이름·부제·meta·status)를 opt-in 기구로 승격, 문서 차이(워드마크 폭·차례·meta 열 비율)만 override 로 남긴다.
  */
 
 /* ── 루트 ─────────────────────────────────────────────── */
@@ -51,6 +55,20 @@
 /* ── 판면 ─────────────────────────────────────────────── */
 .doc .sheet{max-width:920px;margin:0 auto;background:var(--bg-default)}
 .doc .body{padding:8px 64px 72px}
+
+/* ── 표지 (opt-in .cover) ─────────────────────────────────── */
+/* 전면 그린 한 장. 어두운 배경 위 글자 = 아이보리(--text-on-dark, §1 표), 워드마크만 흰색(§1-1). 마크업 = <header class="cover"> 워드마크 .wm ·
+   시리즈 소라벨 .series("브랜드 가이드") · h1 권 이름 · .sub 부제 · .meta(3열 dl 대용) · .status 한 문단 — 문서 이름 규칙 ②(AGENTS.md 「문서 레이어」).
+   2026-09-03~22 세 가이드가 같은 규칙을 복제해 오던 것을 v1.2 에서 승격(사용자 결정). 문서 차이는 override 로: 공간 편 워드마크 220 · 화면 편 차례 .toc · 색상 편 meta 열 비율.
+   `page:cover` = 인쇄에서 이 요소만 이름 붙인 페이지(아래 @page cover: 여백 0·쪽 번호 없음). 화면에선 효과 0. */
+.doc .cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px;page:cover}
+.doc .cover .wm{width:200px;height:auto;color:var(--bg-default);display:block}
+.doc .cover .series{font-size:20px;font-weight:500;letter-spacing:.05em;opacity:.85;margin-top:88px}
+.doc .cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:8px}
+.doc .cover .sub{font-size:20px;font-weight:400;margin-top:12px;opacity:.92}   /* 합성 대비 10.3 (§1-4 재측정) */
+.doc .cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}   /* 어두운 배경 위 장식선 = green-400(장식 전용) */
+.doc .cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}   /* 합성 대비 6.6 */
+.doc .cover .status{margin-top:28px;font-size:14px;line-height:var(--line-height-base);max-width:60ch;opacity:.92}
 
 /* ── 절 리듬: 56 대칭 ───────────────────────────────────── */
 /* 절 사이 간격은 구분선 위 56 + 아래 56. 첫 절은 앞에 형제가 없으므로 구분선이 없다 */
@@ -115,11 +133,24 @@
   .doc .sec-head .lead{grid-column:1/-1}   /* 번호·제목은 좁은 화면에서도 한 줄("1." 30px + 제목), 리드만 전폭 */
   .doc .two,.doc .three,.doc .kv{grid-template-columns:1fr}
   .doc footer{grid-template-columns:1fr;padding:32px 24px 48px}
+  .doc .cover{padding:48px 24px 40px}
+  .doc .cover .series{margin-top:56px}
+  .doc .cover h1{font-size:36px}
+  .doc .cover .meta{grid-template-columns:1fr}
 }
 
 /* ── 인쇄 (A4) ─────────────────────────────────────────── */
 @media print{
-  @page{size:A4;margin:20mm}
+  /* 쪽 번호 = 여백 상자(CSS Paged Media margin box, 크롬 131+). 본문 오른끝 선에 맞춰 하단 오른쪽, 12px·muted — 종이로 넘기는 12~17쪽 문서에서
+     절 번호는 "어느 절"만 알려 주고 "어느 쪽"은 못 알려 준다(사용자 결정 2026-09-22). var() 는 페이지 컨텍스트가 루트에서 상속한다(크롬 153 실측 #5A6F6B). 글꼴은 `.doc` 규칙이 닿지 않으므로 서브셋을 임베드하는 문서는 `:root{--doc-font-family:…}` 로 같은 글꼴을 알린다(없으면 토큰 기본).
+     표지(`page:cover`)는 아래 @page cover 가 번호를 뺀다. 표지 없는 문서(약식판)는 첫 쪽부터 번호. */
+  @page{size:A4;margin:20mm;
+    @bottom-right{content:counter(page);font:500 12px/1 var(--doc-font-family,var(--font-family-primary));color:var(--text-muted);font-variant-numeric:tabular-nums}}
+  /* 표지 페이지: 여백 0(전면 그린이 종이 끝까지) + 쪽 번호 없음. 종전엔 템플릿마다 `@page :first{margin:0}` 을 두었다 — 이름 붙인 페이지로 바꿔
+     opt-in `.cover` 와 한 몸이 됐다(표지 없는 문서에 첫 쪽 여백 0 이 새어 나가지 않는다). 2026-09-22 실측: 표지 뒤 빈 쪽 없음(높이 297mm·overflow hidden). */
+  @page cover{margin:0;@bottom-right{content:none}}
+  .doc .cover{padding:44mm 24mm 32mm;height:297mm;overflow:hidden}   /* px 여백을 그대로 두면 여백 0 페이지가 판면 폭을 210mm 로 밀어 이후 쪽 오른쪽이 잘린다(2026-09-03 실측) — mm 로 고정 */
+  .doc .cover h1{margin-top:96px}
   .doc{background:var(--bg-default);-webkit-print-color-adjust:exact;print-color-adjust:exact}   /* 바탕색·판면색을 인쇄에 남긴다 */
   .doc .sheet{max-width:none}
   .doc .body{padding:0 0 14mm}   /* 푸터 구분선 위 14mm = 아래 14mm 와 대칭 */

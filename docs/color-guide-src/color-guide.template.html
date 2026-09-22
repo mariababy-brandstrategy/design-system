@@ -3,29 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>브랜드 가이드 · 색상 v2.2</title>
+<title>브랜드 가이드 · 색상 v2.3</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 {{TOKENS_CSS}}
 {{BASE_CSS}}
-/* ── 브랜드 가이드 · 색상 v2.2 — 문서 override (tokens → document-base → 여기) ── */
+/* ── 브랜드 가이드 · 색상 v2.3 — 문서 override (tokens → document-base → 여기) ── */
 /* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋).
    서브셋은 OFL 의 Modified Version 이라 예약 글꼴명 "Pretendard" 를 못 쓴다 → "Maria Doc Sans" 로 개명(글자 모양은 Pretendard 그대로).
    구판(2026-04~08)은 jsDelivr `@import` 로 static 판을 버전 없이 불러왔다 — 정본 web-ui-guidelines-v1 §1 표의 "@latest·static 금지" 위반이자
    네트워크 의존이었다. 임베드로 바뀌며 함께 해소됨. */
 @font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
 .doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+:root{--doc-font-family:"Maria Doc Sans",var(--font-family-primary)}   /* 쪽 번호(@page 여백 상자)도 임베드 서브셋으로 — base v1.2 계약 */
 html{background:var(--bg-ivory)}
 
-/* 표지 — 공간 브랜드 가이드와 같은 기구(전면 그린 + 첫 장 여백 0) */
-.cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
-.cover .wm{width:200px;height:auto;color:var(--bg-default);display:block}
-.cover .series{font-size:20px;font-weight:500;letter-spacing:.05em;opacity:.85;margin-top:88px}   /* 시리즈명(브랜드 가이드) — 권 이름이 h1, 문서 이름 규칙 ②(AGENTS.md 문서 레이어) */
-.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:8px}
-.cover .sub{font-size:20px;font-weight:400;margin-top:12px;opacity:.92}
-.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}
-.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}
-.cover .status{margin-top:28px;font-size:14px;line-height:var(--line-height-base);max-width:60ch;opacity:.92}
+/* 표지 = base v1.2 opt-in `.cover`(document-base.css 「표지」 — 전면 그린·첫 장 여백 0·쪽 번호 없음). 이 문서의 override 는 인쇄 meta 열 비율뿐(아래 print 블록) */
 
 /* 값이 콘텐츠인 자리 — 스와치·예시는 본문 style 속성의 HEX 리터럴을 허용한다(이 문서가 가르치는 값 자체이므로 토큰으로 치환하면 안 된다) */
 .dot{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:6px;border:1px solid var(--maria-green-100)}
@@ -90,22 +83,14 @@ td.hex{font-variant-numeric:tabular-nums;white-space:nowrap}
 .gap{margin-top:20px}
 
 @media print{
-  @page :first{margin:0}
   html{background:var(--bg-default)}
-  /* 표지는 여백 0 인 첫 장을 통째로 쓴다. px padding 을 그대로 두면 여백 0 페이지가 판면 폭을 210mm 로 밀어
-     이후 쪽(여백 20mm)에서 오른쪽이 잘린다 — mm 로 고정하고 넘침을 잘라 낸다(2026-09-03 실측) */
-  .cover{padding:44mm 24mm 32mm;height:297mm;box-sizing:border-box;overflow:hidden}
-  .cover h1{margin-top:96px}
-  .cover .meta{grid-template-columns:.8fr 1.5fr 1.2fr}   /* 인쇄 판면(162mm)에서 3등분하면 '제정·개정' 값이 두 줄로 접힌다 */
+  .doc .cover .meta{grid-template-columns:.8fr 1.5fr 1.2fr}   /* 인쇄 판면(162mm)에서 3등분하면 '제정·개정' 값이 두 줄로 접힌다 — base(3등분) override, 특이도는 base 와 같게 .doc 접두 */
   /* 인쇄 내용폭 170mm(≈643px) — 화면 4열/2열 격자는 이 폭에서 짜부라진다 */
   .color-cards{grid-template-columns:repeat(2,1fr)}
   .rule-grid{grid-template-columns:1fr}
   .situation-grid{gap:16px}
 }
 @media (max-width:720px){
-  .cover{padding:48px 24px 40px}
-  .cover h1{font-size:36px;margin-top:56px}
-  .cover .meta{grid-template-columns:1fr}
   .color-cards,.situation-grid,.rule-grid{grid-template-columns:1fr}
 }
 </style>
@@ -122,11 +107,11 @@ td.hex{font-variant-numeric:tabular-nums;white-space:nowrap}
   <h1>색상</h1>
   <div class="sub">인쇄물 · 홍보물 · 슬라이드 등 디지털 매체에 쓰는 색 기준입니다. 웹 화면의 색은 「브랜드 가이드 · 화면」이 정본입니다.</div>
   <div class="meta">
-    <div><b>버전</b>v2.2</div>
+    <div><b>버전</b>v2.3</div>
     <div><b>제정·개정</b>2026. 04. 제정 · 2026. 09. 개정</div>
     <div><b>발행</b>마리아의료재단 CX부</div>
   </div>
-  <div class="status">2026. 09. 개정은 문서 이름과 절 번호 표기를 정리한 판이며 색 값은 2026. 08. 개정과 같습니다. 인쇄물·홍보물·안내문에는 이 문서의 색상만 사용해주세요.</div>
+  <div class="status">2026. 09. 개정은 문서 이름·절 번호 표기·쪽 번호를 정리한 판이며 색 값은 2026. 08. 개정과 같습니다. 인쇄물·홍보물·안내문에는 이 문서의 색상만 사용해주세요.</div>
 </header>
 
 <div class="body">
@@ -448,7 +433,7 @@ td.hex{font-variant-numeric:tabular-nums;white-space:nowrap}
 </div>
 
 <footer>
-  <div>마리아의료재단 CX부 · 브랜드 가이드 · 색상 v2.2 · 2026-09-22<br>문의: CX부 (내선 891)</div>
+  <div>마리아의료재단 CX부 · 브랜드 가이드 · 색상 v2.3 · 2026-09-22<br>문의: CX부 (내선 891)</div>
   <svg class="wm" viewBox="0 0 601.431 228.788" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>
 

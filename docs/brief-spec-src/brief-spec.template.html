@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>브랜드 디자인 규격 약식판 v1.0</title>
+<title>브랜드 디자인 규격 약식판 v1.1</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 {{TOKENS_CSS}}
 {{BASE_CSS}}
-/* ── 브랜드 디자인 규격 약식 v1.0 — 문서 override (tokens → document-base → 여기)
+/* ── 브랜드 디자인 규격 약식 v1.1 — 문서 override (tokens → document-base → 여기)
    경영진 보고 v2.0(2026-09-10) 의 도판만 승계, 서사·결정 요청·보고 메타 제거. 참고용 요약 규격서 = 규칙은 단문, 나머지는 도판. */
 @font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
 .doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+:root{--doc-font-family:"Maria Doc Sans",var(--font-family-primary)}   /* 쪽 번호(@page 여백 상자)도 임베드 서브셋으로 — base v1.2 계약 */
 html{background:var(--bg-ivory)}
 /* 첫 장 밴드: 어두운 배경 위 글자 = 아이보리, 워드마크만 흰색 */
 .band{background:var(--bg-dark);color:var(--text-on-dark);padding:40px 64px 36px}
@@ -562,17 +563,17 @@ html{background:var(--bg-ivory)}
   </div>
 
   <div class="guides">
-    <figure><img src="data:image/png;base64,{{IMG_COVER_COLOR}}" alt="색상 가이드 표지"><figcaption><b>브랜드 가이드 · 색상 v2.2</b>실무자용 · A4 10쪽<br>인쇄물과 슬라이드를 만드는 직원용</figcaption></figure>
-    <figure><img src="data:image/png;base64,{{IMG_COVER_SPACE}}" alt="공간 브랜드 가이드 표지"><figcaption><b>브랜드 가이드 · 공간 v1.1</b>A4 12쪽<br>인테리어, 설계, 사인 제작 협력사용</figcaption></figure>
-    <figure><img src="data:image/png;base64,{{IMG_COVER_SCREEN}}" alt="화면 브랜드 가이드 표지"><figcaption><b>브랜드 가이드 · 화면 v1.1</b>A4 17쪽<br>환자 화면을 만드는 협력사와 사내 개발용</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_COVER_COLOR}}" alt="색상 가이드 표지"><figcaption><b>브랜드 가이드 · 색상 v2.3</b>실무자용 · A4 10쪽<br>인쇄물과 슬라이드를 만드는 직원용</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_COVER_SPACE}}" alt="공간 브랜드 가이드 표지"><figcaption><b>브랜드 가이드 · 공간 v1.2</b>A4 12쪽<br>인테리어, 설계, 사인 제작 협력사용</figcaption></figure>
+    <figure><img src="data:image/png;base64,{{IMG_COVER_SCREEN}}" alt="화면 브랜드 가이드 표지"><figcaption><b>브랜드 가이드 · 화면 v1.2</b>A4 17쪽<br>환자 화면을 만드는 협력사와 사내 개발용</figcaption></figure>
   </div>
-  <p class="note-sm" style="margin-top:12px">이 약식판은 공간과 화면에 쓰는 규칙만 담습니다. 인쇄물과 슬라이드는 브랜드 가이드 · 색상 v2.2를 따릅니다. 색 값, 로고, 서체 원본은 저장소 한 곳에서 관리하고 세 가이드가 같은 값을 씁니다.</p>
+  <p class="note-sm" style="margin-top:12px">이 약식판은 공간과 화면에 쓰는 규칙만 담습니다. 인쇄물과 슬라이드는 브랜드 가이드 · 색상 v2.3를 따릅니다. 색 값, 로고, 서체 원본은 저장소 한 곳에서 관리하고 세 가이드가 같은 값을 씁니다.</p>
 </section>
 
 </div><!-- /.body -->
 
 <footer>
-  <div>마리아의료재단 CX부 · 브랜드 디자인 규격 약식판 v1.0 · 2026-09-22 · 요약본이라 본편과 다르면 본편이 우선합니다</div>
+  <div>마리아의료재단 CX부 · 브랜드 디자인 규격 약식판 v1.1 · 2026-09-22 · 요약본이라 본편과 다르면 본편이 우선합니다</div>
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>
 

@@ -3,29 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>브랜드 가이드 · 화면 v1.1</title>
+<title>브랜드 가이드 · 화면 v1.2</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 {{TOKENS_CSS}}
 {{BASE_CSS}}
-/* ── 브랜드 가이드 · 화면 v1.1 — 문서 override (tokens → document-base → 여기) ── */
+/* ── 브랜드 가이드 · 화면 v1.2 — 문서 override (tokens → document-base → 여기) ── */
 /* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋).
    OFL 예약 글꼴명 때문에 개명 — assets/fonts/pretendard/README.md 참조 */
 @font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
 .doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+:root{--doc-font-family:"Maria Doc Sans",var(--font-family-primary)}   /* 쪽 번호(@page 여백 상자)도 임베드 서브셋으로 — base v1.2 계약 */
 html{background:var(--bg-ivory)}
 
-/* 표지: 전면 그린. 어두운 배경 위 글자 = 아이보리(§1 표), 워드마크만 흰색 100%(§1-1) */
-.cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
-.cover .wm{width:200px;height:auto;color:var(--bg-default);display:block}
-.cover .series{font-size:20px;font-weight:500;letter-spacing:.05em;opacity:.85;margin-top:88px}   /* 시리즈명(브랜드 가이드) — 권 이름이 h1, 문서 이름 규칙 ②(AGENTS.md 문서 레이어) */
-.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:8px}
-.cover .sub{font-size:20px;margin-top:12px;opacity:.92}   /* 합성 대비 10.3 */
-.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}   /* 어두운 배경 위 장식선 = green-400(장식 전용) */
-.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}
-.cover .toc{margin-top:48px;display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,auto);grid-template-columns:repeat(2,1fr);gap:8px 32px;font-size:14px}   /* 세로로 읽힌다 — 가로 흐름이면 00·01 이 한 줄에 온다 */
-.cover .toc div{display:grid;grid-template-columns:32px 1fr;gap:8px}
-.cover .toc span{color:var(--maria-green-300);font-variant-numeric:tabular-nums}
+/* 표지 = base v1.2 opt-in `.cover`(document-base.css 「표지」 — 전면 그린·첫 장 여백 0·쪽 번호 없음). 이 문서 고유 = 표지 차례 .toc */
+.doc .cover .toc{margin-top:48px;display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,auto);grid-template-columns:repeat(2,1fr);gap:8px 32px;font-size:14px}   /* 세로로 읽힌다 — 가로 흐름이면 00·01 이 한 줄에 온다 */
+.doc .cover .toc div{display:grid;grid-template-columns:32px 1fr;gap:8px}
+.doc .cover .toc span{color:var(--maria-green-300);font-variant-numeric:tabular-nums}
 
 /* 등급 배지 — base .tag(각진 12px) 위에 세 등급. must/fyi 는 채움이라 테두리를 없앤다 */
 .tag.must{background:var(--maria-green);color:var(--bg-default);border-color:transparent}
@@ -70,12 +64,9 @@ html{background:var(--bg-ivory)}
 .files .f .k{font-weight:600;color:var(--text-primary)}
 
 .ok{color:var(--text-link);font-weight:600}
-.no{color:var(--state-error-fg);font-weight:600}
+.bad{color:var(--state-error-fg);font-weight:600}   /* 표 셀 "쓰지 않습니다" — 2026-09-22 `.no` 에서 개명(절 번호 span `.no` 와 이름 충돌, 특이도로만 안전하던 상태 해소) */
 
 @media (max-width:720px){
-  .cover{padding:48px 24px 40px}
-  .cover .series{margin-top:56px}.cover h1{font-size:36px}
-  .cover .meta{grid-template-columns:1fr}
   .swatches{grid-template-columns:repeat(2,1fr)}
   .scale{grid-template-columns:repeat(3,1fr)}
   .compare{grid-template-columns:1fr}
@@ -84,10 +75,7 @@ html{background:var(--bg-ivory)}
 }
 
 @media print{
-  @page :first{margin:0}
   html{background:var(--bg-default)}
-  .cover{padding:44mm 24mm 32mm;height:297mm;box-sizing:border-box;overflow:hidden}
-  .cover h1{margin-top:96px}
   .swatches,.scale,.compare,.legend,.badges,.cond{break-inside:avoid}
 }
 </style>
@@ -106,7 +94,7 @@ html{background:var(--bg-ivory)}
   <h1>화면</h1>
   <p class="sub">예약 · 문진 · 진료 화면을 만드는 협력사와 사내 개발을 위한 기준</p>
   <div class="meta">
-    <div><b>버전</b>v1.1 · 2026-09-22</div>
+    <div><b>버전</b>v1.2 · 2026-09-22</div>
     <div><b>발행</b>마리아의료재단 CX부</div>
     <div><b>대상</b>화면 제작 협력사 · 사내 개발</div>
   </div>
@@ -284,10 +272,10 @@ html{background:var(--bg-ivory)}
       <tbody>
         <tr><td>어두운 배경</td><td>흰색 100%</td></tr>
         <tr><td>밝은 배경</td><td>마리아 그린 #1E3131</td></tr>
-        <tr><td>아이보리 워드마크</td><td class="no">쓰지 않습니다</td></tr>
+        <tr><td>아이보리 워드마크</td><td class="bad">쓰지 않습니다</td></tr>
         <tr><td>가로세로비</td><td class="num">601 대 229 고정. 늘이거나 줄이지 마십시오</td></tr>
         <tr><td>여백</td><td>워드마크 높이의 1/2 이상을 사방에 비웁니다</td></tr>
-        <tr><td>변형</td><td class="no">회전, 그림자, 테두리, 색 채우기 변경 모두 하지 않습니다</td></tr>
+        <tr><td>변형</td><td class="bad">회전, 그림자, 테두리, 색 채우기 변경 모두 하지 않습니다</td></tr>
       </tbody>
     </table>
   </div>
@@ -421,12 +409,12 @@ html{background:var(--bg-ivory)}
       <thead><tr><th>실제 효과</th><th>표준 라벨</th><th>쓰지 않는 말</th></tr></thead>
       <tbody>
         <tr><td>복구할 수 없이 지움</td><td><b>삭제</b></td><td>삭제는 복구 불가에만 쓰는 예약어입니다</td></tr>
-        <tr><td>목록에서만 빼고 되살릴 수 있음</td><td><b>제외</b> 또는 <b>보관</b></td><td class="no">삭제</td></tr>
-        <tr><td>입력값을 기본값으로 되돌림</td><td><b>초기화</b></td><td class="no">삭제 · 취소</td></tr>
+        <tr><td>목록에서만 빼고 되살릴 수 있음</td><td><b>제외</b> 또는 <b>보관</b></td><td class="bad">삭제</td></tr>
+        <tr><td>입력값을 기본값으로 되돌림</td><td><b>초기화</b></td><td class="bad">삭제 · 취소</td></tr>
         <tr><td>쓰던 것을 버리고 나감</td><td><b>취소</b></td><td>상태가 안 바뀌는 이탈에 쓰면 되돌림으로 오해됩니다</td></tr>
-        <tr><td>예약·접수 자체를 취소</td><td><b>예약 취소</b> 처럼 목적어를 붙임</td><td class="no">맨몸 취소</td></tr>
-        <tr><td>아무것도 바꾸지 않고 창을 닫음</td><td><b>닫기</b></td><td class="no">× 닫기 · 닫기 (ESC)</td></tr>
-        <tr><td>파일을 내려받음</td><td><b>다운로드</b></td><td class="no">내려받기 · 다운받기 · 받기</td></tr>
+        <tr><td>예약·접수 자체를 취소</td><td><b>예약 취소</b> 처럼 목적어를 붙임</td><td class="bad">맨몸 취소</td></tr>
+        <tr><td>아무것도 바꾸지 않고 창을 닫음</td><td><b>닫기</b></td><td class="bad">× 닫기 · 닫기 (ESC)</td></tr>
+        <tr><td>파일을 내려받음</td><td><b>다운로드</b></td><td class="bad">내려받기 · 다운받기 · 받기</td></tr>
       </tbody>
     </table>
   </div>
@@ -455,8 +443,8 @@ html{background:var(--bg-ivory)}
     <table>
       <thead><tr><th>모양</th><th>예</th><th>판정</th></tr></thead>
       <tbody>
-        <tr><td>글자 없이 기호만</td><td class="num">× · ↻</td><td class="no">쓰지 않습니다</td></tr>
-        <tr><td>기호가 아이콘 자리에 앞장섬</td><td>↓ 다운로드</td><td class="no">쓰지 않습니다</td></tr>
+        <tr><td>글자 없이 기호만</td><td class="num">× · ↻</td><td class="bad">쓰지 않습니다</td></tr>
+        <tr><td>기호가 아이콘 자리에 앞장섬</td><td>↓ 다운로드</td><td class="bad">쓰지 않습니다</td></tr>
         <tr><td>글자 뒤에 방향 기호</td><td>접수하기 →</td><td class="ok">괜찮습니다</td></tr>
         <tr><td>장식으로 숨긴 기호</td><td>← 목록</td><td class="ok">괜찮습니다</td></tr>
       </tbody>
@@ -663,7 +651,7 @@ html{background:var(--bg-ivory)}
 <footer>
   <div>
     <p><b>마리아의료재단 CX부</b></p>
-    <p>브랜드 가이드 · 화면 v1.1 · 2026-09-22</p>
+    <p>브랜드 가이드 · 화면 v1.2 · 2026-09-22</p>
   </div>
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>

@@ -3,28 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>브랜드 가이드 · 공간 v1.1</title>
+<title>브랜드 가이드 · 공간 v1.2</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 {{TOKENS_CSS}}
 {{BASE_CSS}}
-/* ── 브랜드 가이드 · 공간 v1.1 — 문서 override (tokens → document-base → 여기) ── */
+/* ── 브랜드 가이드 · 공간 v1.2 — 문서 override (tokens → document-base → 여기) ── */
 /* 임베드 폰트 = design-system/assets/fonts/pretendard/maria-doc-sans-subset.woff2 (Pretendard v1.3.9 variable 서브셋, 문서 실사용 문자 전부 포함).
    서브셋은 OFL 의 Modified Version 이라 예약 글꼴명 "Pretendard" 를 못 쓴다 → "Maria Doc Sans" 로 개명해 토큰 사슬 앞에 둔다(글자 모양은 Pretendard 그대로) */
 @font-face{font-family:"Maria Doc Sans";src:url(data:font/woff2;base64,{{FONT_B64}}) format("woff2");font-weight:100 900;font-display:swap}
 .doc{font-family:"Maria Doc Sans",var(--font-family-primary)}
+:root{--doc-font-family:"Maria Doc Sans",var(--font-family-primary)}   /* 쪽 번호(@page 여백 상자)도 임베드 서브셋으로 — base v1.2 계약 */
 /* 페이지 바탕 — html 은 base 범위 밖(base 는 .doc 안만 다룬다). body 는 .doc 자신 */
 html{background:var(--bg-ivory)}
-/* 표지: 전면 그린. 첫 장은 페이지 여백 0 (@page :first) — 워드마크 여백 규칙을 문서 스스로 지키기 위해 */
-/* 어두운 배경 위 글자 = 아이보리(--text-on-dark, §1 표·정본③). 워드마크만 흰색(§1-1) */
-.cover{background:var(--bg-dark);color:var(--text-on-dark);padding:72px 64px 56px}
-.cover .wm{width:220px;height:auto;color:var(--bg-default);display:block}
-.cover .series{font-size:20px;font-weight:500;letter-spacing:.05em;opacity:.85;margin-top:88px}   /* 시리즈명(브랜드 가이드) — 권 이름이 h1, 문서 이름 규칙 ②(AGENTS.md 문서 레이어) */
-.cover h1{color:var(--text-on-dark);font-size:48px;font-weight:600;letter-spacing:-.025em;margin-top:8px}
-.cover .sub{font-size:20px;font-weight:400;margin-top:12px;opacity:.92}   /* 합성 대비 10.3 (§1-4 재측정) */
-.cover .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 32px;margin-top:64px;padding-top:20px;border-top:1px solid var(--maria-green-400);font-size:14px}   /* 어두운 배경 위 장식선 = green-400(장식 전용) */
-.cover .meta b{display:block;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:2px}   /* 합성 대비 6.6 */
-.cover .status{margin-top:28px;font-size:14px;line-height:var(--line-height-base);max-width:60ch;opacity:.92}
+/* 표지 = base v1.2 opt-in `.cover`(document-base.css 「표지」 — 전면 그린·첫 장 여백 0·쪽 번호 없음). 워드마크 폭만 이 문서 override */
+.doc .cover .wm{width:220px}   /* base 200 → 220: 워드마크 SVG viewBox 비율이 색상·화면 편과 달라(496×149) 같은 시각 높이를 맞춘 값(2026-09-03). 특이도 = base 와 같게 .doc 접두 */
 /* 로고 시연 */
 .logo-demo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .logo-demo .cell{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--maria-green-100)}
@@ -60,15 +53,11 @@ html{background:var(--bg-ivory)}
 .space-ex figcaption{margin-top:6px}
 .ex img{width:100%;height:auto;display:block;border:1px solid var(--maria-green-100)}
 @media (max-width:720px){
-  .cover{padding:48px 24px 40px}.cover .series{margin-top:56px}.cover h1{font-size:36px}.cover .meta{grid-template-columns:1fr}
   .role-list,.logo-demo{grid-template-columns:1fr}
   .dont,.combo{grid-template-columns:1fr 1fr}
 }
 @media print{
-  @page :first{margin:0}
   html{background:var(--bg-default)}
-  .cover{padding:44mm 24mm 32mm;height:297mm;box-sizing:border-box;overflow:hidden}
-  .cover h1{margin-top:96px}
   #about .two{grid-template-columns:3fr 2fr}   /* 인쇄: kv(왼쪽)가 반폭이면 넘치고, 1열이면 마지막 주석이 다음 쪽으로 떨어진다 — 3:2 가 한 쪽에 들어가는 비율 */
   .dont,.combo,.clear-space,.values,.specimen,.space-ex{break-inside:avoid}
   #assets .sec-head{break-after:auto}   /* 6절만 머리(번호·제목·리드)와 표 사이 쪽 나눔 허용 — 2026-09-03 실측: 5절 렌더 3열이 10쪽을 채워 11쪽 잔여(84mm)가 머리+표 첫 행과 같아 크롬이 머리째 12쪽으로 밀고, 그러면 .cont 위 여백 때문에 푸터만 13쪽에 남는다. 머리는 base 규칙(break-inside:avoid)대로 갈라지지 않는다 */
@@ -89,7 +78,7 @@ html{background:var(--bg-ivory)}
   <h1>공간</h1>
   <p class="sub">인테리어 · 건축설계 · 사인 제작 협력사를 위한 참고</p>
   <div class="meta">
-    <div><b>버전</b>v1.1 · 2026-09-22</div>
+    <div><b>버전</b>v1.2 · 2026-09-22</div>
     <div><b>발행</b>마리아의료재단 CX부</div>
     <div><b>정본 관계</b>마리아 디자인 시스템 v2.1의 파생본</div>
   </div>
@@ -365,7 +354,7 @@ html{background:var(--bg-ivory)}
 </main>
 
 <footer>
-  <div>마리아의료재단 CX부 · 브랜드 가이드 · 공간 v1.1 · 2026-09-22<br>정본: 마리아 디자인 시스템 v2.1 (mariababy-brandstrategy/design-system)</div>
+  <div>마리아의료재단 CX부 · 브랜드 가이드 · 공간 v1.2 · 2026-09-22<br>정본: 마리아 디자인 시스템 v2.1 (mariababy-brandstrategy/design-system)</div>
   <svg class="wm" viewBox="0 0 496.027 149.266" role="img" aria-label="MARIA"><use href="#wm"/></svg>
 </footer>
 
