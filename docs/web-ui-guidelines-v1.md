@@ -2203,10 +2203,15 @@ mou 공개 표면 **46건** — teal 글자 14 · 원색 팔레트 14 · 말줄�
   mou 8곳(`text-red-700` 2 · state-error 1) · labs 4곳(state-error 1 · muted 1) · console·popo·sns 는 그 경로 아래 0(로그인
   `AuthError` 는 §3 부품이라 별도). **이 회차 이행 = hub 인쇄 도구 셸**(`tool-shell.tsx`: 차단 2종 줄 수 초과·줄당 초과 →
   error, 경고 2종 날짜 못 읽음·한도 도달 → warning — 차단 여부의 근거 = `blockingIssues()` 가 인쇄·PNG 버튼을 막는 조건과
-  같은 두 검사, 2026-09-04). **나머지 hub accent-warm 7곳 · mou red-700 2곳은 미판정 후보**로 남긴다 — 각 문구가 정보/경고/차단
-  중 무엇인지는 그 화면 회차에서 판정한다(담당 = 다음 hub·mou 회차. 여기 적어 두는 이유 = 미이행이 담당 없이 고착되지 않게).
+  같은 두 검사, 2026-09-04). ~~나머지 hub accent-warm 7곳 · mou red-700 2곳은 미판정 후보~~ → **hub 는 v1.61(같은 날 오후,
+  `9fb2768`)에서 전건 판정·이행**: 실패·차단 = state-error 12곳(저장 거부 2 · 파일 업로드 실패 · 사진 선택 실패 · 취소 실패 · 메모
+  실패 · 공휴일 행 오류 · 명함 신청/PDF 실패 2 · 페이지 로드 실패 6 — 폼 문구는 아니지만 "강조색을 실패에 쓰지 않는다"에 걸려 포함)
+  · 경고 = state-warning 3곳(사진 확대 화질 · **다시 누르면 저장되는** 409 충돌 2 — 재조회로 기준 판이 올라가고 서버 `editable.ok`
+  일 때만, 아니면 차단) · alert 컨테이너는 전부 항상 마운트(빈 상태는 `sr-only` 로 flex 흐름 밖 — 빈 flex 항목이 gap 을 먹는
+  실측, Codex 4b). 남는 강조색 = 상태 라벨·"(VAT 별도)" 같은 **강조 용도뿐**. **mou red-700 2곳은 여전히 미판정**(담당 = 다음
+  mou 회차 — 미이행이 담당 없이 고착되지 않게 여기 남긴다).
 
-## 1-14. 폼 안 세그먼트 — 상호배타 선택 (v1.60, 2026-09-22 신설)
+## 1-14. 폼 안 세그먼트 — 상호배타 선택 (v1.60, 2026-09-22 신설 · **v1.61, 2026-09-22 — 의미(라디오 그룹) hub 이행 완료**)
 
 **적용 범위**: 폼 안에서 2~5개 선택지 중 **하나**를 고르는 인라인 선택 컨트롤(용지 방향 · 문서 종류 · 강조 줄 · 배치 등).
 현재 대상 = hub 인쇄 도구(`tool-shell` 용지 방향·도구 고유 옵션 · `notice-tool` · `business-card-tool` · `official-letter-tool`).
@@ -2229,9 +2234,14 @@ mou 공개 표면 **46건** — teal 글자 14 · 원색 팔레트 14 · 말줄�
 ### 이행 상태 (정직 표기)
 
 - 형태·줄바꿈·nowrap = hub 4파일 충족(2026-09-11 실측 값이 곧 규칙).
-- **의미(라디오 그룹·화살표 이동) = 미이행.** hub 는 `role="group"` + `aria-pressed` 토글에 Tab 순회다. `segBtnCls` 가
-  **3파일에 복제**돼 있어(`tool-shell` export · `official-letter-tool` · `business-card-tool` 각자 정의) 부품 단일화 회차에 함께
-  이행한다 — 담당 = 다음 hub 인쇄 도구 회차. 그때까지 **새로 만드는** 세그먼트는 이 절의 의미 규칙으로 만든다.
+- **의미(라디오 그룹·화살표 이동) = 이행 완료**(v1.61, hub `9fb2768` 2026-09-22 오후 — 같은 날 오전 v1.60 은 미이행으로 적었었다).
+  ~~hub 는 `role="group"` + `aria-pressed` 토글에 Tab 순회다. `segBtnCls` 가 3파일에 복제돼 있어 부품 단일화 회차에 함께 이행한다~~ →
+  `tool-shell.tsx` 의 `Segmented` 하나(5 소비처: 용지 방향 · 도구 옵션 · 공지 배치 · 공문 종류 · 명함 종류). 구현 사실 = roving tabindex
+  (선택만 0) · 화살표 4방향+Home/End 가 **그 버튼을 실제 `click()`** 한다(ToolShell 이탈 경고가 `onClickCapture` 로 세므로 키보드
+  경로도 같은 길 — Codex 4h) · 라벨 `aria-labelledby` / 설명 `aria-describedby` 분리 · 세로 목록(명함)도 컨테이너는 `flex flex-wrap`,
+  버튼만 `basis-full` · `disabled` 옵션은 미지원(소비처에 없음 — 생기면 탐색이 건너뛰게 고칠 것). 부품이 별 파일이 아니라 tool-shell 안에
+  있는 이유 = §1-4 테두리 등록부가 파일 단위라 비선택 프레임의 장식 테두리(허용값)가 새 파일로 가면 "신규 유입" FAIL(실측). 시험 =
+  hub `scripts/check-print-leave-guard.mjs`(화살표 선택 → 이탈 경고 2케이스 · 정지점 = 선택 요소) 29/0.
 - registry 부품 없음. 두 번째 소비 앱이 생길 때 `@maria/segmented` 로 승격 — 그전엔 hub 손 구현이 정본 구현이다.
 - 기계 검사 = 두지 않는다(대상 판정이 의미 판단. 후보 수집은 `aria-pressed` grep 으로 가능 — 2026-09-22 hub 5파일).
 
@@ -2504,6 +2514,12 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.61 (2026-09-22)**: **§1-14 의미(라디오 그룹) + §1-13 v1.60 안내·경고·차단 — hub 이행 완료**(hub `9fb2768`, 같은 날 오전 v1.60 이
+  "미이행·미판정"으로 남긴 두 항목). 세그먼트 5곳 = `role="radiogroup"`/`radio`·roving tabindex·화살표 = 실제 click()(이탈 경고 경로 통일)
+  · `segBtnCls` 3파일 → `tool-shell` `Segmented` 하나 · 안내문 색 16곳 성질별 state 토큰(차단 12 · 경고 3 · 409 는 재저장 가능 여부로
+  분기) · alert 컨테이너 항상 마운트. 규칙 변경 0(이행 상태 두 문단·이 줄만) · registry 이행 없음 · 검사 신설 없음 · static audit hub
+  57/0/2(선재 WARN — palette-usage 등록부 감소·label-vocab). 잔여 = mou red-700 2곳(다음 mou 회차). Codex 4h + 4b×2. 인계 =
+  `maria-ops-archive/handoffs/hub-seg-radio/2026-09-22-seg-radio-alerts.md`.
 - **v1.60 (2026-09-22)**: **웹 UI 정본 공백 ㉠~㉥ 성문 — 4항 신설 + 2항 미수렴 기록 + §1-8 포인터.** 발단 = 같은 날 문서 레이어
   감사(`maria-ops-archive/handoffs/docbase-rules/2026-09-22-secnum-audit.md` §4)가 판정표로만 남긴 웹 UI 공백. ① §1-9 「목록 화면의
   3층 위계」(㉠ — 사용자 결정 = hub `/print` 2026-09-11 임시 override 승격, 섹션 lg / 묶음 base / 항목 sm) ② §1-13 「안내·경고·차단을
