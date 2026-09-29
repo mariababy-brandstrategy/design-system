@@ -54,9 +54,9 @@
   --bg-dark:     #1E3131;
 
   /* ── Semantic — Border ───────────────────────────────────── */
-  --border-default: #E8DDDA;  /* 장식 전용(카드 테두리·구분선) — 식별 테두리로 쓰지 않는다(§1-4: 흰 1.33) */
+  --border-default: #E8DDDA;  /* 장식 전용(카드·상자 외곽 · 비선택 프레임) — 식별 테두리로 쓰지 않는다(§1-4: 흰 1.33). 구분선 기본값은 --maria-green-100(§1-4 v1.64) */
   --border-input:   #6E827D;  /* 식별 테두리(입력 외곽선 등) 신설 — = --maria-green-500 (§1-4: 밝은 배경 7종 전부 ≥ 3.0, 배경별 분기 불요) */
-  --border-subtle:  #EFF3F3;
+  --border-subtle:  #EFF3F3;  /* 면 값(= --maria-green-50 = --bg-info) — 선(구분선·테두리)으로 쓰지 않는다(§1-4 v1.64: 아이보리 1.03). 구분선은 --maria-green-100 */
 
   /* ── State — Success ─────────────────────────────────────── */
   --state-success-bg: #E8F3ED;
