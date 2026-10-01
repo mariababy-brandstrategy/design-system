@@ -24,6 +24,7 @@
 | **헤더** | `docs/internal-service-header-v1.md` 참조. `bg-maria-green` → `max-w-7xl mx-auto px-6 py-4`. 스크롤 시 상단 고정(`sticky top-0 z-40`). 로고 = **브랜드 워드마크**(§로고: `@maria/brand-logo`, 헤더는 `h-[18px] text-white` + `trim`) + 짧은 영문 서비스명 병기. 글자 타이핑 금지. 활성 탭 = 알약 `bg-text-on-dark text-maria-green` + `aria-current="page"`(비활성은 속성 없음), 비활성 `text-maria-green-300 hover:text-text-on-dark`. |
 | **로고** | 전용 워드마크. §로고 참조. `assets/logos/svg/` 정본. 어두운 배경=흰색, 밝은 배경=그린. |
 | **아이콘** | **Lucide 계열 단일 세트**(두 번째 아이콘 세트 병용 금지). 24×24 격자 · 획 `stroke-width` 2 · 색은 `currentColor`. 크기는 숫자가 아니라 **역할**로 고른다(`size-3.5`/**`size-4`**/`size-5` + 전체화면 상태 `size-8`·`size-12`). 표기는 `size-*` 하나로. §1-2 참조. |
+| **선택 상자** | `<select>` 화살표는 공용 `styles/web-controls.css` 가 그린다(Lucide chevron 16px · 오른쪽 12px · 글자 여백 36px · 전 기기 통일). 앱은 `globals.css` 에서 `design-tokens.css` 아래에 `layer()` 없이 `@import` 만 한다. §1-17 참조. |
 | **본문 너비** | 페이지 외곽 셸(컨테이너)은 전 앱 `max-w-7xl`(1280px) — 셸을 별도로 더 좁히지 말 것. 가독성 목적의 **내부 콘텐츠 컬럼** 축소(예: hub 자료실 `max-w-4xl`)는 허용 — `internal-service-header-v1.md` v1.4 §8과 정합(2026-07-30). |
 | **페이지 제목** | `text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl`(=text-foreground). 제목 블록 하단 `mb-6`. 상단 여백은 레이아웃 `<main>`의 `py-6` 단일소스(페이지가 추가 py 주지 말 것). **앱별 예외는 §8 표를 따른다**(hub·popo). |
 | **on-dark 색** | 헤더 글자·활성 탭 배경 = **아이보리 `#F4EEED`**(`--text-on-dark`). 순백 아님. (버튼 글자 `btn-*-fg`는 별개로 `#FFFFFF`.) |
@@ -81,6 +82,7 @@ claim(웹·desktop)만 lucide 를 쓰고 console·hub·popo-studio·mou·labs �
   (7앱 실측 재정의 **0건** — 이미 지켜지던 것을 명문화한 것이다.)
 - **색 — `currentColor` 를 그대로 두고 글자 색 유틸(`text-*`)로 제어**한다. 아이콘에 색을 직접
   박지 않는다. 부모의 글자 색을 따라가는 것이 기본 동작이고, 그래야 다크·반전 표면에서 같이 움직인다.
+  예외 하나 = **select 화살표**(§1-17, v1.66): CSS 배경 이미지라 `currentColor` 를 받을 수 없어 `--text-muted` 값을 고정한다.
 - **크기 — 숫자가 아니라 역할로 고른다.**
 
   | 역할 | 크기 | 클래스 | 쓰는 곳 |
@@ -2503,11 +2505,65 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
 - **근거 미수집(규칙 불필요가 아니다)** — PNG 저장 해상도 · `print-color-adjust` 공통 의무화 · A5 2부 시트 배치 · 최소 글자 크기 수치.
   소비자·실패 사례·출력 검증이 모이면 판정한다(Codex 4h 2026-09-22).
 
+## 1-17. 선택 상자(`<select>`) — 화살표·오른쪽 여백 (v1.66, 2026-10-01 신설)
+
+발단: 데스크톱에서 드롭다운 화살표가 상자 오른쪽 테두리에 붙어 보인다(2026-10-01 사용자 발견, popo-studio 대본 화면).
+그때까지 이 문서에 select 규칙은 없었다 — select 가 나오는 곳은 §1-2 크기표·§1-5 Escape 계층·§1-13 접근 이름처럼
+전부 다른 절의 부수 언급이었다. 5앱 33곳(popo 7 · hub 11 · console 2 · sns 7 · mou 6 · labs 0)이 전부 브라우저 기본
+모양에 입력칸과 같은 `px-2`~`px-4` 만 주고 있었다. 결정 기록 = `maria-ops-archive/handoffs/select-chevron/2026-10-01-magi-synthesis.md`
+(3자 평가 + 구현안 실측).
+
+### 원인 — 여백으로는 고칠 수 없다
+
+기본 모양 select 는 **화살표 위치를 브라우저가 고정**한다. 앱이 준 오른쪽 padding 은 화살표를 움직이지 않는다(2026-10-01 실측).
+
+| 엔진 | 화살표 끝 ↔ 테두리 | `px-2`·`px-3`·`px-4`·`pr-10` | 그 밖 |
+|---|---|---|---|
+| Chrome 154(맥) | 2px | 전부 2px | — |
+| Safari 27(맥)·WebKit | 약 6.5px(⌃⌄) | 전부 같음 | **padding 을 통째로 무시**(위아래 포함) → 같은 클래스의 입력칸보다 낮게 그려진다 |
+| Firefox 155 | 약 5.5px | 전부 같음 | — |
+
+### 규칙
+
+1. **화살표는 공용 CSS 파일 하나가 그린다** — `styles/web-controls.css`(이 repo). 앱은 `globals.css` 에서
+   `design-tokens.css` 바로 아래에 `@import` 한 줄로 불러온다. **`layer(...)` 를 붙이지 않는다**: 레이어 밖 규칙이어야
+   Tailwind 유틸리티(`px-*`)가 오른쪽 여백을 다시 줄이지 못한다. 앱이 select 에 준 `pr-*` 는 덮이고(의도), 왼쪽 여백·높이·
+   글자 크기·테두리·배경색·포커스는 앱 클래스가 그대로 정한다.
+2. **값** — 기본 화살표를 끈다(`appearance: none`). 화살표 = Lucide `chevron-down`(24 격자·획 2) · 16px(§1-2 `size-4`
+   역할) · 오른쪽 가장자리에서 12px · 세로 가운데. 글자 오른쪽 여백 = 36px(12 + 16 + 완충 8). 긴 값은 브라우저가 잘라
+   화살표와 겹치지 않는다. 실측(같은 앱 클래스 + 이 파일): 3엔진 모두 화살표 끝 ↔ 테두리 16px, Safari 에서도 select 높이 =
+   같은 클래스 입력칸 높이.
+3. **색 = `--text-muted` 의 값 고정**(#5A6F6B — 흰 5.36:1 · 아이보리 4.67:1, §1-4 식별 그래픽 하한 3:1 충족). CSS 배경
+   이미지는 `currentColor` 를 받을 수 없어 §1-2 색 규칙의 **명문 예외**다(§1-2 에 같은 문장). 토큰 값이 바뀌면 파일의 hex 도
+   같이 바꾼다. 어두운 바탕 위 select 는 현재 0곳이다 — 생기면 그때 변형을 이 절에 더한다.
+4. **전 기기 통일**(사용자 결정 2026-10-01) — iOS 도 같은 ⌄ 모양이다. 눌렀을 때 뜨는 선택창(휠·목록)은 그대로 OS 기본이다.
+   기기별 분기를 두지 않는 이유: 분기 코드는 검사 밖 경로를 하나 더 만든다.
+5. **대상 밖** — `multiple`·`size>1` 목록형(화살표가 없는 컨트롤, 현재 0곳). 고대비 모드(`forced-colors: active`)는 브라우저
+   기본 모양으로 되돌린다. 비활성은 앱의 `disabled:opacity-*` 가 화살표까지 함께 흐리게 한다.
+6. **앱에서 하지 말 것** — select 에 `appearance`·`background-image`·오른쪽 padding 을 다시 거는 CSS 규칙, `!` 강제 유틸리티,
+   인라인 `style`. 화살표 모양을 바꿔야 하면 앱이 아니라 이 절과 공용 파일을 고친다.
+
+### 정하지 않은 것 (정직 표기)
+
+- **입력칸 높이** — 이 문서에 공통 기준이 없고, 암묵 기준 둘이 서로 다르다: §1-14 「입력칸과 같은 리듬(`py-2`·`text-sm` = 36)」 vs
+  §3 로그인 입력 `px-3 py-2.5 text-sm`(약 40). 앱 실측도 `py-1`~`py-3`·`h-9`~`h-11` 로 갈린다. 이번 절은 select 의 화살표만
+  다루고, 높이 사다리는 별도 회차에서 정한다.
+
+### 검사
+
+- `select-chevron(static)`(maria-ui `ui-audit`) — ① 앱에 설치된 `web-controls.css` 가 maria-ui 레지스트리 사본과 전문 일치
+  (hub 는 서브모듈 경로 `design-system/styles/web-controls.css`) ② `globals.css` 가 그 파일을 `layer()` 없이 `@import` ③ 앱 CSS
+  에 select 의 `appearance`·배경 이미지·오른쪽 padding 을 되돌리는 규칙이 없음 ④ 앱 `<select>` 여는 태그에 `!` 강제 유틸리티·
+  인라인 `style` 의 해당 속성이 없음 ⑤ 파일 속 화살표 hex = 레지스트리 토큰의 `--text-muted` 값.
+- **못 잡는 것**: 서드파티 select 부품 · 변수로 조립한 인라인 style · 실제 화면의 간격. 마지막 항목은 이행 회차에 3엔진 실측으로
+  사람이 확인한다.
+
 ---
 
 ## 2. 신규 앱 적용 절차
 
 1. `tokens/design-tokens.css`를 앱 `globals.css`(또는 `styles/design-tokens.css`)에 그대로 가져온다. **값을 옮겨 적지 말고 파일째 복사**.
+   같은 방식으로 `styles/web-controls.css` 도 가져와 그 아래 줄에서 `@import` 한다(§1-17 — `layer()` 금지).
 2. `@maria` 레지스트리에서 토큰·부품 설치(§4). (설치 불가 시 §7 비상 경로.)
 3. 헤더를 `internal-service-header-v1.md`의 `PageShell`로 구성.
 4. 로그인 페이지를 §3 템플릿으로.
@@ -2658,6 +2714,12 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.66 (2026-10-01)**: **§1-17 선택 상자(`<select>`) 신설** — 화살표·오른쪽 여백. 발단 = 데스크톱 드롭다운 화살표가 테두리에
+  붙는 문제(사용자 발견). 원인 실측: 기본 모양 select 는 브라우저가 화살표 위치를 고정해 여백으로 못 고친다(Chrome 2px ·
+  Safari 6.5px + padding 무시). 처방 = 공용 `styles/web-controls.css`(신규, unlayered) + 앱 `@import` 한 줄 — 앱 클래스 무수정.
+  §1 요약표 행 · §1-2 색 규칙 예외 1줄 · §2 신규 앱 절차 1줄 · 검사 `select-chevron(static)` 신설. 구현 방식은 3자 평가(Opus·Fable·
+  Codex)에서 갈렸고(공용 CSS 1 · 레지스트리 부품 2) 실측으로 판정했다(부품 방식은 33곳 마크업 변경 + 맨 `<select>` 재발 경로가
+  남는다). 사용자 결정 = 전 기기 통일 · popo 먼저 적용 후 나머지 일괄. 입력칸 높이는 「정하지 않은 것」으로 정직 표기.
 - **v1.65 (2026-09-29)**: **§1-4 (가-2) 「검사」 — 장식 구분선 자리를 등록부 계수에서 뺀다.** 규칙 값은 그대로이고 검사 구조만 바뀐다.
   발단 = v1.64 의 남은 한계(정당한 green-100 구분선도 새 파일이면 FAIL · 등록부 515건 대부분이 장식이라 식별 테두리 신규 위반이 숨을 자리가 큼 ·
   `h-px` 선 사각) — R4-D1 새 화면 전에 닫는다(마기 7차 §4-7). 판정 = 자리(border/divide)·역할(비상호작용 네이티브 요소, 상호작용 조상·자식 제외)·

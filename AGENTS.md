@@ -1,7 +1,10 @@
 # 여기는 마리아 사내 웹 UI 의 규칙 정본(SoT)이다
 
 `docs/web-ui-guidelines-v1.md`(진입점) + `docs/internal-service-header-v1.md`(헤더 상세)
-+ `tokens/design-tokens.css`(토큰 값). 다른 어디와 값이 갈리면 **여기가 우선한다.**
++ `tokens/design-tokens.css`(토큰 값) + `styles/web-controls.css`(폼 컨트롤 공용 규칙 — select 화살표, 가이드 §1-17).
+다른 어디와 값이 갈리면 **여기가 우선한다.**
+(`styles/` 에는 성격이 반대인 두 파일이 있다: `web-controls.css` = 웹 앱 전용 · `document-base.css` = HTML→PDF 문서 전용.
+`web-controls.css` 를 고치면 「문서를 고칠 때」 5단계 대상이다 — maria-ui `registry/tokens/` 사본 갱신 + 앱 재동기.)
 
 소비 구조: 이 문서의 규칙을 `dyshin-maria/maria-ui` 의 비공개 레지스트리 `@maria/*` 가
 코드로 구현하고, 사내 현역 6앱(console·popo-studio·mou-admin·hub·labs·sns)이 그걸 설치해 쓴다
