@@ -2539,7 +2539,10 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
 4. **전 기기 통일**(사용자 결정 2026-10-01) — iOS 도 같은 ⌄ 모양이다. 눌렀을 때 뜨는 선택창(휠·목록)은 그대로 OS 기본이다.
    기기별 분기를 두지 않는 이유: 분기 코드는 검사 밖 경로를 하나 더 만든다.
 5. **대상 밖** — `multiple`·`size>1` 목록형(화살표가 없는 컨트롤, 현재 0곳). 고대비 모드(`forced-colors: active`)는 브라우저
-   기본 모양으로 되돌린다. 비활성은 앱의 `disabled:opacity-*` 가 화살표까지 함께 흐리게 한다.
+   기본 모양으로 되돌린다. 비활성은 앱의 `disabled:opacity-*` 가 화살표까지 함께 흐리게 한다. **RTL(오른쪽→왼쪽) 문서**도
+   대상 밖이다 — 여백은 논리 속성(`padding-inline-end`)이라 왼쪽으로 가지만 화살표는 오른쪽에 남는다. 전 앱이 한국어라 지금은
+   해당 없고, RTL 화면이 생기면 `:dir(rtl)` 변형을 이 절에 더한다. 단일행 select 의 `size` 는 생략하거나 `"1"` 로만 쓴다
+   (`"01"` 같은 표기는 선택자가 목록형으로 오인해 기본 화살표로 남는다).
 6. **앱에서 하지 말 것** — select 에 `appearance`·`background-image`·오른쪽 padding 을 다시 거는 CSS 규칙, `!` 강제 유틸리티,
    인라인 `style`. 화살표 모양을 바꿔야 하면 앱이 아니라 이 절과 공용 파일을 고친다.
 
@@ -2555,8 +2558,12 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
   (hub 는 서브모듈 경로 `design-system/styles/web-controls.css`) ② `globals.css` 가 그 파일을 `layer()` 없이 `@import` ③ 앱 CSS
   에 select 의 `appearance`·배경 이미지·오른쪽 padding 을 되돌리는 규칙이 없음 ④ 앱 `<select>` 여는 태그에 `!` 강제 유틸리티·
   인라인 `style` 의 해당 속성이 없음 ⑤ 파일 속 화살표 hex = 레지스트리 토큰의 `--text-muted` 값.
-- **못 잡는 것**: 서드파티 select 부품 · 변수로 조립한 인라인 style · 실제 화면의 간격. 마지막 항목은 이행 회차에 3엔진 실측으로
-  사람이 확인한다.
+  CSS 는 중첩 규칙(`select { …; &:hover {…} }`·`.form { & select {…} }`)까지 직속 선언으로 읽고, 클래스 강제는 variant 앞머리
+  (`dark:!appearance-auto`)·임의 속성(`[background-image:none]!`)까지 본다. 전역 `@import "tailwindcss" important;` 도 FAIL 이다
+  (모든 유틸리티가 이 파일을 이긴다). 이 세 경로는 Codex 4b(2026-10-01)가 재현한 구멍이고 변이 시험에 고정돼 있다.
+- **못 잡는 것**: 서드파티 select 부품 · 변수로 조립한 인라인 style · **select 를 이름으로 부르지 않는 CSS**(`.foo { background-image: none
+  !important }` 를 select 가 클래스로 쓰는 경우 — CSS 와 JSX 를 잇지 않으므로) · 실제 화면의 간격. 마지막 항목은 이행 회차에 3엔진
+  실측으로 사람이 확인한다.
 
 ---
 
