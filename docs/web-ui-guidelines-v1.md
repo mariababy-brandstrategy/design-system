@@ -2642,11 +2642,12 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
 
 ### 검사
 
-- `choice-accent(static)`(maria-ui `ui-audit`) — ⓪ 정본에 이 규칙이 있고 `accent-color` 선언이 그 하나뿐이다(정본이 잘못 고쳐지거나
-  대상이 range 등으로 번지면 byte 대조만으로는 6앱이 함께 틀려진다) ② 앱 라디오·체크박스 여는 태그에 `accent-*` 클래스(variant·
+- `choice-accent(static)`(maria-ui `ui-audit`) — ⓪ 정본에서 `accent-color` 를 선언한 규칙은 하나뿐이고, 그 규칙은 최상위(`@media`·`@layer`·
+  중첩 밖)에 선택자 전체가 `input:is([type="radio"], [type="checkbox"])` 이며 값이 `--maria-green` 이다(정본이 잘못 고쳐지거나 대상이
+  range 등으로 번지거나 조건부가 되면 byte 대조만으로는 6앱이 함께 틀려진다) ② 앱 라디오·체크박스 여는 태그에 `accent-*` 클래스(variant·
   앞뒤 `!`·임의 속성 `[accent-color:…]` 포함)·인라인 `accentColor` 가 없다 — `type` 이 변수인데 accent 를 걸었으면 MISSING ③ 앱 CSS 에
-  `accent-color` 선언이 없다(선택자가 무엇을 고르는지 CSS 만으로 확정할 수 없어 전부 본다 — range·progress 만 고르는 게이지 규칙과
-  `:root`·`html`·`body` 상속값만 뺀다). 공용 파일이 앱에 그대로 깔려 있는지는 §1-17 의 `select-chevron(static)` ①이 이미 본다.
+  `accent-color` 선언이 없다(선택자가 무엇을 고르는지 CSS 만으로 확정할 수 없어 전부 본다 — 선택자 목록의 **분기마다** 판정해, `type=range`·
+  `progress` 요소만 고르는 게이지 분기와 `:root`·`html`·`body` 상속값만 뺀다. 클래스 이름 `.progress` 는 게이지가 아니다). 공용 파일이 앱에 그대로 깔려 있는지는 §1-17 의 `select-chevron(static)` ①이 이미 본다.
 - **못 잡는 것**: 변수로 조립한 클래스·style · props 펼침(`{...p}`) 속 accent · 서드파티 부품 · 직접 그린 선택 칸 · 실제 화면의 색.
   화면은 이행 회차에 사람이 확인한다 — 같은 픽셀 값이 아니라 고름·안 고름·비활성·키보드 포커스가 구분되는지를 본다(명세가 대비를
   위한 브라우저의 색 보정을 허용하므로, Codex 4h 2026-10-02).
