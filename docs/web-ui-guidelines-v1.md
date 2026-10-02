@@ -2620,7 +2620,8 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
 발단: popo 대본 편집기의 「누가 말하나요」·대사 유형 라디오가 파란 점으로 그려져, 같은 화면의 초록 버튼·제목과 따로 놀았다
 (2026-10-02 사용자 지적 → `ui-oddity` 판정 = **정의 없음**). 이 문서에 라디오·체크박스의 선택 색 규정이 없어, 6앱 25곳
 (popo 11 · mou 5 · hub 4 · console 2 · sns 2 · labs 1)이 브라우저 기본 색(Chrome 파랑 · Safari 는 맥 「강조 색상」 설정 —
-보는 사람마다 다르다)으로 나왔다. popo 7곳만 `accent-popo-teal` 을 따로 걸어 한 앱 안에서도 파랑·청록이 섞였다.
+보는 사람마다 다르다)으로 나왔다. 따로 색을 건 곳은 popo 7곳(`accent-popo-teal`)과 hub 3곳(`accent-primary`)뿐이라, 한 앱 안에서도
+파랑과 다른 색이 섞였다.
 사용자 결정(2026-10-02, 비교 아티팩트 `claude.ai/artifact/DrxL4Nxg7H8Bq2tyCYPfpc`) = **마리아 초록으로 통일**.
 
 ### 규칙
@@ -2807,8 +2808,8 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 ## 9. 변경 이력
 
 - **v1.68 (2026-10-02)**: **§1-18 「라디오·체크박스 — 선택 색」 신설.** 고른 라디오 점·체크 표시 = `--maria-green`, 공용
-  `styles/web-controls.css` 에 unlayered 규칙 1개 추가(§1-17 과 같은 파일·같은 배포 경로) · popo 라디오·체크박스 7곳의
-  `accent-popo-teal` 제거(슬라이더 3곳은 게이지라 유지) · ui-audit `choice-accent(static)` 신설. 요약 표에 「선택 색」 행 추가.
+  `styles/web-controls.css` 에 unlayered 규칙 1개 추가(§1-17 과 같은 파일·같은 배포 경로) · 라디오·체크박스에 따로 건 색 제거
+  (popo `accent-popo-teal` 7곳 · hub `accent-primary` 3곳 — 슬라이더는 게이지라 유지) · ui-audit `choice-accent(static)` 신설. 요약 표에 「선택 색」 행 추가.
   발단 = popo 편집기 파란 점(사용자 지적 → `ui-oddity` 정의 없음 판정 → 비교 아티팩트 → 사용자 결정 「마리아 초록」).
 - **v1.67 (2026-10-02)**: **§1-10 「높이 — 같은 줄의 컨트롤」 신설 · §1-14 「줄 안 반복 선택」 형태 신설.** 발단 = popo 대본
   편집기 사용자 지적 2건 — ① 대사 줄 유형 칸이 옆 칸보다 낮고 작았다(§1-14 미준수: 9-22 규정 뒤 10-01 손 구현, 대상 목록이 hub 뿐·
