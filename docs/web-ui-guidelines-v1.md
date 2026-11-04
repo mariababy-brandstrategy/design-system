@@ -608,8 +608,8 @@ mou 달력에서 이 이유로 죽어 있던 선언 **4종**(전부 계산값으
   닿지 않는다. 교체 대상 6곳 = mou 관리자 2 · labs 2 · hub 2(공문·출장비). 대상 밖 = maria-gift-monitor(Python 이 HTML 을
   만드는 앱 · 디자인 정본 모집단 밖, 사용자 결정 2026-11-03).
 - **이행 상태(정직 표기)**: 부품 신설 완료 = maria-ui `ee03406`(2026-11-03 — `@maria/calendar`·`@maria/date-picker-input`,
-  검사 `calendar-canonical`·`date-picker-input-canonical`) · **설치한 앱 = forms(AI프렌즈 투표, `calendar` required 등록 v1.74) · mou 공개 폼(2026-11-04, mou `2a776ff`)**(각 앱이 옮길 때 그 검사의 required 에 더한다). 이행 순서 = maria-ui 부품 → forms(완료) → mou 공개 폼(완료) →
-  console → sns·hub → mou 관리자·labs. 각 앱이 옮기기 전까지, **v1.73 이 새로 요구한 규격·공유 부품 전환에 한해** 그 앱의
+  검사 `calendar-canonical`·`date-picker-input-canonical`) · **설치한 앱 = forms(AI프렌즈 투표, `calendar` required 등록 v1.74) · mou 공개 폼(2026-11-04, mou `2a776ff`) · console `/tmp`(2026-11-04, console `296e9b7` — 모달 안에 곧바로 펼치므로 격자만 쓰고 `CalendarLayer` 는 쓰지 않음)**(각 앱이 옮길 때 그 검사의 required 에 더한다). 이행 순서 = maria-ui 부품 → forms(완료) → mou 공개 폼(완료) →
+  console(완료) → sns·hub → mou 관리자·labs. 각 앱이 옮기기 전까지, **v1.73 이 새로 요구한 규격·공유 부품 전환에 한해** 그 앱의
   현행 달력을 위반이 아니라 미이행으로 센다. 기존 규칙(대비 하한·계산값 판정·§1-6 반응형)은 계속 적용한다.
 
 ### 의미 톤 — 행동의 성질이 정한다
