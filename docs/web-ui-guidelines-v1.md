@@ -605,11 +605,11 @@ mou 달력에서 이 이유로 죽어 있던 선언 **4종**(전부 계산값으
 - **일정판**(고르지 않고 보여 주기만 하는 달력 — sns `/calendar` 등)은 격자 부품의 대상이 아니고 날짜 상태 표현만 따른다:
   오늘 = `--popo-teal-700` 윤곽선 원(종전 초록 채움 원 교체). 그 숫자 표식은 §1-10 `rounded-full` 허용 대상이다.
 - **브라우저 기본 날짜 입력칸(`<input type="date">`)은 React 앱에서 쓰지 않는다** — 브라우저마다 다른 달력이 열려 이 규격이
-  닿지 않는다. 교체 대상 6곳 = mou 관리자 2 · labs 2 · hub 2(공문·출장비). 대상 밖 = maria-gift-monitor(Python 이 HTML 을
+  닿지 않는다. 교체 대상 6곳 = mou 관리자 2 · labs 2 · hub 2(공문·출장비 — 2026-11-04 교체 완료, hub `ebc3945`). 대상 밖 = maria-gift-monitor(Python 이 HTML 을
   만드는 앱 · 디자인 정본 모집단 밖, 사용자 결정 2026-11-03).
 - **이행 상태(정직 표기)**: 부품 신설 완료 = maria-ui `ee03406`(2026-11-03 — `@maria/calendar`·`@maria/date-picker-input`,
-  검사 `calendar-canonical`·`date-picker-input-canonical`) · **설치한 앱 = forms(AI프렌즈 투표, `calendar` required 등록 v1.74) · mou 공개 폼(2026-11-04, mou `2a776ff`) · console `/tmp`(2026-11-04, console `296e9b7` — 모달 안에 곧바로 펼치므로 격자만 쓰고 `CalendarLayer` 는 쓰지 않음)**(각 앱이 옮길 때 그 검사의 required 에 더한다). 이행 순서 = maria-ui 부품 → forms(완료) → mou 공개 폼(완료) →
-  console(완료) → sns·hub → mou 관리자·labs. 각 앱이 옮기기 전까지, **v1.73 이 새로 요구한 규격·공유 부품 전환에 한해** 그 앱의
+  검사 `calendar-canonical`·`date-picker-input-canonical`) · **설치한 앱 = forms(AI프렌즈 투표, `calendar` required 등록 v1.74) · mou 공개 폼(2026-11-04, mou `2a776ff`) · console `/tmp`(2026-11-04, console `296e9b7` — 모달 안에 곧바로 펼치므로 격자만 쓰고 `CalendarLayer` 는 쓰지 않음) · hub 인쇄 도구 3곳(2026-11-04, hub `ebc3945` — `@maria/date-picker-input` 첫 설치 앱)**(각 앱이 옮길 때 그 검사의 required 에 더한다). 이행 순서 = maria-ui 부품 → forms(완료) → mou 공개 폼(완료) →
+  console(완료) → hub(완료) → mou 관리자·labs → sns(2026-11-19 계측 뒤 — sns `DatePickerInput` 이 「발행」 블록 동결 구역이라 2026-11-20 묶음에 합친다). 각 앱이 옮기기 전까지, **v1.73 이 새로 요구한 규격·공유 부품 전환에 한해** 그 앱의
   현행 달력을 위반이 아니라 미이행으로 센다. 기존 규칙(대비 하한·계산값 판정·§1-6 반응형)은 계속 적용한다.
 
 ### 의미 톤 — 행동의 성질이 정한다
@@ -2032,7 +2032,7 @@ CTA** 에서만 목적어 포함 서술형("제작 의뢰 접수하기") 을 허
    (§1-4 브라우저 기본 날짜칸 교체)가 더해져 종전 승격 조건(「세 번째 앱이 필요하면」)이 충족됐다 → **`@maria/date-picker-input`
    으로 승격한다**. 종전 hub 사본의 정당 차이(값 형식 `YYYY-MM-DD`·Escape 닫기·hub 토큰)와 hub 이탈 경고 통로(`NAV_ATTR`)는
    부품의 props 로 받는다. 이탈 경고는 달력 월 이동이 아니라 **값 변경 콜백**을 변경으로 센다(월 이동을 변경으로 오탐하지 않게).
-   이행 전까지 sns·hub 사본은 승격 전환에 한해 미이행으로 센다(기존 규칙은 계속 적용).
+   hub 는 2026-11-04 전환을 마쳐 사본을 지웠고, 이행 전까지 sns 사본은 승격 전환에 한해 미이행으로 센다(기존 규칙은 계속 적용).
    console `TmpActions` 자작 `<dialog>` 는 §1-5 규율(시스템 알럿 금지·네이티브 dialog)을
    준수하므로 존치 — **신규** 앱 고유 다이얼로그는 ModalShell 조합이 기본이고 소급 재작성은
    하지 않는다. Footer 는 registry 항목이 아니다(console·popo 2앱 수기 사본 — 2026-08-26
