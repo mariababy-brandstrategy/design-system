@@ -93,7 +93,7 @@ registry 부품을 쓰지 않고 6앱과 재동기할 것도 없다.
   base 를 고치면 소비자 전부를 재조립해 렌더 diff(쪽수·쪽별 변화 영역)로 확인하고 이 목록을 갱신한다. 기계 검사는 두지 않는다(소비자 4건 — 정직 표기).
   base 머리 주석의 소비자 줄은 이 절을 가리키는 포인터다(2026-09-22 정리).
 - **repo 밖 재조립 대상**(등재 1종, 2026-11-24 — 저장소 밖에서 base 를 직접 읽는 조립기는 이 밖에도 있지만(부천·경기도·일산 등 창고 문서) 그 과거 판까지
-  재조립할지는 정하지 않았다. 여기 적은 것만 base 변경 때 재조립한다): `~/maria-ops-archive/handoffs/cs-manual/` 「마리아병원 서비스 매뉴얼」(A4 131쪽 · 소스 `src/`,
+  재조립할지는 정하지 않았다. 여기 적은 것만 base 변경 때 재조립한다): `~/maria-ops-archive/handoffs/cs-manual/` 「마리아의료재단 환자 응대 가이드」(옛 이름 「마리아병원 서비스 매뉴얼」 · A4 131쪽 · 소스 `src/`,
   생성 = `<venv>/bin/python src/assemble.py --pdf` — fontTools·brotli·pymupdf 필요). 이 저장소의 `docs/assemble_lib.py` 에서 `check`·`to_pdf`·`b64`·
   `wordmark_paths` 를 불러 쓰므로 **base 나 assemble_lib 를 고치면 이 문서도 재조립 대상이다**(위 4종과 같이 렌더 diff). 문서 override 의 base 예외 =
   본문 h4(16px·600·text-primary·대문자 변환 해제, 장면·기법 이름이라 — 사유 주석 있음) · 쪽 머리(절마다 이름 붙인 페이지 + `@top-left`, 크롬은
