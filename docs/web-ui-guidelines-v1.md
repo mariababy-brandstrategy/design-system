@@ -3021,7 +3021,7 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
   화면은 이행 회차에 사람이 확인한다 — 같은 픽셀 값이 아니라 고름·안 고름·비활성·키보드 포커스가 구분되는지를 본다(명세가 대비를
   위한 브라우저의 색 보정을 허용하므로, Codex 4h 2026-10-02).
 
-## 1-19. 전화번호 입력칸 — 숫자만 입력 · 화면은 하이픈 표기 (v1.82, 2026-11-26 신설)
+## 1-19. 전화번호 입력칸 — 숫자만 입력 · 화면은 하이픈 표기 (v1.82, 2026-11-26 신설 · v1.83 같은 날 — 커서 다시 그리기 · labs·mou 이행)
 
 발단: 사용자 결정(2026-11-26) "전화번호는 무조건 사람은 숫자만 입력, 화면 표기는 하이픈으로 나눠서 보여주기 — maria-ui 에 넣자".
 그때까지 이 문서·레지스트리에 전화번호 칸 규칙이 없어, 앱마다 따로 만들었다(hub 2칸 = 자체 `formatPhone` 이 값에 하이픈을 넣어 저장 ·
@@ -3036,6 +3036,8 @@ mou 2칸 = 자체 `formatPhoneDisplay`, 하이픈 직접 입력 허용 · labs 1
    검사가 칸을 알아보는 근거 — `inputMode="tel"` 은 숫자 키패드 규칙과 충돌하므로 표지로 쓰지 않는다).
 2. **화면 = 하이픈 표기** — 치는 도중에도 나눠 보여 준다(`0102024` → `010-2024`). 하이픈이 생기거나 사라져도 커서는 같은 숫자 뒤에 남고,
    하이픈 한 글자만 지우기 키로 지우면 그 방향의 숫자 하나를 지운다. 붙여넣기·선택 영역 지우기는 숫자를 그대로 둔다.
+   **숫자가 그대로인 편집(하이픈만 선택해 지우기 · 숫자 아닌 글자)도 칸을 한 번 다시 그린다**(v1.83 — `useReducer` 등). 상태가 같으면 React 가
+   다시 그리지 않아 커서 복원이 돌지 않고, 값을 되돌리며 커서가 맨 끝으로 튄다(2026-11-26 labs Codex 4b · Chromium 실측 · forms·labs·mou 같은 날 수정).
 3. **정본 = `@maria/phone-format`**(maria-ui `registry/lib/phone-format.ts` · 순수 함수 · npm 의존 0) — `formatPhoneKR`(표기) ·
    `applyPhoneEdit`(편집 한 번 → 숫자·커서) · `digitsOnly`. 칸의 `value` 는 `formatPhoneKR` 를, `onChange`(또는 `onInput`) 는 `applyPhoneEdit` 를
    거치고, 편집 결과의 숫자(`.digits`)를 상태에 넣는다. 앱에 표기 함수를 따로 만들지 않는다 — 나누는 방식을 바꿔야 하면 정본을 고친 뒤 재동기한다.
@@ -3068,6 +3070,9 @@ mou 2칸 = 자체 `formatPhoneDisplay`, 하이픈 직접 입력 허용 · labs 1
   안은 함께 보고, 정의만 하고 부르지 않는 함수는 보지 않는다. 객체 멤버 핸들러·`useMemo`·`.bind`·`debounce` 같은 감싸기·조건식 핸들러는 인정하지 않는다.
 - **정본 이름** — `formatPhoneKR`·`applyPhoneEdit` 는 앱의 정본 사본(`lib/phone-format.ts`·`src/lib/phone-format.ts`)에서 가져온다(별칭·`import * as` 허용 ·
   `.js` 경로 불가 · 같은 이름의 매개변수로 가리지 않는다).
+- **앱 안 공용 칸 컴포넌트**(mou `components/form/phone-input.tsx` — 접수·해지·관리 화면 4칸이 함께 쓴다)는 그 파일의 `<input>` 이 위 모양이면 된다.
+  부르는 자리에 `autoComplete="tel"` 같은 전화칸 표지를 속성으로 넘기면 그 컴포넌트 요소도 전화칸으로 세어 FAIL 이 난다 — 자동 완성 여부는 참·거짓 속성
+  (mou `autoFill`)으로 넘기고 표지는 컴포넌트 안에서 단다(v1.83).
 - 모양을 넓혀야 할 정상 구현이 생기면 앱에서 우회하지 말고 이 목록과 검사를 함께 고친다.
 
 ### 검사
@@ -3077,16 +3082,18 @@ mou 2칸 = 자체 `formatPhoneDisplay`, 하이픈 직접 입력 허용 · labs 1
   보고(객체 리터럴 펼침은 풀고, 같은 범위의 `const` 문자열 상수도 값으로 본다), 칸마다 ① `inputMode="numeric"` ② 화면 값 ③ 편집 처리가 위 「인정하는 구현 모양」인지
   본다. import 는 TypeScript 해석(앱 `tsconfig` — `extends`·정확 일치 `paths` 반영)으로 실제로 가리키는 파일을 대조한다. 뒤에 오는 못 푸는 펼침(`{...props}`)이
   필수 속성을 덮을 수 있으면 MISSING 이다.
-- `phone-format-canonical(static)` — 앱 사본이 정본과 byte 동일(forms required · 다른 앱은 이행할 때 더한다). 정본 행위 시험 = maria-ui `tests/phone-format.test.ts`.
+- `phone-format-canonical(static)` — 앱 사본이 정본과 byte 동일(forms·labs·mou required · hub 는 이행할 때 더한다). 정본 행위 시험 = maria-ui `tests/phone-format.test.ts`.
 - **못 잡는 것**: 전화칸 표지가 못 푸는 펼침으로만 들어오는 칸(그 칸을 찾지 못해 0칸으로 센다) · 전화칸 표지 없이 `inputMode="numeric"` 만 쓰는 칸(hub 명함 도구
   Tel·Mobile·Fax — 숫자칸 전체를 전화로 추정하면 다른 숫자칸이 오탐된다) · 조건 분기의 의미(`korean ? formatPhoneKR(d) : d` 의 두 갈래를 바꿔 써도 통과한다 —
   나라 분기는 앱 계약) · 편집 결과의 `.digits` 를 다른 호출에 넘기고 상태에는 원문을 넣는 모양(`String(next.digits); onDigits(raw)`) · 실제 화면의 커서 동작.
 
 ### 이행 현황
 
-- **이행** = maria-forms 설문 응모·당첨자 확인 휴대폰 칸(2026-11-26).
-- **미이행 목록 = maria-ui `scripts/ui-audit.config.mjs` 의 `PHONE_INPUT_PENDING`**(단일 출처 · 입력칸 단위 · 일대일 · 파일 전체 면제 없음). 2026-11-26 = hub 2칸 ·
-  mou 2칸 · labs 1칸. 등재 칸은 검사가 WARN 으로 드러내고, 같은 파일에 새로 더한 칸과 한 지문에 겹친 칸은 FAIL 이다. 칸을 이행하면 그 줄을 지우고 `phone-format`
+- **이행** = maria-forms 설문 응모·당첨자 확인 휴대폰 칸(2026-11-26) · labs 알림 수신자 휴대폰 칸(2026-11-26 · 서버 숫자 저장 유지) · mou 공개 접수 phone 문항·
+  해지 신청 휴대폰 칸(2026-11-26 · 서버 E.164 저장 유지 · `+82` 붙여넣기와 앞 0 을 뺀 10자리는 칸에서 `010…` 로 맞춘다) — mou 는 표지 없던 분원 담당자 휴대폰 칸
+  (알림톡 수신자)도 같은 공용 칸으로 바꿨다.
+- **미이행 목록 = maria-ui `scripts/ui-audit.config.mjs` 의 `PHONE_INPUT_PENDING`**(단일 출처 · 입력칸 단위 · 일대일 · 파일 전체 면제 없음). 2026-11-26 처음 = hub 2칸 ·
+  mou 2칸 · labs 1칸 → 같은 날 labs·mou 이행 뒤 = **hub 2칸**. 등재 칸은 검사가 WARN 으로 드러내고, 같은 파일에 새로 더한 칸과 한 지문에 겹친 칸은 FAIL 이다. 칸을 이행하면 그 줄을 지우고 `phone-format`
   required 에 앱을 더한다. 검사는 확정 지문의 칸이 PASS 이거나 그 경로가 실제로 없을 때만 「해제 대상」 WARN 을 내고, 그 밖(지문·표지가 사라짐 · 수집 목록에서
   빠짐 · 지문이 펼침에 덮였을 수 있음)은 「찾지 못함·확인 필요」 WARN, 같은 칸을 두 번 적으면 「중복 등재」 WARN 을 낸다.
 - 이행 때 함께 볼 것(기존 결함): hub 제작 신청 폼은 12자리 `0507` 을 11자리에서 자른다(데이터 손실 가능 — hub 다음 회차 첫 수정).
@@ -3264,6 +3271,10 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.83 (2026-11-26)**: **§1-19 규칙 2 = 숫자가 그대로인 편집도 칸을 한 번 다시 그린다**(하이픈만 선택해 지우기·숫자 아닌 글자에서 커서가 끝으로 튀던 것 —
+  labs Codex 4b 발견 · Chromium 실측 · 정본 `@maria/phone-format` 「쓰는 법」 주석 · forms `PhoneField` 같은 날 수정) · 「인정하는 구현 모양」에 앱 안 공용 칸
+  컴포넌트 항목(표지는 컴포넌트 안에서 · 자동 완성은 참·거짓 속성) · 이행 현황 = labs 1칸·mou 2칸(+ 표지 없던 분원 담당자 칸) 이행, 남은 미이행 = hub 2칸 ·
+  `phone-format-canonical` required = forms·labs·mou.
 - **v1.82 (2026-11-26)**: **§1-19 「전화번호 입력칸 — 숫자만 입력 · 화면은 하이픈 표기」 신설**(사용자 결정 2026-11-26 · 설계 검토 Codex 4h) · §1 요약 표 「전화번호 칸」 행.
   정본 `@maria/phone-format`(maria-ui 레지스트리 신설) · 검사 `phone-input(static)` 신설 + `phone-format-canonical(static)`(forms required) · 미이행 목록 = config
   `PHONE_INPUT_PENDING`(hub 2 · mou 2 · labs 1칸). forms 설문 휴대폰 칸이 첫 소비자로 재동기(표기·커서만 정본 · 나라 분기·검증·저장 형식은 forms 유지).
