@@ -3021,7 +3021,7 @@ hub 인쇄 셸(A4 px 캔버스 → 인쇄 mm 강제 · `transform: scale` 미리
   화면은 이행 회차에 사람이 확인한다 — 같은 픽셀 값이 아니라 고름·안 고름·비활성·키보드 포커스가 구분되는지를 본다(명세가 대비를
   위한 브라우저의 색 보정을 허용하므로, Codex 4h 2026-10-02).
 
-## 1-19. 전화번호 입력칸 — 숫자만 입력 · 화면은 하이픈 표기 (v1.82, 2026-11-26 신설 · v1.83 같은 날 — 커서 다시 그리기 · labs·mou 이행 · v1.84 같은 날 — 저장된 번호 표시도 정본 표기 · hub 이행)
+## 1-19. 전화번호 입력칸 — 숫자만 입력 · 화면은 하이픈 표기 (v1.82, 2026-11-26 신설 · v1.83 같은 날 — 커서 다시 그리기 · labs·mou 이행 · v1.84 같은 날 — 저장된 번호 표시도 정본 표기 · hub 이행 · v1.85 같은 날 — 입력칸 정본 부품 `@maria/phone-input`)
 
 발단: 사용자 결정(2026-11-26) "전화번호는 무조건 사람은 숫자만 입력, 화면 표기는 하이픈으로 나눠서 보여주기 — maria-ui 에 넣자".
 그때까지 이 문서·레지스트리에 전화번호 칸 규칙이 없어, 앱마다 따로 만들었다(hub 2칸 = 자체 `formatPhone` 이 값에 하이픈을 넣어 저장 ·
@@ -3074,9 +3074,16 @@ mou 2칸 = 자체 `formatPhoneDisplay`, 하이픈 직접 입력 허용 · labs 1
   안은 함께 보고, 정의만 하고 부르지 않는 함수는 보지 않는다. 객체 멤버 핸들러·`useMemo`·`.bind`·`debounce` 같은 감싸기·조건식 핸들러는 인정하지 않는다.
 - **정본 이름** — `formatPhoneKR`·`applyPhoneEdit` 는 앱의 정본 사본(`lib/phone-format.ts`·`src/lib/phone-format.ts`)에서 가져온다(별칭·`import * as` 허용 ·
   `.js` 경로 불가 · 같은 이름의 매개변수로 가리지 않는다).
-- **앱 안 공용 칸 컴포넌트**(mou `components/form/phone-input.tsx` — 접수·해지·관리 화면 4칸 · hub `components/phone-input.tsx` — 신청 두 폼·명함·인쇄 도구 `kind: "phone"`)는 그 파일의 `<input>` 이 위 모양이면 된다.
-  부르는 자리에 `autoComplete="tel"` 같은 전화칸 표지를 속성으로 넘기면 그 컴포넌트 요소도 전화칸으로 세어 FAIL 이 난다 — 자동 완성 여부는 참·거짓 속성
-  (mou `autoFill`)으로 넘기고 표지는 컴포넌트 안에서 단다(v1.83).
+- **입력칸 정본 부품 `@maria/phone-input`**(v1.85 — maria-ui `registry/components/PhoneInput.tsx` · 앱 사본 `components/PhoneInput.tsx`)이 위 모양의
+  `<input>` 한 벌을 갖는다. 대한민국 번호만 받는 전화칸은 이 부품을 부른다(mou 접수·해지·분원 담당자 · hub 신청 두 폼·명함·인쇄 도구 `kind: "phone"` ·
+  labs 알림 수신자). 부품이 커서 처리(편집 전 선택 기록 · 숫자가 그대로인 편집도 다시 그리기 · 같은 숫자 뒤로 커서 복원)와 국내 숫자 맞춤
+  (`+82`·앞 0 을 뺀 10자리 휴대폰 → `010…` · 정본 `toDomesticDigits`)을 갖고, 검증·전송·저장 형식은 부르는 앱 계약이다.
+  부르는 자리에 `autoComplete="tel"` 같은 전화칸 표지를 속성으로 넘기면 부품 요소도 전화칸으로 세어 FAIL 이 난다 — 자동 완성 여부는 참·거짓
+  `autoFill` 로 넘기고 표지는 부품 안에서 단다(v1.83).
+  승격 경위: mou·hub 공용 칸과 labs 모달 인라인에 같은 커서 처리가 세 벌 있었고, 같은 날 같은 결함을 각각 고쳤다(v1.83) — 마기(3자 평가) 2026-11-26
+  (maria-ops-archive `handoffs/phone-format/magi-20261126-phone-input/synthesis.md`).
+- **앱 보유 형제 = maria-forms 설문 `PhoneField`**(나라 선택 분기 · 해외 번호는 숫자 그대로 · `+` 국제 표기 붙여넣기를 앱이 가로챈다). 이 칸은 위 모양을 직접 따른다.
+  나라 분기는 앱 계약(규칙 7)이라 부품 범위 밖이다. 커서 처리를 고칠 일이 생기면 이 형제를 손으로 따라 고치지 말고, 그때 정본 부품에 나라 분기 통로를 열어 흡수한다.
 - 모양을 넓혀야 할 정상 구현이 생기면 앱에서 우회하지 말고 이 목록과 검사를 함께 고친다.
 
 ### 검사
@@ -3087,9 +3094,13 @@ mou 2칸 = 자체 `formatPhoneDisplay`, 하이픈 직접 입력 허용 · labs 1
   본다. import 는 TypeScript 해석(앱 `tsconfig` — `extends`·정확 일치 `paths` 반영)으로 실제로 가리키는 파일을 대조한다. 뒤에 오는 못 푸는 펼침(`{...props}`)이
   필수 속성을 덮을 수 있으면 MISSING 이다.
 - `phone-format-canonical(static)` — 앱 사본이 정본과 byte 동일(forms·labs·mou·hub required). 정본 행위 시험 = maria-ui `tests/phone-format.test.ts`.
+- `phone-input-canonical(static)`(v1.85) — 입력칸 부품 사본이 정본과 byte 동일(hub·labs·mou required). 정본 동작 시험 = maria-ui `tests/phone-input.test.tsx`(jsdom ·
+  하이픈만 선택해 지우기·숫자 아닌 글자·`+82` 붙여넣기의 커서와 값 — 다시 그리기를 빼면 실패하는 변이 확인). 이 부품의 required 앱은
+  `phone-input(static)` 이 부품 사본 자리 밖의 전화칸을 모양이 맞아도 FAIL 로 본다(사본을 둔 채 화면만 옛 인라인 칸으로 되돌리는 경로 · Codex 4b).
 - **못 잡는 것**: 전화칸 표지가 못 푸는 펼침으로만 들어오는 칸(그 칸을 찾지 못해 0칸으로 센다) · 전화칸 표지 없이 `inputMode="numeric"` 만 쓰는 칸(hub 명함 도구
   Tel·Mobile·Fax — 숫자칸 전체를 전화로 추정하면 다른 숫자칸이 오탐된다) · 조건 분기의 의미(`korean ? formatPhoneKR(d) : d` 의 두 갈래를 바꿔 써도 통과한다 —
-  나라 분기는 앱 계약) · 편집 결과의 `.digits` 를 다른 호출에 넘기고 상태에는 원문을 넣는 모양(`String(next.digits); onDigits(raw)`) · 실제 화면의 커서 동작.
+  나라 분기는 앱 계약) · 편집 결과의 `.digits` 를 다른 호출에 넘기고 상태에는 원문을 넣는 모양(`String(next.digits); onDigits(raw)`) · 실제 화면의 커서 동작
+  (정본 부품은 위 동작 시험이 지킨다 — 앱 보유 형제 칸 · 한글 조합(IME)·사파리·모바일 키보드는 시험 밖).
 
 ### 이행 현황
 
@@ -3098,6 +3109,9 @@ mou 2칸 = 자체 `formatPhoneDisplay`, 하이픈 직접 입력 허용 · labs 1
   (알림톡 수신자)도 같은 공용 칸으로 바꿨다. · hub 물품 신청·제작 의뢰 전화칸(2026-11-26 · 화면은 숫자 전송 → 서버가 검사 후 정본 하이픈 표기로 시트 기록 ·
   변경 판단은 숫자 비교 · 050 계열 12자리 허용 = 사용자 결정 판단 2 · 화면의 11자리 자르기 결함 해소) · hub 명함 Tel·Mobile·Fax 입력칸(상태 숫자 · 명함 인쇄 표기는 §1-16 그대로) ·
   hub 인쇄 도구 배란일 안내 「분원 전화번호」(인쇄 도구 칸 종류 `phone` 신설 · 인쇄물에도 정본 표기).
+- **입력칸 정본 부품**(v1.85, 2026-11-26) = mou·hub 공용 칸 두 벌을 `@maria/phone-input` 사본으로 바꾸고 labs 수신자 모달 인라인 칸도 같은 부품으로 옮겼다
+  (labs 는 이때부터 `+82` 붙여넣기·앞 0 을 뺀 10자리 휴대폰이 칸에서 `010…` 으로 맞춰져 제출된다 — 서버 검증·저장 형식은 그대로이고, 종전에 서버가
+  거절하던 `1012345678`·`+82 010…` 도 이제 화면에서 보정돼 등록된다 · Codex 4b). forms 는 앱 보유 형제(위).
 - **미이행 목록 = maria-ui `scripts/ui-audit.config.mjs` 의 `PHONE_INPUT_PENDING`**(단일 출처 · 입력칸 단위 · 일대일 · 파일 전체 면제 없음). 2026-11-26 처음 = hub 2칸 ·
   mou 2칸 · labs 1칸 → 같은 날 labs·mou·hub 이행 뒤 = **0칸**(목록 자리는 남긴다 — 이행 전 칸을 새로 찾으면 여기에 적는다). 등재 칸은 검사가 WARN 으로 드러내고, 같은 파일에 새로 더한 칸과 한 지문에 겹친 칸은 FAIL 이다. 칸을 이행하면 그 줄을 지우고 `phone-format`
   required 에 앱을 더한다. 검사는 확정 지문의 칸이 PASS 이거나 그 경로가 실제로 없을 때만 「해제 대상」 WARN 을 내고, 그 밖(지문·표지가 사라짐 · 수집 목록에서
@@ -3276,6 +3290,9 @@ ui-audit 이 매 회차 WARN 을 냈다(2026-07-31 조사).
 
 ## 9. 변경 이력
 
+- **v1.85 (2026-11-26)**: **§1-19 입력칸 정본 부품 `@maria/phone-input` 신설**(마기 3자 평가 · mou·hub 공용 칸 + labs 인라인 = 같은 커서 처리 세 벌을 한 벌로) ·
+  「인정하는 구현 모양」의 앱 안 공용 칸 항목 → 정본 부품 · forms 설문 칸 = 앱 보유 형제(나라 분기 · 흡수 계기 명시) · 검사 `phone-input-canonical(static)`
+  (hub·labs·mou required) · 정본 동작 시험 `tests/phone-input.test.tsx` · 정본 lib 가 `toDomesticDigits`·`caretAfterDigits` 를 내보낸다(mou·hub 사본 제거).
 - **v1.84 (2026-11-26)**: **§1-19 규칙 8 신설 = 저장된 번호를 보여 주는 화면·알림도 정본 표기**(사용자 결정 판단 1 · 검사 밖 구현 규율 · 외부 서비스 형식은 제외) ·
   규칙 7 「대상 밖」 = 「저장된 번호를 보여 주는 글자」 삭제 · 자유 문장 칸 명시(판단 3) · 이행 현황 = hub 신청 2칸·명함·인쇄 도구 이행으로 미이행 0칸 ·
   `phone-format-canonical` required = forms·labs·mou·hub.
